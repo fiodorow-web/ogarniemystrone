@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
 ---
 <Base
   title="Polityka prywatności – Ogarniemy Stronę"
@@ -7,7 +8,7 @@ import Base from '../layouts/Base.astro';
   breadcrumb="Polityka prywatności"
 >
   <header class="wrap page-head">
-    <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Polityka prywatności</span></nav>
+    <Crumbs name="Polityka prywatności" />
     <h1 id="h-pryw" class="page-title page-title-s">Polityka prywatności</h1>
   </header>
   <section class="sec sec-tight" aria-label="Treść polityki prywatności">

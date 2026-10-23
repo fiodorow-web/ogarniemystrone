@@ -1,0 +1,8 @@
+---
+// Ścieżka „Start / {name}” nad tytułem podstrony.
+interface Props {
+  name: string;
+}
+const { name } = Astro.props;
+---
+<nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">{name}</span></nav>

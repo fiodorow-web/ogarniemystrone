@@ -1,5 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import { SITE } from '../site.js';
+import CopyEmail from '../components/CopyEmail.astro';
+import Assure from '../components/Assure.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Loop from '../components/Loop.astro';
+import Arrow from '../components/Arrow.astro';
 ---
 <Base
   title="Kontakt – Ogarniemy Stronę"
@@ -10,15 +16,15 @@ import Base from '../layouts/Base.astro';
 >
   <div class="wrap contact">
     <div class="contact-side">
-      <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Kontakt</span></nav>
-      <h1 id="h-kontakt" class="page-title">Napisz, a&nbsp;resztę <span class="loopw">ogarniemy<svg class="lp lp-enter" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span> my.</h1>
+      <Crumbs name="Kontakt" />
+      <h1 id="h-kontakt" class="page-title">Napisz, a&nbsp;resztę <span class="loopw">ogarniemy<Loop class="lp lp-enter" hidden /></span> my.</h1>
       <p class="lead">Napisz kilka słów o&nbsp;swojej firmie. Odpiszemy do 24&nbsp;h w&nbsp;dni robocze z&nbsp;propozycją terminu bezpłatnej rozmowy.</p>
       <ul class="c-list">
         <li>
           <span class="c-lab">E-mail</span>
-          <button class="copy" type="button" data-copy="kontakt@ogarniemystrone.pl"><span>kontakt@ogarniemystrone.pl</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg><span class="sr-only">– skopiuj adres</span></button>
+          <CopyEmail />
         </li>
-        <li><span class="c-lab">Telefon</span><span>+48 [NUMER TELEFONU]</span></li>
+        <li><span class="c-lab">Telefon</span><span>{SITE.telefon}</span></li>
       </ul>
       <div class="next">
         <h2 class="next-h">Co będzie dalej</h2>
@@ -70,18 +76,15 @@ import Base from '../layouts/Base.astro';
         </div>
         <div class="f-actions">
           <button class="btn btn-p mag f-submit" type="submit" data-submit>
-            <span class="sub-idle">Wyślij wiadomość<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
-            <span class="sub-busy"><svg class="spin" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>Ogarniamy…</span>
+            <span class="sub-idle">Wyślij wiadomość<Arrow /></span>
+            <span class="sub-busy"><Loop class="spin" hidden />Ogarniamy…</span>
           </button>
-          <ul class="assure assure-form">
-            <li>Odpowiedź do 24&nbsp;h w&nbsp;dni robocze</li>
-            <li>Bezpłatna rozmowa i&nbsp;wycena</li>
-          </ul>
+          <Assure form />
           <p class="draft" data-draft-note hidden><span data-draft-text>Szkic zapisuje się w&nbsp;Twojej przeglądarce.</span> <button class="link-btn" type="button" data-draft-clear>Wyczyść formularz</button></p>
         </div>
       </form>
       <div class="sent" hidden data-sent tabindex="-1">
-        <svg class="sent-ill" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>
+        <Loop class="sent-ill" hidden />
         <p class="sent-k">Dotarło</p>
         <h2 class="sent-h" data-sent-h>Dziękujemy.</h2>
         <p>Odpiszemy do 24&nbsp;h w&nbsp;dni robocze, żeby umówić termin rozmowy.</p>

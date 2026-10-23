@@ -1,0 +1,28 @@
+---
+// Limonkowa sekcja „od 999 zł” z ramką „Najpierw projekt, potem płatność” (SPRZEDAZ.md, zasady 4 i 8).
+// Sloty: casual (dopisek nad ceną), side (akapit <p> nad ramką).
+import Arrow from './Arrow.astro';
+
+interface Props {
+  /** id nagłówka sekcji (unikalne na stronie) */
+  id: string;
+}
+const { id } = Astro.props;
+---
+<section class="sec sec-price" aria-labelledby={id}>
+    <div class="wrap price-in">
+      <p class="casual rv"><slot name="casual" /></p>
+      <h2 id={id} class="price-h">
+        <span class="sr-only">Strony od 999 zł</span>
+        <span aria-hidden="true" class="price-vis" data-par="0.04"><span class="pr-od">od</span><span class="pr-num" data-count="999">999</span><span class="pr-zl">zł</span></span>
+      </h2>
+      <div class="price-side rv">
+        <slot name="side" />
+        <p class="price-safe"><b>Najpierw projekt, potem płatność.</b> Połowę płacisz, gdy projekt Ci się spodoba. Drugą po zrobieniu strony.</p>
+        <div class="cta-row">
+          <a class="btn btn-ink" href="/cennik#konfigurator">Dobierz pakiet<Arrow /></a>
+          <a class="more more-ink" href="/cennik">Zobacz cennik</a>
+        </div>
+      </div>
+    </div>
+  </section>

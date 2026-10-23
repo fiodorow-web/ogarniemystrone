@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Loop from '../components/Loop.astro';
 ---
 <Base
   title="Nie ma takiej strony – Ogarniemy Stronę"
@@ -7,7 +8,7 @@ import Base from '../layouts/Base.astro';
   index={false}
 >
   <div class="wrap lost">
-    <p class="lost-n" aria-hidden="true"><span class="loopw">404<svg class="lp lp-enter lp-messy" viewBox="0 0 200 80" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span></p>
+    <p class="lost-n" aria-hidden="true"><span class="loopw">404<Loop class="lp lp-enter lp-messy" /></span></p>
     <h1 id="h-404" class="page-title">Ups, tej strony nie <em class="ac">ogarnęliśmy</em>.</h1>
     <p class="lead">Może link się zestarzał albo wkradła się literówka. Zdarza się najlepszym.</p>
     <div class="cta-row">

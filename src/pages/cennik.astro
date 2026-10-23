@@ -1,5 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Loop from '../components/Loop.astro';
+import Arrow from '../components/Arrow.astro';
 ---
 <Base
   title="Cennik – Ogarniemy Stronę"
@@ -7,15 +11,15 @@ import Base from '../layouts/Base.astro';
   breadcrumb="Cennik"
 >
   <header class="wrap page-head">
-    <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Cennik</span></nav>
-    <h1 id="h-cennik" class="page-title">Ile kosztuje <span class="loopw">strona?<svg class="lp lp-enter" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span></h1>
+    <Crumbs name="Cennik" />
+    <h1 id="h-cennik" class="page-title">Ile kosztuje <span class="loopw">strona?<Loop class="lp lp-enter" hidden /></span></h1>
     <p class="lead">Strony od 999&nbsp;zł. Cena zależy od liczby podstron i&nbsp;tego, czego potrzebujesz – dokładną kwotę podamy po krótkiej, bezpłatnej rozmowie.</p>
   </header>
 
   <section class="sec sec-tight" aria-label="Pakiety">
     <div class="wrap pkgs">
       <article class="pkg rv" data-pkg="rezerwacje">
-        <svg class="pkg-lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>
+        <Loop class="pkg-lp" hidden />
         <span class="pkg-match">Pasuje do Ciebie</span>
         <h2 class="pkg-h">Firma z&nbsp;rezerwacjami</h2>
         <p class="pkg-d">Klient zarezerwuje termin bez dzwonienia.</p>
@@ -28,7 +32,7 @@ import Base from '../layouts/Base.astro';
         <a class="btn btn-s" href="/kontakt" data-pkg-ask="Firma z rezerwacjami">Zapytaj o&nbsp;ten pakiet</a>
       </article>
       <article class="pkg pkg-hl rv rv2" data-pkg="firma">
-        <svg class="pkg-lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>
+        <Loop class="pkg-lp" hidden />
         <span class="pkg-match">Pasuje do Ciebie</span>
         <span class="pkg-tag">Polecamy na start</span>
         <h2 class="pkg-h">Firma</h2>
@@ -42,7 +46,7 @@ import Base from '../layouts/Base.astro';
         <a class="btn btn-p" href="/kontakt" data-pkg-ask="Firma">Zapytaj o&nbsp;ten pakiet</a>
       </article>
       <article class="pkg rv rv3" data-pkg="wizytowka">
-        <svg class="pkg-lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>
+        <Loop class="pkg-lp" hidden />
         <span class="pkg-match">Pasuje do Ciebie</span>
         <h2 class="pkg-h">Wizytówka</h2>
         <p class="pkg-d">Jedna strona z&nbsp;tym, czego szuka klient.</p>
@@ -106,7 +110,7 @@ import Base from '../layouts/Base.astro';
           <p class="konf-price" data-konf-price>od [CENA] zł</p>
           <p class="konf-why" data-konf-why></p>
           <div class="cta-row">
-            <button class="btn btn-p mag" type="button" data-konf-send>Wyślij zapytanie z&nbsp;tym zakresem<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+            <button class="btn btn-p mag" type="button" data-konf-send>Wyślij zapytanie z&nbsp;tym zakresem<Arrow /></button>
             <button class="link-btn" type="button" data-konf-reset>Zacznij od nowa</button>
           </div>
         </div>
@@ -118,14 +122,14 @@ import Base from '../layouts/Base.astro';
     <div class="wrap faq-wrap">
       <h2 id="h-faq" class="h2 kin rv">Pytania</h2>
       <div class="faq" data-faq>
-        <details class="rv"><summary>Od czego zależy cena?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Od liczby podstron i&nbsp;dodatków, takich jak rezerwacje online czy aktualności. Dokładną kwotę podamy po krótkiej rozmowie.</p></div></details>
-        <details class="rv"><summary>Jak wygląda płatność?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Najpierw przygotowujemy projekt strony. Gdy Ci się spodoba, płacisz połowę kwoty. Drugą połowę płacisz po zrobieniu strony na podstawie tego projektu. Rozmowa i&nbsp;wycena są bezpłatne.</p></div></details>
-        <details class="rv"><summary>Ile trwa przygotowanie strony?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>[Czas realizacji – do uzupełnienia].</p></div></details>
-        <details class="rv"><summary>Dla kogo robicie strony?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Dla małych firm, specjalistów i&nbsp;osób, które prowadzą własną działalność – z&nbsp;różnych branż.</p></div></details>
-        <details class="rv"><summary>Czy zmienię godziny i&nbsp;cennik bez Waszej pomocy?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Tak. Godziny otwarcia, cennik i&nbsp;aktualności zmienisz bez dzwonienia do nas.</p></div></details>
-        <details class="rv"><summary>Kto dba o&nbsp;to, żeby strona działała?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>My. Strona działa i&nbsp;jest bezpieczna, a&nbsp;kopie zapasowe robimy my.</p></div></details>
-        <details class="rv"><summary>Czy działacie tylko w&nbsp;Białymstoku?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Nie. Jesteśmy z&nbsp;Białegostoku, ale strony robimy dla firm w&nbsp;całej Polsce.</p></div></details>
-        <details class="rv"><summary>Co, jeśli projekt mi się nie spodoba?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Wprowadzamy poprawki, zanim zaczniemy robić stronę. Pierwszą połowę płacisz dopiero wtedy, gdy projekt Ci się podoba.</p></div></details>
+        <Faq q="Od czego zależy cena?">Od liczby podstron i&nbsp;dodatków, takich jak rezerwacje online czy aktualności. Dokładną kwotę podamy po krótkiej rozmowie.</Faq>
+        <Faq q="Jak wygląda płatność?">Najpierw przygotowujemy projekt strony. Gdy Ci się spodoba, płacisz połowę kwoty. Drugą połowę płacisz po zrobieniu strony na podstawie tego projektu. Rozmowa i&nbsp;wycena są bezpłatne.</Faq>
+        <Faq q="Ile trwa przygotowanie strony?">[Czas realizacji – do uzupełnienia].</Faq>
+        <Faq q="Dla kogo robicie strony?">Dla małych firm, specjalistów i&nbsp;osób, które prowadzą własną działalność – z&nbsp;różnych branż.</Faq>
+        <Faq q="Czy zmienię godziny i&nbsp;cennik bez Waszej pomocy?">Tak. Godziny otwarcia, cennik i&nbsp;aktualności zmienisz bez dzwonienia do nas.</Faq>
+        <Faq q="Kto dba o&nbsp;to, żeby strona działała?">My. Strona działa i&nbsp;jest bezpieczna, a&nbsp;kopie zapasowe robimy my.</Faq>
+        <Faq q="Czy działacie tylko w&nbsp;Białymstoku?">Nie. Jesteśmy z&nbsp;Białegostoku, ale strony robimy dla firm w&nbsp;całej Polsce.</Faq>
+        <Faq q="Co, jeśli projekt mi się nie spodoba?">Wprowadzamy poprawki, zanim zaczniemy robić stronę. Pierwszą połowę płacisz dopiero wtedy, gdy projekt Ci się podoba.</Faq>
       </div>
     </div>
   </section>

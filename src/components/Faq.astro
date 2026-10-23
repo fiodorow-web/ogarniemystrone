@@ -1,0 +1,9 @@
+---
+// Pytanie w FAQ (app.js: płynne rozwijanie .faq details). Odpowiedź w treści komponentu.
+// q może zawierać &nbsp; (twarde spacje po jednoliterowych słowach).
+interface Props {
+  q: string;
+}
+const { q } = Astro.props;
+---
+<details class="rv"><summary><Fragment set:html={q} /><span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p><slot /></p></div></details>

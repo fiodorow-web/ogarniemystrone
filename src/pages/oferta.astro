@@ -1,5 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Loop from '../components/Loop.astro';
 ---
 <Base
   title="Oferta – Ogarniemy Stronę"
@@ -7,8 +10,8 @@ import Base from '../layouts/Base.astro';
   breadcrumb="Oferta"
 >
   <header class="wrap page-head">
-    <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Oferta</span></nav>
-    <h1 id="h-oferta" class="page-title">Co dla Ciebie <span class="loopw">ogarniemy<svg class="lp lp-enter" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span></h1>
+    <Crumbs name="Oferta" />
+    <h1 id="h-oferta" class="page-title">Co dla Ciebie <span class="loopw">ogarniemy<Loop class="lp lp-enter" hidden /></span></h1>
     <p class="lead">Projekt, treści, uruchomienie i&nbsp;opieka po starcie. W&nbsp;jednym miejscu, od&nbsp;999&nbsp;zł.</p>
   </header>
 
@@ -44,21 +47,8 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="sec sec-price" aria-labelledby="h-price-of">
-    <div class="wrap price-in">
-      <p class="casual rv">A&nbsp;ile to kosztuje?</p>
-      <h2 id="h-price-of" class="price-h">
-        <span class="sr-only">Strony od 999 zł</span>
-        <span aria-hidden="true" class="price-vis" data-par="0.04"><span class="pr-od">od</span><span class="pr-num" data-count="999">999</span><span class="pr-zl">zł</span></span>
-      </h2>
-      <div class="price-side rv">
-        <p>Tyle kosztuje strona wizytówka. Rozmowa i&nbsp;wycena są bezpłatne.</p>
-        <p class="price-safe"><b>Najpierw projekt, potem płatność.</b> Połowę płacisz, gdy projekt Ci się spodoba. Drugą po zrobieniu strony.</p>
-        <div class="cta-row">
-          <a class="btn btn-ink" href="/cennik#konfigurator">Dobierz pakiet<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-          <a class="more more-ink" href="/cennik">Zobacz cennik</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PriceFrom id="h-price-of">
+    <Fragment slot="casual">A&nbsp;ile to kosztuje?</Fragment>
+    <p slot="side">Tyle kosztuje strona wizytówka. Rozmowa i&nbsp;wycena są bezpłatne.</p>
+  </PriceFrom>
 </Base>

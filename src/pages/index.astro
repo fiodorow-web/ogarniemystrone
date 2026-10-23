@@ -1,5 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
+import PriceFrom from '../components/PriceFrom.astro';
+import Assure from '../components/Assure.astro';
+import Faq from '../components/Faq.astro';
+import Loop from '../components/Loop.astro';
+import Arrow from '../components/Arrow.astro';
 ---
 <Base
   title="Ogarniemy Stronę – strony internetowe dla małych firm"
@@ -16,19 +21,15 @@ import Base from '../layouts/Base.astro';
         <span class="mega-vis" aria-hidden="true" data-kinetic>
           <span class="ln">Ty robisz swoje,</span>
           <span class="ln">my <em class="ac" data-soft>ogarniemy</em></span>
-          <span class="ln"><span class="loopw">stronę.<svg class="lp lp-hero" viewBox="0 0 200 80" preserveAspectRatio="none" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span></span>
+          <span class="ln"><span class="loopw">stronę.<Loop class="lp lp-hero" /></span></span>
         </span>
       </h1>
       <p class="lead hero-lead">Nowoczesne strony dla małych firm i&nbsp;specjalistów z&nbsp;całej Polski. Projekt, treści, start i&nbsp;opieka po starcie – od&nbsp;999&nbsp;zł.</p>
       <div class="cta-row" data-hero-cta>
-        <a class="btn btn-p mag" href="/kontakt">Umów rozmowę<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a class="btn btn-p mag" href="/kontakt">Umów rozmowę<Arrow /></a>
         <a class="btn btn-s" href="/cennik#konfigurator">Dobierz pakiet</a>
       </div>
-      <ul class="assure">
-        <li>Bezpłatna rozmowa i&nbsp;wycena</li>
-        <li>Najpierw projekt, potem płatność</li>
-        <li>Odpowiedź do 24&nbsp;h w&nbsp;dni robocze</li>
-      </ul>
+      <Assure />
     </div>
 
     <div class="mess-wrap">
@@ -41,7 +42,7 @@ import Base from '../layouts/Base.astro';
         <li class="stk tape" style="--i:5"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">W&nbsp;Google Cię nie ma</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Łatwiej Cię znaleźć w&nbsp;Google</span></span></li>
       </ul>
       <button class="btn btn-s mess-btn" type="button" data-mess-btn aria-pressed="false">
-        <svg viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false" class="mess-ico"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg>
+        <Loop class="mess-ico" hidden />
         <span data-mess-label>Ogarnij ten bałagan</span>
       </button>
     </div>
@@ -147,13 +148,13 @@ import Base from '../layouts/Base.astro';
       <div class="steps-wrap" data-steps>
         <svg class="steps-line" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M10 70C120 20 200 110 330 62S520 18 640 66 860 104 990 40"/></svg>
         <ol class="steps4">
-          <li class="rv"><span class="st-n">01<svg class="lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span><h3>Rozmowa</h3><p>Krótko o&nbsp;Twojej firmie i&nbsp;o&nbsp;tym, co ma się znaleźć na stronie.</p><p class="st-pay">Bezpłatnie, z&nbsp;wyceną</p></li>
-          <li class="rv rv2"><span class="st-n">02<svg class="lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span><h3>Projekt</h3><p>Pokazujemy projekt na telefonie i&nbsp;komputerze. Poprawki wprowadzamy przed startem.</p><p class="st-pay">Połowa kwoty, gdy projekt Ci się spodoba</p></li>
-          <li class="rv rv3"><span class="st-n">03<svg class="lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span><h3>Treści</h3><p>Teksty piszemy my. Przed publikacją zatwierdzasz je mailem.</p></li>
-          <li class="rv rv4"><span class="st-n">04<svg class="lp" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span><h3>Start i&nbsp;opieka</h3><p>Strona startuje pod Twoim adresem, a&nbsp;my zostajemy po starcie.</p><p class="st-pay">Druga połowa po zrobieniu strony</p></li>
+          <li class="rv"><span class="st-n">01<Loop class="lp" hidden /></span><h3>Rozmowa</h3><p>Krótko o&nbsp;Twojej firmie i&nbsp;o&nbsp;tym, co ma się znaleźć na stronie.</p><p class="st-pay">Bezpłatnie, z&nbsp;wyceną</p></li>
+          <li class="rv rv2"><span class="st-n">02<Loop class="lp" hidden /></span><h3>Projekt</h3><p>Pokazujemy projekt na telefonie i&nbsp;komputerze. Poprawki wprowadzamy przed startem.</p><p class="st-pay">Połowa kwoty, gdy projekt Ci się spodoba</p></li>
+          <li class="rv rv3"><span class="st-n">03<Loop class="lp" hidden /></span><h3>Treści</h3><p>Teksty piszemy my. Przed publikacją zatwierdzasz je mailem.</p></li>
+          <li class="rv rv4"><span class="st-n">04<Loop class="lp" hidden /></span><h3>Start i&nbsp;opieka</h3><p>Strona startuje pod Twoim adresem, a&nbsp;my zostajemy po starcie.</p><p class="st-pay">Druga połowa po zrobieniu strony</p></li>
         </ol>
       </div>
-      <a class="more rv" href="/jak-pracujemy">Zobacz, jak to wygląda krok po kroku<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a class="more rv" href="/jak-pracujemy">Zobacz, jak to wygląda krok po kroku<Arrow /></a>
     </div>
   </section>
 
@@ -163,7 +164,7 @@ import Base from '../layouts/Base.astro';
         <p class="kicker">Poznajmy się</p>
         <h2 id="h-team" class="h2 kin">Kto ogarnie <em class="ac">Twoją</em> stronę</h2>
         <p class="lead">Dwie osoby od pierwszej rozmowy do opieki po starcie. Z&nbsp;Białegostoku, dla firm z&nbsp;całej Polski.</p>
-        <a class="more" href="/o-nas">Poznaj nas bliżej<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a class="more" href="/o-nas">Poznaj nas bliżej<Arrow /></a>
       </div>
       <div class="duo">
         <article class="person rv">
@@ -180,36 +181,23 @@ import Base from '../layouts/Base.astro';
     </div>
   </section>
 
-  <section class="sec sec-price" aria-labelledby="h-price">
-    <div class="wrap price-in">
-      <p class="casual rv">Dobra, wiesz już, o&nbsp;co chodzi.</p>
-      <h2 id="h-price" class="price-h">
-        <span class="sr-only">Strony od 999 zł</span>
-        <span aria-hidden="true" class="price-vis" data-par="0.04"><span class="pr-od">od</span><span class="pr-num" data-count="999">999</span><span class="pr-zl">zł</span></span>
-      </h2>
-      <div class="price-side rv">
-        <p>Tyle kosztuje strona wizytówka. Większe strony wyceniamy po krótkiej, bezpłatnej rozmowie – bez zgadywania i&nbsp;bez drobnego druku.</p>
-        <p class="price-safe"><b>Najpierw projekt, potem płatność.</b> Połowę płacisz, gdy projekt Ci się spodoba. Drugą po zrobieniu strony.</p>
-        <div class="cta-row">
-          <a class="btn btn-ink" href="/cennik#konfigurator">Dobierz pakiet<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-          <a class="more more-ink" href="/cennik">Zobacz cennik</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <PriceFrom id="h-price">
+    <Fragment slot="casual">Dobra, wiesz już, o&nbsp;co chodzi.</Fragment>
+    <p slot="side">Tyle kosztuje strona wizytówka. Większe strony wyceniamy po krótkiej, bezpłatnej rozmowie – bez zgadywania i&nbsp;bez drobnego druku.</p>
+  </PriceFrom>
 
   <section class="sec" aria-labelledby="h-faq-start">
     <div class="wrap faq-wrap">
       <div class="sec-head rv">
         <p class="kicker">Zanim napiszesz</p>
         <h2 id="h-faq-start" class="h2 kin">Częste <em class="ac">pytania</em></h2>
-        <a class="more" href="/cennik">Więcej o&nbsp;cenach<svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a class="more" href="/cennik">Więcej o&nbsp;cenach<Arrow /></a>
       </div>
       <div class="faq" data-faq>
-        <details class="rv"><summary>Co, jeśli projekt mi się nie spodoba?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Wprowadzamy poprawki, zanim zaczniemy robić stronę. Pierwszą połowę płacisz dopiero wtedy, gdy projekt Ci się podoba.</p></div></details>
-        <details class="rv"><summary>Czy muszę znać się na stronach?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Nie. Teksty piszemy my na podstawie rozmowy, a&nbsp;Ty zatwierdzasz je mailem. Godziny i&nbsp;cennik zmienisz później bez naszej pomocy.</p></div></details>
-        <details class="rv"><summary>Czy działacie tylko w&nbsp;Białymstoku?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Nie. Jesteśmy z&nbsp;Białegostoku, ale strony robimy dla firm w&nbsp;całej Polsce.</p></div></details>
-        <details class="rv"><summary>Co się dzieje po starcie strony?<span class="pm" aria-hidden="true"></span></summary><div class="faq-a"><p>Zostajemy z&nbsp;Tobą. Pilnujemy, żeby strona działała, i&nbsp;robimy kopie zapasowe.</p></div></details>
+        <Faq q="Co, jeśli projekt mi się nie spodoba?">Wprowadzamy poprawki, zanim zaczniemy robić stronę. Pierwszą połowę płacisz dopiero wtedy, gdy projekt Ci się podoba.</Faq>
+        <Faq q="Czy muszę znać się na stronach?">Nie. Teksty piszemy my na podstawie rozmowy, a&nbsp;Ty zatwierdzasz je mailem. Godziny i&nbsp;cennik zmienisz później bez naszej pomocy.</Faq>
+        <Faq q="Czy działacie tylko w&nbsp;Białymstoku?">Nie. Jesteśmy z&nbsp;Białegostoku, ale strony robimy dla firm w&nbsp;całej Polsce.</Faq>
+        <Faq q="Co się dzieje po starcie strony?">Zostajemy z&nbsp;Tobą. Pilnujemy, żeby strona działała, i&nbsp;robimy kopie zapasowe.</Faq>
       </div>
     </div>
   </section>

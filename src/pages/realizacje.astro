@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Loop from '../components/Loop.astro';
 ---
 <Base
   title="Realizacje – Ogarniemy Stronę"
@@ -7,8 +9,8 @@ import Base from '../layouts/Base.astro';
   breadcrumb="Realizacje"
 >
   <header class="wrap page-head">
-    <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Realizacje</span></nav>
-    <h1 id="h-real" class="page-title">Nasze <span class="loopw">realizacje<svg class="lp lp-enter" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13"/></svg></span></h1>
+    <Crumbs name="Realizacje" />
+    <h1 id="h-real" class="page-title">Nasze <span class="loopw">realizacje<Loop class="lp lp-enter" hidden /></span></h1>
     <p class="lead">Każdą stronę pokazujemy tak, jak widzą ją klienci: na telefonie i&nbsp;laptopie.</p>
   </header>
 
