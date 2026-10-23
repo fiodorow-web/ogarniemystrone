@@ -129,7 +129,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - naklejki „bałagan” układają się po przewinięciu i po kliknięciu „Ogarnij ten bałagan”;
   - działają liczniki, „Zmień godziny”, „Sprawdź jeszcze raz” i animowane słowa;
   - pod przyciskami w hero są trzy zapewnienia (bezpłatna rozmowa i wycena, najpierw projekt, odpowiedź do 24 h);
-  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki z pigułkami płatności → „Kto ogarnie Twoją stronę” → „od 999 zł” z ramką „Najpierw projekt, potem płatność” → „Częste pytania” → końcowe CTA z zapewnieniami.
+  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki z pigułkami płatności → „od 999 zł” z ramką „Najpierw projekt, potem płatność” → „Częste pytania” → końcowe CTA z zapewnieniami (sekcja „Kto ogarnie Twoją stronę” jest tylko w O nas, zob. „Decyzje”).
 - [ ] Między podstronami jest płynne przejście, a nagłówek się nie przeładowuje wizualnie.
 - [ ] Konfigurator na `/cennik#konfigurator`:
   - przewija się pod nagłówek;
@@ -178,7 +178,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - `[NUMER TELEFONU]` (`src/site.js`; trafia do stopki i na stronę kontaktu);
    - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
    - realizacje: `[Nazwa firmy]`, `[Miasto]`, `[branża]`, `[Zdjęcie realizacji]` (`src/content/realizacje/`);
-   - zdjęcia w `o-nas` i na stronie głównej (`[Zdjęcie: Mateusz]`, `[Zdjęcie: Sebastian]`);
+   - zdjęcia i 1–2 zdania o każdym w `o-nas` (`[Zdjęcie: Mateusz przy pracy]`, `[Zdjęcie: Sebastian przy pracy]`, `[Dopisz 1–2 zdania o sobie…]`);
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
 4. **Wdrożenie:**
@@ -202,6 +202,14 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ## Decyzje
 
 <!-- Tu zapisuj ważne decyzje: wybór technologii, sposób wysyłki formularza, zmiany w brandbooku. Data, co, dlaczego. -->
+
+### 2026-10-23: „Kto ogarnie Twoją stronę” tylko w O nas
+- **Co:** sekcja z Mateuszem i Sebastianem zniknęła ze strony głównej. Zespół jest na `/o-nas`, do której prowadzi menu.
+- **Dlaczego:** decyzja właścicieli.
+- **Odejście od `SPRZEDAZ.md`:**
+  - zasada 9 („Prawdziwi ludzie na stronie głównej”) nie dotyczy już strony głównej;
+  - w zasadzie 3 krok „kto” jest teraz w O nas.
+  - Opinie klientów (gdy będą) trafią na stronie głównej między „Cztery kroki” a „od 999 zł”, a nie przed nieistniejącą już sekcją zespołu.
 
 ### 2026-10-23: Astro 7 zamiast czystego HTML/CSS/JS
 - **Co:** Astro 7.4, wynik statyczny (`build.format: 'file'`, `trailingSlash: 'never'`, `compressHTML: false`). Na Vercelu `vercel.json`: `cleanUrls`, `trailingSlash: false`, rok cache dla `/_astro/`.
