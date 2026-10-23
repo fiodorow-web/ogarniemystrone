@@ -1,0 +1,13 @@
+{
+  "name": "ogarniemystrone",
+  "private": true,
+  "type": "module",
+  "description": "Strona ogarniemystrone.pl – statyczny HTML, CSS i JS bez frameworka",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "dev": "node tools/serve.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
