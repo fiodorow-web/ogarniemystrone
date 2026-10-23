@@ -8,6 +8,8 @@ Zanim cokolwiek zmienisz, przeczytaj:
 
 ## Technologia: Twój wybór
 
+Wybrana technologia: **Astro 7** (szczegóły i powody w sekcji „Decyzje”). Poniższe zasady obowiązują przy każdej kolejnej zmianie stacku.
+
 Stack wybierasz sam. Możesz zostać przy obecnym czystym HTML/CSS/JS albo przenieść stronę na framework, np. Astro, Next.js albo SvelteKit. Kryteria wyboru:
 - spełnia wszystkie wymagania z sekcji „Wymagania stałe”;
 - da się go łatwo utrzymać i rozwijać o kolejne podstrony, blog i realizacje;
@@ -20,37 +22,51 @@ Jeśli zmieniasz technologię:
 - Zostaw działającą obecną wersję do porównania, np. w historii git albo w folderze `reference/`. Usuń ją dopiero, gdy nowa przejdzie całą „Listę kontrolną zgodności”.
 - Przenoś treści dosłownie. Teksty są dopracowane i zatwierdzone.
 
-## Obecna implementacja (wzorzec)
+## Obecna implementacja
 
-Czysty HTML, CSS i JavaScript bez frameworka i bez zależności. Do budowania wystarczy Node 20+.
+Astro 7: statyczne strony HTML, w przeglądarce nie ma JavaScriptu frameworka, tylko `app.js`. Wymaga Node 22.23+. Wersja sprzed przenosin (czysty HTML/CSS/JS) jest w gicie pod tagiem `wzorzec-html`.
 
 ```
-src/pages/*.html        treść podstron (front matter + zawartość <main>); nazwa pliku = adres
-src/partials/           header.html, footer.html (blok <!-- foot-cta -->), schema-home.html (JSON-LD)
-src/assets/styles.css   wszystkie style; tokeny na górze pliku
-src/assets/app.js       wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie
-src/assets/fonts/       Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
-public/                 kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, stopka/
-brand/                  logo i sygnet (SVG z krzywymi + PNG)
-tools/build.mjs         składa dist/: head z meta, nagłówek, stopka, hashe w nazwach zasobów, sitemap, robots, kontrola linków
-tools/serve.mjs         podgląd z czystymi adresami i 404, przebudowa po każdej zmianie
+src/pages/*.astro          podstrony; nazwa pliku = adres (oferta.astro → /oferta), treść w <Base …>
+src/layouts/Base.astro     <head> (meta, canonical, OG, Twitter, JSON-LD, preload fontów, motyw bez mignięcia), nagłówek, <main>, stopka
+src/components/            Header, Footer (z sekcją „Napisz. Resztę ogarniemy my.”), Loop (pętla), Arrow, Assure (zapewnienia),
+                           Crumbs (ścieżka), Faq, CopyEmail, PriceFrom (sekcja „od 999 zł”)
+src/content/realizacje/    realizacje: jeden plik .md na realizację; pola opisane w src/content.config.ts
+src/site.js                dane firmy w jednym miejscu (e-mail, telefon, domena) i JSON-LD strony głównej
+src/styles/styles.css      wszystkie style; tokeny na górze pliku
+src/scripts/app.js         wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie (trafia do dist bez zmian)
+src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
+public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, stopka/
+brand/                     logo i sygnet (SVG z krzywymi + PNG)
+astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, integracja po buildzie)
+tools/po-buildzie.mjs      po buildzie: sitemap.xml, robots.txt, kontrola linków wewnętrznych i kotwic
+tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekierowania .html i ukośnika, 404, kompresja
 ```
 
 Polecenia:
-- `npm run dev`: podgląd na http://localhost:3000;
-- `npm run build`: buduje `dist/`. Build zatrzymuje się na zepsutym linku wewnętrznym albo na brakującej kotwicy.
+- `npm run dev`: podgląd na http://localhost:3000, odświeża się po każdej zmianie;
+- `npm run build`: buduje `dist/`. Build zatrzymuje się na zepsutym linku wewnętrznym albo na brakującej kotwicy;
+- `npm run preview`: po buildzie podgląd `dist/` na http://localhost:4000 tak, jak poda go Vercel.
 
-Front matter podstrony:
+Właściwości `<Base>` (każda podstrona):
 - obowiązkowe: `title`, `description`;
 - opcjonalne:
   - `breadcrumb` (JSON-LD okruszków);
-  - `og_title`;
-  - `schema: home`;
-  - `foot_cta: false` (bez sekcji „Napisz. Resztę ogarniemy my.”);
-  - `preload_serif: false` (strona bez Fraunces);
-  - `index: false`.
+  - `ogTitle`;
+  - `schema="home"`;
+  - `footCta={false}` (bez sekcji „Napisz. Resztę ogarniemy my.”);
+  - `preloadSerif={false}` (strona bez Fraunces);
+  - `index={false}` (noindex, bez canonical i poza sitemap).
+
+Jak dodać:
+- **podstronę:** plik w `src/pages/` z `<Base>`; do menu tylko zgodnie z `SPRZEDAZ.md` (zasada 11, najwyżej 5 pozycji). Sitemap uzupełnia się sam;
+- **realizację:** plik `.md` w `src/content/realizacje/` (`nazwa`, `miasto`, `branza`, `rodzaj`: `wizytowka` | `podstrony` | `rezerwacje`, `kolejnosc`, opcjonalnie `link`). Liczniki filtrów liczą się same. Zdjęcia: dodać pole `zdjecie` i `<Image>` z `astro:assets` przy pierwszym prawdziwym zrzucie;
+- **blog:** kolekcja `blog` w `src/content.config.ts` i strony w `src/pages/blog/`, przy pierwszym wpisie.
 
 Przydatne szczegóły:
+- `compressHTML: false` w `astro.config.mjs` musi zostać. Astro 7 domyślnie zwija białe znaki i usunąłby celowe spacje między elementami w tekstach.
+- Tekst z twardymi spacjami przekazywany do komponentu w atrybucie (np. `<Faq q="Czy działacie tylko w&nbsp;Białymstoku?">`) jest wstawiany jako HTML.
+- Listy z `.map()` w `.astro` nie mają białych znaków między elementami. To nie ma znaczenia w kontenerach flex/grid i blokowych, ale w tekście ciągłym trzeba je dodać.
 - `<body data-page="…">` ma nazwę pliku. Skrypt sprawdza tylko `kontakt` (dok na telefonie ukrywa tam przycisk CTA).
 - `app.js` korzysta z kluczy przeglądarki:
   - `localStorage`: `os-motyw` (motyw), `os-szkic` (wersja robocza formularza), `os-lista` (lista „Co warto mieć pod ręką”);
@@ -149,7 +165,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Do zrobienia
 
-1. **Formularz kontaktowy jest w trybie pokazowym** (`FORM_ENDPOINT = ''` w `app.js`). Potrzebny jest prawdziwy endpoint, np. funkcja na Vercelu. Wymagania:
+1. **Formularz kontaktowy jest w trybie pokazowym** (`FORM_ENDPOINT = ''` w `src/scripts/app.js`). Potrzebny jest prawdziwy endpoint, np. funkcja na Vercelu (w Astro: adapter `@astrojs/vercel` i endpoint z `prerender = false`; reszta stron zostaje statyczna). Wymagania:
    - wiadomość trafia na `kontakt@ogarniemystrone.pl`;
    - walidacja po stronie serwera;
    - ochrona przed spamem bez ciasteczek: pole-pułapka i limit zgłoszeń, bez reCAPTCHA;
@@ -157,11 +173,11 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - dane logowania tylko w zmiennych środowiskowych Vercela, nigdy w repozytorium;
    - po podłączeniu trzeba zaktualizować politykę prywatności.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
-   - `[CENA]` pakietów Firma i Firma z rezerwacjami (`cennik`, także w `app.js` w konfiguratorze);
+   - `[CENA]` pakietów Firma i Firma z rezerwacjami (`cennik`, także w `src/scripts/app.js` w konfiguratorze);
    - `[Zakres do ustalenia]`;
-   - `[NUMER TELEFONU]` (`kontakt`, stopka);
-   - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`);
-   - realizacje: `[Nazwa firmy]`, `[Miasto]`, `[branża]`, `[Zdjęcie realizacji]`;
+   - `[NUMER TELEFONU]` (`src/site.js`; trafia do stopki i na stronę kontaktu);
+   - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
+   - realizacje: `[Nazwa firmy]`, `[Miasto]`, `[branża]`, `[Zdjęcie realizacji]` (`src/content/realizacje/`);
    - zdjęcia w `o-nas` i na stronie głównej (`[Zdjęcie: Mateusz]`, `[Zdjęcie: Sebastian]`);
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
@@ -186,3 +202,26 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ## Decyzje
 
 <!-- Tu zapisuj ważne decyzje: wybór technologii, sposób wysyłki formularza, zmiany w brandbooku. Data, co, dlaczego. -->
+
+### 2026-10-23: Astro 7 zamiast czystego HTML/CSS/JS
+- **Co:** Astro 7.4, wynik statyczny (`build.format: 'file'`, `trailingSlash: 'never'`, `compressHTML: false`). Na Vercelu `vercel.json`: `cleanUrls`, `trailingSlash: false`, rok cache dla `/_astro/`.
+- **Dlaczego:**
+  - każda podstrona to osobny plik HTML bez JavaScriptu frameworka, więc natywne przejścia między podstronami (`@view-transition`), `app.js` i działanie bez JS zostają bez zmian;
+  - powtarzalne kawałki są komponentami zamiast kopiowanego HTML-a;
+  - realizacje (a później blog) to kolekcje treści ze sprawdzanym schematem;
+  - Astro ma wbudowaną optymalizację zdjęć na czas, gdy dojdą zdjęcia i zrzuty;
+  - Vercel obsługuje Astro bez konfiguracji, a formularz może być funkcją w tym samym projekcie.
+- **Odrzucone:**
+  - Next.js: React na każdej stronie (ok. 90 KB JS) i nawigacja po stronie klienta, która gryzie się z przejściami i `app.js`;
+  - SvelteKit: trzeba by go przestawiać, żeby działał jak zwykła strona;
+  - czysty HTML: blog i realizacje wymagałyby własnego systemu treści.
+- **Minusy:**
+  - zależność do aktualizowania (`astro`);
+  - Astro 7 domyślnie zwija białe znaki, dlatego jest `compressHTML: false`;
+  - kontrola linków i podgląd jak na Vercelu to własne skrypty w `tools/`.
+- **Zgodność ze wzorcem** (`wzorzec-html`), sprawdzona przed scaleniem:
+  - HTML wszystkich 9 stron po normalizacji jest identyczny;
+  - 36 zrzutów (1440 i 390 px, jasny i ciemny motyw) jest identycznych co do piksela;
+  - test „Listy kontrolnej zgodności” w przeglądarce przechodzi 52/52;
+  - Lighthouse daje 96–100 we wszystkich kategoriach, CLS ≤ 0,008;
+  - podstrona waży 157–160 KB po kompresji.

@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 // Podgląd zbudowanego dist/ tak, jak poda go Vercel (vercel.json: cleanUrls, trailingSlash: false):
-// /oferta → oferta.html, /oferta.html i /oferta/ → przekierowanie na /oferta, nieznany adres → 404.html ze statusem 404.
+// /oferta → oferta.html, /oferta.html i /oferta/ → przekierowanie na /oferta, nieznany adres → 404.html ze statusem 404,
+// długi cache dla /_astro/ i kompresja plików tekstowych.
 // Użycie: npm run build && npm run preview   (port: PORT=5000 npm run preview)
 
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -35,6 +37,16 @@ http.createServer((req, res) => {
   let status = 200;
   if (!fs.existsSync(file)) { file = path.join(DIST, '404.html'); status = 404; }
   const cache = p.startsWith('/_astro/') ? 'public, max-age=31536000, immutable' : 'no-store';
-  res.writeHead(status, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream', 'Cache-Control': cache });
-  fs.createReadStream(file).pipe(res);
+  const type = TYPES[path.extname(file)] || 'application/octet-stream';
+  const headers = { 'Content-Type': type, 'Cache-Control': cache, Vary: 'Accept-Encoding' };
+  // Kompresja jak na Vercelu (Brotli albo gzip dla plików tekstowych), żeby waga podstrony była prawdziwa
+  const accept = String(req.headers['accept-encoding'] || '');
+  const text = /^(text\/|application\/(json|xml)|image\/svg)/.test(type);
+  const enc = text && /\bbr\b/.test(accept) ? 'br' : text && /\bgzip\b/.test(accept) ? 'gzip' : null;
+  if (enc) headers['Content-Encoding'] = enc;
+  res.writeHead(status, headers);
+  const stream = fs.createReadStream(file);
+  if (enc === 'br') stream.pipe(zlib.createBrotliCompress()).pipe(res);
+  else if (enc === 'gzip') stream.pipe(zlib.createGzip()).pipe(res);
+  else stream.pipe(res);
 }).listen(PORT, () => console.log(`Podgląd dist/ jak na Vercelu: http://localhost:${PORT}`));
