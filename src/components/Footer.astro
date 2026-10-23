@@ -1,0 +1,67 @@
+---
+// Stopka: końcowe CTA („Napisz. Resztę ogarniemy my.”), menu, kontakt, przycisk „do góry” i komunikat.
+// cta: false na stronie kontaktu.
+import Loop from './Loop.astro';
+import Arrow from './Arrow.astro';
+import Assure from './Assure.astro';
+import CopyEmail from './CopyEmail.astro';
+import { SITE } from '../site.js';
+
+interface Props {
+  current: string | null;
+  cta?: boolean;
+}
+const { current, cta = true } = Astro.props;
+const cur = (href: string) => (href === current ? 'page' : undefined);
+const NAV = [
+  ['/oferta', 'Oferta'],
+  ['/realizacje', 'Realizacje'],
+  ['/jak-pracujemy', 'Jak pracujemy'],
+  ['/o-nas', 'O nas'],
+  ['/cennik', 'Cennik'],
+  ['/kontakt', 'Kontakt'],
+];
+---
+<footer class="site-foot">
+{cta && (
+  <section class="wrap foot-cta" aria-labelledby="h-foot">
+    <h2 id="h-foot" class="foot-h">Napisz. Resztę <em class="ac">ogarniemy</em> my.</h2>
+    <div class="cta-row">
+      <a class="btn btn-m mag" href="/kontakt" aria-current={cur('/kontakt')}>Umów rozmowę<Arrow /></a>
+      <CopyEmail inv />
+    </div>
+    <Assure />
+  </section>
+)}
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="logo logo-inv" href="/" aria-current={cur('/')} aria-label="Ogarniemy Stronę – strona główna"><span aria-hidden="true">Ogarniemy <span class="loopw">Stronę<Loop class="lp lp-foot" /></span></span></a>
+      <p>Strony internetowe dla małych firm i&nbsp;specjalistów. Białystok, cała Polska.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Stopka">
+      <p class="foot-k">Strona</p>
+      <ul>
+{NAV.map(([href, label]) => (
+        <li><a href={href} aria-current={cur(href)}>{label}</a></li>
+))}
+      </ul>
+    </nav>
+    <div class="foot-c">
+      <p class="foot-k">Kontakt</p>
+      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p>{SITE.telefon}</p>
+    </div>
+  </div>
+  <div class="wrap foot-meta">
+    <p>© 2026 Ogarniemy Stronę</p>
+    <p>Bez ciasteczek śledzących<span data-weight></span></p>
+    <a href="/polityka-prywatnosci" aria-current={cur('/polityka-prywatnosci')}>Polityka prywatności</a>
+  </div>
+</footer>
+
+<button class="totop" type="button" data-totop aria-label="Wróć na górę strony" hidden>
+  <svg class="totop-ring" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path pathLength="1" d="M152 7C108 2 44 4 18 20C2 31 8 60 54 72C100 80 170 74 192 54C202 40 190 16 142 9C124 7 110 9 100 13" data-totop-ring/></svg>
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+</button>
+
+<div class="toast" role="status" aria-live="polite" data-toast></div>

@@ -1,10 +1,13 @@
 ---
-title: Kontakt – Ogarniemy Stronę
-description: Napisz kilka słów o swojej firmie, a odezwiemy się z propozycją terminu rozmowy. kontakt@ogarniemystrone.pl
-breadcrumb: Kontakt
-foot_cta: false
-preload_serif: false
+import Base from '../layouts/Base.astro';
 ---
+<Base
+  title="Kontakt – Ogarniemy Stronę"
+  description="Napisz kilka słów o swojej firmie, a odezwiemy się z propozycją terminu rozmowy. kontakt@ogarniemystrone.pl"
+  breadcrumb="Kontakt"
+  footCta={false}
+  preloadSerif={false}
+>
   <div class="wrap contact">
     <div class="contact-side">
       <nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">Kontakt</span></nav>
@@ -86,3 +89,4 @@ preload_serif: false
       </div>
     </div>
   </div>
+</Base>

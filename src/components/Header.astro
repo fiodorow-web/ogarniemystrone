@@ -1,0 +1,72 @@
+---
+// Nagłówek, dok na telefonie i menu pełnoekranowe.
+// current: adres bieżącej strony; pasujące linki dostają aria-current="page".
+import Loop from './Loop.astro';
+import { SITE } from '../site.js';
+
+interface Props {
+  current: string | null;
+}
+const { current } = Astro.props;
+const cur = (href: string) => (href === current ? 'page' : undefined);
+const NAV = [
+  ['/oferta', 'Oferta'],
+  ['/realizacje', 'Realizacje'],
+  ['/jak-pracujemy', 'Jak pracujemy'],
+  ['/o-nas', 'O nas'],
+  ['/cennik', 'Cennik'],
+];
+const SHEET = [['/', 'Start'], ...NAV, ['/kontakt', 'Kontakt']];
+---
+<a class="skip" href="#tresc">Przejdź do treści</a>
+
+<header class="site-head" data-head>
+  <div class="head-in">
+    <a class="logo" href="/" aria-current={cur('/')} aria-label="Ogarniemy Stronę – strona główna">
+      <span aria-hidden="true">Ogarniemy <span class="loopw">Stronę<Loop class="lp lp-logo" /></span></span>
+    </a>
+    <nav class="nav" aria-label="Menu główne">
+      <ul>
+{NAV.map(([href, label]) => (
+        <li><a class="nav-a" href={href} aria-current={cur(href)}><span>{label}</span><Loop class="nav-lp" hidden /></a></li>
+))}
+      </ul>
+    </nav>
+    <div class="head-act">
+      <button class="theme-btn" type="button" data-theme-btn aria-label="Włącz ciemny motyw">
+        <svg class="i-moon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="i-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
+      <a class="btn btn-p head-cta" href="/kontakt" aria-current={cur('/kontakt')}>Umów rozmowę</a>
+    </div>
+  </div>
+</header>
+
+<div class="dock" data-dock>
+  <button class="dock-menu" type="button" data-menu-open aria-expanded="false" aria-controls="menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h16"/></svg>
+    Menu
+  </button>
+  <a class="btn btn-p dock-cta" href="/kontakt" aria-current={cur('/kontakt')} data-dock-cta>Umów rozmowę</a>
+</div>
+
+<div class="sheet" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-sheet>
+  <div class="sheet-top">
+    <span class="sheet-logo" aria-hidden="true">Ogarniemy <span class="loopw">Stronę<Loop class="lp" /></span></span>
+    <button class="sheet-close" type="button" data-menu-close>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      Zamknij
+    </button>
+  </div>
+  <nav aria-label="Menu mobilne">
+    <ol class="sheet-list">
+{SHEET.map(([href, label], i) => (
+      <li style={`--i:${i}`}><a href={href} aria-current={cur(href)}><span class="sn">{String(i + 1).padStart(2, '0')}</span>{label}</a></li>
+))}
+    </ol>
+  </nav>
+  <div class="sheet-foot">
+    <span class="badge badge-inv"><span class="dot" aria-hidden="true"></span>Przyjmujemy nowe projekty</span>
+    <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+  </div>
+</div>
