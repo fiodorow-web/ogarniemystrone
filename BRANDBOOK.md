@@ -115,7 +115,7 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
 ### Skala
 | Styl | Rozmiar | Interlinia | Inne |
 | --- | --- | --- | --- |
-| Hero (`.mega`) | `clamp(3.05rem, 1.15rem + 6.4vw, 7.6rem)` | 0,9 | 760 / 86%, −0,035 em |
+| Hero (`.mega`) | `clamp(3.05rem, 1.15rem + 6.4vw, 7.6rem)`, ale nie więcej niż `15.7cqi` (najszerszy wiersz mieści się w swojej kolumnie i nie wchodzi pod naklejki) | 0,9 | 760 / 86%, −0,035 em |
 | Tytuł podstrony | `clamp(2.7rem, 1.3rem + 4.8vw, 6rem)` | 0,94 | 760 / 84%, maks. 16 znaków szerokości |
 | H2 | `clamp(2.2rem, 1.25rem + 3.3vw, 4.4rem)` | 0,98 | 720 / 84%, −0,03 em |
 | H2 mały | `clamp(1.9rem, 1.2rem + 2.2vw, 3.1rem)` | | |

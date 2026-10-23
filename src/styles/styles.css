@@ -118,6 +118,9 @@ button{font:inherit;color:inherit}
 /* ── Typografia ── */
 .ac{font-family:var(--f-accent);font-style:italic;font-weight:400;font-size:1.04em;font-variation-settings:"SOFT" var(--soft,100);letter-spacing:-.012em;color:var(--link)}
 .mega{font-family:var(--f-display);font-weight:760;font-stretch:86%;font-size:clamp(3.05rem,1.15rem + 6.4vw,7.6rem);line-height:.9;letter-spacing:-.035em;text-wrap:balance}
+/* Wiersze hero się nie łamią, więc nagłówek nie może być szerszy niż jego kolumna (inaczej wchodzi pod naklejki).
+   15.7cqi = szerokość kolumny / 6,3: tyle zajmuje najszerszy wiersz („my ogarniemy” pogrubione kursorem do 680). */
+@supports (width:1cqi){.mega{font-size:min(clamp(3.05rem,1.15rem + 6.4vw,7.6rem),15.7cqi)}}
 .mega .ln{display:block;white-space:nowrap}
 .mega .ln:last-child{margin-bottom:.14em}
 @media (max-width:360px){.mega{font-size:2.55rem}}
@@ -245,7 +248,7 @@ html.locked{overflow:hidden}
 
 /* ── Hero ── */
 .hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(2rem,4vw,4.5rem);align-items:center;padding-top:clamp(2.2rem,1rem + 5vw,5.4rem);padding-bottom:clamp(3.6rem,2rem + 6vw,6.6rem)}
-.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:1.6rem;margin-left:1.4%}
+.hero-copy{display:flex;flex-direction:column;align-items:flex-start;gap:1.6rem;margin-left:1.4%;container-type:inline-size}
 .hero-lead{max-width:44ch}
 @media (max-width:899px){.hero{grid-template-columns:minmax(0,1fr)}.hero-copy{margin-left:0}}
 
