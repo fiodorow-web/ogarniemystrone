@@ -2,6 +2,23 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
+import { getCollection } from 'astro:content';
+
+// Realizacje z src/content/realizacje/*.md; liczniki filtrów liczą się same.
+const RODZAJE = {
+  wizytowka: { chip: 'Wizytówki', nazwa: 'wizytówka' },
+  podstrony: { chip: 'Kilka podstron', nazwa: 'kilka podstron' },
+  rezerwacje: { chip: 'Z&nbsp;rezerwacjami', nazwa: 'z rezerwacjami' },
+};
+const works = (await getCollection('realizacje')).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+const count = (rodzaj: string) => works.filter((w) => w.data.rodzaj === rodzaj).length;
+// Zastępcze miniatury, dopóki realizacja nie ma zrzutu ekranu
+const THUMBS = [
+  { cls: 'thumb', lines: ['w60', 'w40'] },
+  { cls: 'thumb th-alt', lines: ['w70', 'w50'] },
+  { cls: 'thumb th-alt2', lines: ['w50', 'w70'] },
+];
+const RV = ['rv', 'rv rv2', 'rv rv3'];
 ---
 <Base
   title="Realizacje – Ogarniemy Stronę"
@@ -17,25 +34,19 @@ import Loop from '../components/Loop.astro';
   <section class="sec sec-tight" aria-label="Lista realizacji">
     <div class="wrap">
       <div class="chips" role="group" aria-label="Filtruj realizacje" data-filter>
-        <button class="chip" type="button" aria-pressed="true" data-f="all">Wszystkie <span class="chip-n">3</span></button>
-        <button class="chip" type="button" aria-pressed="false" data-f="wizytowka">Wizytówki <span class="chip-n">2</span></button>
-        <button class="chip" type="button" aria-pressed="false" data-f="podstrony">Kilka podstron <span class="chip-n">1</span></button>
-        <button class="chip" type="button" aria-pressed="false" data-f="rezerwacje">Z&nbsp;rezerwacjami <span class="chip-n">0</span></button>
+        <button class="chip" type="button" aria-pressed="true" data-f="all">Wszystkie <span class="chip-n">{works.length}</span></button>
+{Object.entries(RODZAJE).map(([rodzaj, r]) => <Fragment>
+        <button class="chip" type="button" aria-pressed="false" data-f={rodzaj}><Fragment set:html={r.chip} /> <span class="chip-n">{count(rodzaj)}</span></button>
+</Fragment>)}
       </div>
       <p class="sr-only" role="status" data-filter-status></p>
       <div class="works" data-works>
-        <a class="work rv" href="/kontakt" data-cat="wizytowka">
-          <span class="thumb" aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class="th-l w60"></span><span class="th-l w40"></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
-          <span class="work-meta"><span class="work-t">[Nazwa firmy]</span><span class="work-s">[Miasto] · [branża] · wizytówka</span></span>
+{works.map(({ data: w }, i) => <Fragment>
+        <a class={`work ${RV[i % 3]}`} href={w.link} data-cat={w.rodzaj}>
+          <span class={THUMBS[i % 3].cls} aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class={`th-l ${THUMBS[i % 3].lines[0]}`}></span><span class={`th-l ${THUMBS[i % 3].lines[1]}`}></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
+          <span class="work-meta"><span class="work-t">{w.nazwa}</span><span class="work-s">{w.miasto} · {w.branza} · {RODZAJE[w.rodzaj].nazwa}</span></span>
         </a>
-        <a class="work rv rv2" href="/kontakt" data-cat="podstrony">
-          <span class="thumb th-alt" aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class="th-l w70"></span><span class="th-l w50"></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
-          <span class="work-meta"><span class="work-t">[Nazwa firmy]</span><span class="work-s">[Miasto] · [branża] · kilka podstron</span></span>
-        </a>
-        <a class="work rv rv3" href="/kontakt" data-cat="wizytowka">
-          <span class="thumb th-alt2" aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class="th-l w50"></span><span class="th-l w70"></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
-          <span class="work-meta"><span class="work-t">[Nazwa firmy]</span><span class="work-s">[Miasto] · [branża] · wizytówka</span></span>
-        </a>
+</Fragment>)}
       </div>
       <div class="empty" hidden data-empty>
         <svg class="empty-ill" viewBox="0 0 160 120" aria-hidden="true" focusable="false"><rect x="34" y="40" width="92" height="62" rx="10"/><path d="M34 52h92"/><path class="empty-lp" pathLength="1" d="M122 30C92 18 40 20 22 44 10 62 22 98 64 108 104 116 150 104 152 74 154 52 138 34 108 30"/></svg>
