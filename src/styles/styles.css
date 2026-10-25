@@ -675,9 +675,6 @@ html.locked{overflow:hidden}
 .rule-n{font-family:var(--f-accent);font-style:italic;font-weight:300;font-variation-settings:"SOFT" 100;font-size:4.2rem;line-height:.8;opacity:.9}
 .rule p{opacity:.88}
 @media (max-width:860px){.rules{grid-template-columns:minmax(0,1fr)}.rule:nth-child(2){margin-top:0}}
-.geo{display:flex;flex-direction:column;gap:1.2rem;margin-left:5%;max-width:60rem}
-.geo-c{display:inline-flex;align-items:center;gap:.7rem;font-weight:600;font-variant-numeric:tabular-nums;color:var(--muted);letter-spacing:.06em}
-@media (max-width:699px){.geo{margin-left:0}}
 
 /* Kontakt */
 .contact{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(2rem,4vw,4.5rem);align-items:start;padding-top:clamp(2.4rem,1.2rem + 5vw,5.6rem);padding-bottom:clamp(4rem,3rem + 4vw,6.6rem)}
