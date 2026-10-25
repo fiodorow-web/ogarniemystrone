@@ -142,8 +142,9 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - litery nagłówka reagują na kursor;
   - naklejki „bałagan” układają się po przewinięciu i po kliknięciu „Ogarnij ten bałagan”;
   - działają liczniki, „Zmień godziny”, „Sprawdź jeszcze raz” i animowane słowa;
+  - telefon w pierwszym kafelku: po wjechaniu w ekran rysuje się trasa i spada pinezka, „Otwarte teraz” zgadza się z zegarem, „Zadzwoń na próbę” (i „Zadzwoń” na ekranie telefonu) pokazuje ekran połączenia;
   - pod przyciskami w hero są trzy zapewnienia (bezpłatna rozmowa i wycena, najpierw projekt, odpowiedź do 24 h);
-  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki (bez dopisków o płatności, zob. „Decyzje”) → „od 999 zł” z ramką „Najpierw projekt, potem płatność” → „Częste pytania” → końcowe CTA z zapewnieniami (sekcja „Kto ogarnie Twoją stronę” jest tylko w O nas, zob. „Decyzje”).
+  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki (bez dopisków o płatności, zob. „Decyzje”) → „Strona już od 999 zł” (bez ramki o płatności, zob. „Decyzje”) → „Częste pytania” → końcowe CTA z zapewnieniami (sekcja „Kto ogarnie Twoją stronę” jest tylko w O nas, zob. „Decyzje”).
 - [ ] Między podstronami jest płynne przejście, a nagłówek się nie przeładowuje wizualnie.
 - [ ] Konfigurator na `/cennik#konfigurator`:
   - przewija się pod nagłówek;
@@ -187,12 +188,10 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - w Vercelu (Settings → Environment Variables, Production i Preview) zmienna `RESEND_API_KEY`. Opcjonalnie `FORMULARZ_DO` i `FORMULARZ_OD`, opis w `src/formularz/obsluga.js`;
    - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
-   - `[CENA]` pakietów Firma i Firma z rezerwacjami (`cennik`, także w `src/scripts/app.js` w konfiguratorze);
    - `[Zakres do ustalenia]`;
-   - `[NUMER TELEFONU]` (`src/site.js`; trafia do stopki i na stronę kontaktu);
    - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
    - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
-   - 1–2 zdania o każdym w `o-nas` (`[Dopisz 1–2 zdania o sobie…]`). Zdjęcia już są (`src/assets/zespol/`); większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
+   - zdjęcia zespołu w `o-nas` już są (`src/assets/zespol/`), opisy obu też; większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
 4. **Wdrożenie:**
@@ -220,6 +219,24 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: Tytuły i opisy z frazą „strony internetowe” (audyt SEO)
+- **Co:** podstrony mają tytuły z tematem zamiast samej nazwy sekcji, np. „Cennik stron internetowych od 999 zł – Ogarniemy Stronę”, „Tworzenie stron internetowych dla firm – Ogarniemy Stronę”. Tytuł strony głównej i polityki prywatności bez zmian. Opisy /oferta, /realizacje, /jak-pracujemy, /cennik i /kontakt poprawione (długość do 150 znaków, tylko zatwierdzone fakty).
+- **W treści:** lead strony głównej to zdanie z BRANDBOOK.md, sekcja 1: „Nowoczesne strony internetowe dla małych firm…”, a H1 cennika „Ile kosztuje strona internetowa?”. Lead jest przez to o linię dłuższy na 1440 i 390 px.
+- **Dlaczego:** audyt SEO (claude-seo 2.5.0) pokazał, że fraza „strona internetowa” nie występowała w treści ani w nagłówkach żadnej strony, a 7 z 8 tytułów miało tylko nazwę sekcji. Decyzja właścicieli.
+
+### 2026-10-25: Opis Mateusza w O nas wspomina fotografię
+- **Co:** w opisie Mateusza jest „W weekendy zamieniam klawiaturę na aparat i fotografuję różne eventy.”.
+- **Odejście od brandbooka** (sekcja 8: bez nawiązań do fotografii): świadoma decyzja Mateusza. To jego osobisty opis, a nie przekaz marki. Poza tym zdaniem zasada nadal obowiązuje.
+
+### 2026-10-25: Ceny, opieka i strona główna
+- **Ceny pakietów:** Wizytówka od 999 zł, Firma od 1 999 zł, Firma z rezerwacjami od 2 999 zł (cennik i konfigurator w `src/scripts/app.js`).
+- **Opieka po starcie:** 59 zł miesięcznie. W cenniku pod pakietami jest pasek „Opieka po starcie” i dopisek w FAQ „Kto dba o to, żeby strona działała?”. Opis opieki składa się tylko z tego, co strona już obiecywała (działa, jest bezpieczna, kopie zapasowe robimy my).
+- **„Odpowiedź do 24 h”** bez „w dni robocze”: w zapewnieniach, na kontakcie, na `/dziekujemy`, w mailach, w BRANDBOOK.md i SPRZEDAZ.md. Termin w zgłoszeniu do nas to teraz 24 h od wysłania, także w weekend (`terminOdpowiedzi` w `src/formularz/maile.js`).
+- **Sekcja „od 999 zł”** (strona główna i oferta, komponent `PriceFrom`): bez ramki „Najpierw projekt, potem płatność”. Na stronie głównej dopisek „Strona już od” i akapit o nowoczesnych stronach zgodnych ze standardami 2026 roku, z przemyślanym układem (UX) i treściami pod Google (SEO). Bez obietnic pozycji w Google (BRANDBOOK.md, sekcja 8).
+- **Kafel „Szybka nawet w terenie”:** „Dbamy o optymalizację strony i każdego zdjęcia, więc otwiera się szybko nawet przy słabym zasięgu.”
+- **Kafel „Wygodna na telefonie”:** zamiast szarych pasków telefon pokazuje mini stronę firmy: baner, przyciski Zadzwoń / Dojazd / Napisz, „Otwarte teraz” według zegara odwiedzającego, trasę na mapie i ekran próbnego połączenia.
+- **Dlaczego:** decyzja właścicieli.
 
 ### 2026-10-25: Realizacje bez filtrów
 - **Co:** na `/realizacje` nie ma już chipów „Wszystkie / Wizytówki / Kilka podstron / Z rezerwacjami” z licznikami ani pustego stanu „Tu jeszcze pusto.”. Kafle stoją od razu pod nagłówkiem. Przechylanie kafla za kursorem zostało.
@@ -289,7 +306,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ### 2026-10-25: Strona główna bez dopisków o płatności przy krokach
 - **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty po akceptacji projektu” i „Druga połowa po zrobieniu strony”.
 - **Dlaczego:** decyzja właścicieli.
-- **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatności są tylko w ramce „Najpierw projekt, potem płatność” w sekcji „od 999 zł”. Pigułki zostały w „Jak pracujemy” i w mailu z potwierdzeniem dla klienta.
+- **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatność jest tylko w zapewnieniu „Najpierw projekt, potem płatność” i w FAQ (ramka w sekcji „od 999 zł” też zniknęła, zob. „Ceny, opieka i strona główna”). Pigułki zostały w „Jak pracujemy” i w mailu z potwierdzeniem dla klienta.
 
 ### 2026-10-25: Zdjęcia zespołu
 - **Co:** w O nas są portrety Mateusza i Sebastiana od właścicieli (pliki w `src/assets/zespol/`, Astro robi z nich AVIF).

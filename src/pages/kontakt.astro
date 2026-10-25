@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE } from '../site.js';
+import { SITE, telHref } from '../site.js';
 import CopyEmail from '../components/CopyEmail.astro';
 import Assure from '../components/Assure.astro';
 import Crumbs from '../components/Crumbs.astro';
@@ -8,8 +8,8 @@ import Loop from '../components/Loop.astro';
 import Arrow from '../components/Arrow.astro';
 ---
 <Base
-  title="Kontakt – Ogarniemy Stronę"
-  description="Napisz kilka słów o swojej firmie, a odezwiemy się z propozycją terminu rozmowy. kontakt@ogarniemystrone.pl"
+  title="Kontakt: bezpłatna rozmowa i wycena strony – Ogarniemy Stronę"
+  description="Napisz kilka słów o swojej firmie. Odpiszemy do 24 h z propozycją terminu bezpłatnej rozmowy. kontakt@ogarniemystrone.pl"
   breadcrumb="Kontakt"
   footCta={false}
   preloadSerif={false}
@@ -18,18 +18,18 @@ import Arrow from '../components/Arrow.astro';
     <div class="contact-side">
       <Crumbs name="Kontakt" />
       <h1 id="h-kontakt" class="page-title">Napisz, a&nbsp;resztę <span class="loopw">ogarniemy<Loop class="lp lp-enter" hidden /></span> my.</h1>
-      <p class="lead">Napisz kilka słów o&nbsp;swojej firmie. Odpiszemy do 24&nbsp;h w&nbsp;dni robocze z&nbsp;propozycją terminu bezpłatnej rozmowy.</p>
+      <p class="lead">Napisz kilka słów o&nbsp;swojej firmie. Odpiszemy do 24&nbsp;h z&nbsp;propozycją terminu bezpłatnej rozmowy.</p>
       <ul class="c-list">
         <li>
           <span class="c-lab">E-mail</span>
           <CopyEmail />
         </li>
-        <li><span class="c-lab">Telefon</span><span>{SITE.telefon}</span></li>
+        <li><span class="c-lab">Telefon</span><span class="c-tel">{SITE.telefony.map((t) => <a class="tel" href={telHref(t)}>{t}</a>)}</span></li>
       </ul>
       <div class="next">
         <h2 class="next-h">Co będzie dalej</h2>
         <ol>
-          <li>Odpiszemy do 24&nbsp;h w&nbsp;dni robocze, żeby umówić rozmowę.</li>
+          <li>Odpiszemy do 24&nbsp;h, żeby umówić rozmowę.</li>
           <li>Porozmawiamy o&nbsp;Twojej firmie i&nbsp;stronie, a&nbsp;potem podamy wycenę. Jedno i&nbsp;drugie bezpłatnie.</li>
           <li>Przygotujemy projekt. Połowę płacisz dopiero po jego akceptacji.</li>
           <li>Zrobimy stronę według projektu. Drugą połowę płacisz po jej zrobieniu.</li>
@@ -87,7 +87,7 @@ import Arrow from '../components/Arrow.astro';
       <div class="sent" hidden data-sent tabindex="-1">
         <p class="sent-k"><span class="loopw">Dotarło<Loop class="lp lp-sent" hidden /></span></p>
         <h2 class="sent-h" data-sent-h>Dziękujemy.</h2>
-        <p>Odpiszemy do 24&nbsp;h w&nbsp;dni robocze, żeby umówić termin rozmowy.</p>
+        <p>Odpiszemy do 24&nbsp;h, żeby umówić termin rozmowy.</p>
         <button class="btn btn-s" type="button" data-sent-again>Napisz kolejną wiadomość</button>
       </div>
     </div>
