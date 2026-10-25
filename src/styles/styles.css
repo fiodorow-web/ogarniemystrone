@@ -430,6 +430,8 @@ html.locked{overflow:hidden}
 .say{max-width:24ch;margin-left:4%;font-family:var(--f-display);font-weight:700;font-stretch:88%;font-size:clamp(2.05rem,1.05rem + 3.4vw,4.6rem);line-height:1.04;letter-spacing:-.03em;text-wrap:balance}
 .js .say.split .wd{opacity:.16;font-stretch:76%;transition:opacity 380ms var(--e-out),font-stretch 600ms var(--e-out)}
 .js .say.split .wd.lit{opacity:1;font-stretch:88%}
+/* Pomiar podziału na wiersze przy pełnej szerokości słów (app.js wstawia potem <br class="say-br">) */
+.js .say.split.measure .wd{font-stretch:88%;transition:none}
 @media (max-width:699px){.say{margin-left:0}}
 
 /* ── Kroki (start) ── */

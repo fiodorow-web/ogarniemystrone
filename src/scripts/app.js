@@ -358,6 +358,33 @@
     });
     sayWords = $$('.wd', say);
     say.classList.add('split');
+
+    // Nierozjaśnione słowa są węższe (font-stretch), więc przy przewijaniu wiersze by się przełamywały.
+    // Podział liczymy raz dla pełnej szerokości i blokujemy go <br>-ami; liczymy od nowa przy zmianie szerokości.
+    var sayW = 0;
+    var lockLines = function () {
+      if (say.clientWidth === sayW) return;
+      sayW = say.clientWidth;
+      $$('br.say-br', say).forEach(function (br) { br.remove(); });
+      say.classList.add('measure');
+      var half = parseFloat(getComputedStyle(say).lineHeight) / 2 || 20;
+      var starts = [], top = null;
+      sayWords.forEach(function (w) {
+        var t = w.getBoundingClientRect().top;
+        if (top !== null && t > top + half) starts.push(w);
+        if (top === null || t > top + half) top = t;
+      });
+      say.classList.remove('measure');
+      starts.forEach(function (w) {
+        var br = d.createElement('br');
+        br.className = 'say-br';
+        w.parentNode.insertBefore(br, w);
+      });
+    };
+    lockLines();
+    if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { sayW = 0; lockLines(); });
+    var sayT = 0;
+    window.addEventListener('resize', function () { clearTimeout(sayT); sayT = setTimeout(lockLines, 120); });
   }
 
   /* ── Liczenie ceny ── */
