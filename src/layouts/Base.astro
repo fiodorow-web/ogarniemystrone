@@ -83,5 +83,11 @@ const breadcrumbLd = !schema && breadcrumb && url ? JSON.stringify({
 </main>
 
 <Footer current={current} cta={footCta} />
+<script>
+  // Statystyki odwiedzin bez ciasteczek (Vercel Web Analytics). Skrypt ładuje się z tej samej domeny (/_vercel/insights/)
+  // i liczy wejście po adresie z paska (/oferta), a nie po pliku (/oferta.html), więc bez komponentu @vercel/analytics/astro.
+  import { inject } from '@vercel/analytics';
+  inject({ framework: 'astro', basePath: import.meta.env.PUBLIC_VERCEL_OBSERVABILITY_BASEPATH }, import.meta.env.PUBLIC_VERCEL_OBSERVABILITY_CLIENT_CONFIG);
+</script>
 </body>
 </html>

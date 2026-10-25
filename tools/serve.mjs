@@ -42,6 +42,8 @@ http.createServer((req, res) => {
   const url = new URL(req.url, 'http://x');
   let p = decodeURIComponent(url.pathname);
   if (p === '/api/kontakt') return void formularz(req, res).catch((e) => { console.error(e); res.writeHead(500); res.end(); });
+  // Statystyki (Vercel Web Analytics) działają tylko na Vercelu; lokalnie pusty skrypt i ciche przyjęcie danych
+  if (p.startsWith('/_vercel/')) { res.writeHead(p.endsWith('.js') ? 200 : 204, { 'Content-Type': 'text/javascript' }); return res.end(); }
   const redirect = (to) => { res.writeHead(308, { Location: to + url.search }); res.end(); };
   if (p.endsWith('.html') && p !== '/404.html') return redirect(p.replace(/(index)?\.html$/, '').replace(/(.)\/$/, '$1') || '/');
   if (p.length > 1 && p.endsWith('/')) return redirect(p.replace(/\/+$/, '') || '/');
