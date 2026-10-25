@@ -2,13 +2,15 @@
 // - sitemap.xml ze wszystkich stron, które nie mają noindex,
 // - robots.txt,
 // - kontrola linków wewnętrznych i kotwic: zepsuty link zatrzymuje build,
-// - Content-Security-Policy w <meta> każdej strony.
+// - Content-Security-Policy w <meta> każdej strony,
+// - przy wdrożeniu produkcji: zgłoszenie zmienionych podstron przez IndexNow.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { zglosIndexNow } from './indexnow.mjs';
 
 // Pliki źródłowe strony: z nich bierze się data zmiany do <lastmod>
 const zrodla = (urlPath) => {
@@ -16,26 +18,39 @@ const zrodla = (urlPath) => {
   return [`src/pages/${nazwa}.astro`, ...(nazwa === 'realizacje' ? ['src/content/realizacje'] : [])];
 };
 
+// Zmiany w tych plikach dotyczą treści każdej strony
+const WSPOLNE = ['src/layouts/', 'src/components/', 'src/site.js'];
+
+const git = (root, ...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+
 // Data ostatniego commita, który zmienił pliki strony (RRRR-MM-DD), albo null, gdy jej nie znamy.
 // Vercel klonuje repozytorium płytko: commit na granicy klonu „dodaje” wszystkie pliki, więc jego data nic nie mówi.
 const dataZmiany = (root) => {
-  const git = (...args) => execFileSync('git', args, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
   let granica = new Set();
   try {
-    if (git('rev-parse', '--is-shallow-repository') === 'true') {
-      granica = new Set(fs.readFileSync(path.resolve(root, git('rev-parse', '--git-path', 'shallow')), 'utf8').split('\n').filter(Boolean));
+    if (git(root, 'rev-parse', '--is-shallow-repository') === 'true') {
+      granica = new Set(fs.readFileSync(path.resolve(root, git(root, 'rev-parse', '--git-path', 'shallow')), 'utf8').split('\n').filter(Boolean));
     }
   } catch {
     return () => null;
   }
   return (pliki) => {
     try {
-      const [sha, data] = git('log', '-1', '--format=%H %cs', '--', ...pliki).split(' ');
+      const [sha, data] = git(root, 'log', '-1', '--format=%H %cs', '--', ...pliki).split(' ');
       return sha && !granica.has(sha) ? data : null;
     } catch {
       return null;
     }
   };
+};
+
+// Pliki zmienione w ostatnim commicie (przy scaleniu preview na main: wszystko, co weszło ze scalenia), albo null
+const zmienionePliki = (root) => {
+  try {
+    return git(root, 'diff', '--name-only', 'HEAD^1', 'HEAD').split('\n').filter(Boolean);
+  } catch {
+    return null;
+  }
 };
 
 export default function poBuildzie() {
@@ -48,7 +63,7 @@ export default function poBuildzie() {
         site = String(config.site).replace(/\/$/, '');
         root = fileURLToPath(config.root);
       },
-      'astro:build:done': ({ dir, logger }) => {
+      'astro:build:done': async ({ dir, logger }) => {
         const DIST = fileURLToPath(dir);
         const errors = [];
 
@@ -115,6 +130,15 @@ export default function poBuildzie() {
             return `  <url><loc>${site}${p.urlPath}</loc>${data ? `<lastmod>${data}</lastmod>` : ''}</url>`;
           }).join('\n')}\n</urlset>\n`);
         fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`);
+
+        // ── IndexNow: tylko przy wdrożeniu produkcji na Vercelu, tylko podstrony, których pliki się zmieniły ──
+        if (process.env.VERCEL_ENV === 'production') {
+          const pliki = zmienionePliki(root) || [];
+          const urls = indexed
+            .filter((p) => pliki.some((f) => WSPOLNE.some((w) => f.startsWith(w)) || zrodla(p.urlPath).some((z) => f.startsWith(z))))
+            .map((p) => site + p.urlPath);
+          if (urls.length) await zglosIndexNow(site, urls, logger);
+        }
 
         let total = 0;
         const size = (d) => fs.readdirSync(d, { withFileTypes: true }).forEach((e) => (e.isDirectory() ? size(path.join(d, e.name)) : (total += fs.statSync(path.join(d, e.name)).size)));

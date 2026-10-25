@@ -39,11 +39,13 @@ api/kontakt.js             POST /api/kontakt: funkcja Vercela wołająca src/for
 src/styles/styles.css      wszystkie style; tokeny na górze pliku
 src/scripts/app.js         wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie (trafia do dist bez zmian)
 src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
-public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, logo.png (sygnet dla Google), stopka/
+public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, logo.png (sygnet dla Google), stopka/,
+                           dd24ff5e….txt (klucz IndexNow, musi zostać pod tym adresem)
 brand/                     logo i sygnet (SVG z krzywymi + PNG)
 astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, integracja po buildzie)
 tools/po-buildzie.mjs      po buildzie: sitemap.xml (lastmod z daty ostatniego commita pliku strony), robots.txt, kontrola linków i kotwic,
-                           Content-Security-Policy w <meta> każdej strony
+                           Content-Security-Policy w <meta> każdej strony, przy wdrożeniu produkcji zgłoszenie IndexNow
+tools/indexnow.mjs         IndexNow: klucz (plik public/<klucz>.txt) i wysyłka listy zmienionych podstron
 tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekierowania .html i ukośnika, 404, kompresja
 ```
 
@@ -223,6 +225,11 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: IndexNow dla Binga
+- **Co:** przy każdym wdrożeniu produkcji na Vercelu (`VERCEL_ENV=production`) build zgłasza przez IndexNow podstrony, których pliki zmieniły się w ostatnim commicie albo scaleniu. Zmiana w `src/layouts/`, `src/components/` albo `src/site.js` zgłasza wszystkie. Klucz jest w `tools/indexnow.mjs` i w `public/<klucz>.txt`.
+- **Dlaczego:** Bing (a przez niego Copilot i częściowo ChatGPT) indeksuje nowe domeny powoli; Google IndexNow nie używa.
+- **Bezpieczeństwo builda:** błąd sieci tylko ostrzega (limit 8 s), nigdy nie przerywa wdrożenia. Lokalne buildy i podglądy niczego nie zgłaszają. To zapytanie wysyła serwer budujący, a nie przeglądarka odwiedzającego, więc wymóg 5 (brak zewnętrznych żądań) zostaje spełniony.
 
 ### 2026-10-25: Content-Security-Policy
 - **Co:** CSP w `<meta>` każdej strony (generowana po buildzie, skróty skryptów liczone automatycznie) i nagłówki `frame-ancestors 'none'` oraz `X-Frame-Options: DENY` w `vercel.json`.
