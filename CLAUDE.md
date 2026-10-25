@@ -212,6 +212,15 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - filtr „Z rezerwacjami” w realizacjach.
 - **Powrót:** kafel, jego style i skrypt są w commicie, który go usunął.
 
+### 2026-10-25: Bez słowa „żargon”
+- **Co:**
+  - na stronie głównej „Cztery kroki, zero niespodzianek”;
+  - w O nas „Konkretnie i po ludzku”;
+  - w Jak pracujemy „Teksty piszemy prostym językiem, zrozumiałym dla Twoich klientów.”.
+- **Dlaczego:** właścicielom nie pasowało słowo „żargon”.
+
+<!-- Tu zapisuj ważne decyzje: wybór technologii, sposób wysyłki formularza, zmiany w brandbooku. Data, co, dlaczego. -->
+
 ### 2026-10-23: „Kto ogarnie Twoją stronę” tylko w O nas
 - **Co:** sekcja z Mateuszem i Sebastianem zniknęła ze strony głównej. Zespół jest na `/o-nas`, do której prowadzi menu.
 - **Dlaczego:** decyzja właścicieli.
