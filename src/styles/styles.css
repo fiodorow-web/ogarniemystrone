@@ -761,8 +761,8 @@ html.locked{overflow:hidden}
 /* ── Powrót na górę z pętlą postępu ── */
 .totop{position:fixed;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:44;display:grid;place-items:center;width:58px;height:58px;border:0;border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow-2);cursor:pointer;transition:transform var(--t3) var(--e-pop),opacity var(--t2)}
 .totop:hover{transform:translateY(-3px) rotate(-6deg)}
-.totop > svg{grid-area:1/1}
-.totop-ring{width:74px;height:44px;overflow:visible}
+/* Pętla jest szersza niż przycisk: pozycja absolutna, żeby nie rozpychała siatki i nie przesuwała strzałki w prawo */
+.totop-ring{position:absolute;left:50%;top:50%;width:74px;height:44px;margin:-22px 0 0 -37px;overflow:visible}
 .totop-ring path{fill:none;stroke:var(--loop);stroke-width:6;stroke-linecap:round;stroke-dasharray:1 1.1;stroke-dashoffset:calc(1.01 - var(--p,0) * 1.01)}
 @media (max-width:979px){.totop{display:none}}
 
