@@ -3,7 +3,6 @@
 # Zrzuty: komputer 1536 × 960, telefon 390 × 844 @2x, górna część strony głównej.
 # Strona w toku: link do podmiany na docelową domenę.
 nazwa: "W Dobrej Formie"
-miasto: "Węgrów"
 branza: "poradnia dietetyczna"
 rodzaj: podstrony
 kolejnosc: 4

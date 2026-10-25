@@ -819,8 +819,6 @@ html.locked{overflow:hidden}
 .hero-copy .assure{margin-top:-.5rem;max-width:34rem}
 .foot-cta .assure{color:rgba(255,255,255,.74);margin-top:-.6rem}
 .foot-cta .assure li::before{border-color:var(--lime)}
-.st-pay{align-self:flex-start;max-width:100%;padding:.34rem .8rem;border-radius:12px;background:var(--mint);color:var(--ink) !important;font-size:.875rem;font-weight:600;line-height:1.3;rotate:-1deg}
-.tl-body .st-pay{margin-top:-.2rem}
 .care{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem 1.4rem;margin-top:clamp(1.6rem,3vw,2.4rem);padding:1.25rem 1.6rem;border-radius:28px 18px 22px 16px;background:var(--mint)}
 .care-h{font-family:var(--f-display);font-weight:720;font-stretch:84%;font-size:clamp(1.35rem,1.15rem + .6vw,1.7rem);line-height:1.05;letter-spacing:-.02em}
 .care-p{color:var(--muted)}

@@ -42,7 +42,7 @@ const isExternal = (link: string) => /^https?:\/\//.test(link);
 ) : (
           <span class={THUMBS[i % 3].cls} aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class={`th-l ${THUMBS[i % 3].lines[0]}`}></span><span class={`th-l ${THUMBS[i % 3].lines[1]}`}></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
 )}
-          <span class="work-meta"><span class="work-t">{w.nazwa}{isExternal(w.link) && <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>}</span><span class="work-s">{[w.miasto, w.branza, RODZAJE[w.rodzaj]].filter(Boolean).join(' · ')}</span>{isExternal(w.link) && <span class="sr-only"> (otwiera się w nowej karcie)</span>}</span>
+          <span class="work-meta"><span class="work-t">{w.nazwa}{isExternal(w.link) && <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>}</span><span class="work-s">{[w.branza, RODZAJE[w.rodzaj]].join(' · ')}</span>{isExternal(w.link) && <span class="sr-only"> (otwiera się w nowej karcie)</span>}</span>
         </a>
 </Fragment>)}
       </div>

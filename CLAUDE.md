@@ -65,7 +65,7 @@ Jak dodać:
 - **podstronę:** plik w `src/pages/` z `<Base>`; do menu tylko zgodnie z `SPRZEDAZ.md` (zasada 11, najwyżej 5 pozycji). Sitemap uzupełnia się sam;
 - **realizację:** plik `.md` w `src/content/realizacje/`. Pola:
   - `nazwa`, `branza`, `rodzaj` (`wizytowka` | `podstrony` | `rezerwacje`), `kolejnosc`;
-  - opcjonalnie `miasto`, `link`, `zdjecie`, `zdjecieTelefon`.
+  - opcjonalnie `link`, `zdjecie`, `zdjecieTelefon` (bez miejscowości, zob. „Decyzje”).
 
   `rodzaj` trafia do opisu pod nazwą („kilka podstron”). Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
 
@@ -189,7 +189,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
    - `[Zakres do ustalenia]`;
-   - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
+   - czas realizacji: na razie nigdzie go nie podajemy (zob. „Decyzje”). Gdy właściciele go ustalą, wróci do FAQ w `cennik` i do `jak-pracujemy`;
    - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
    - zdjęcia zespołu w `o-nas` już są (`src/assets/zespol/`), opisy obu też; większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
@@ -228,6 +228,21 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ### 2026-10-25: Opis Mateusza w O nas wspomina fotografię
 - **Co:** w opisie Mateusza jest „W weekendy zamieniam klawiaturę na aparat i fotografuję różne eventy.”.
 - **Odejście od brandbooka** (sekcja 8: bez nawiązań do fotografii): świadoma decyzja Mateusza. To jego osobisty opis, a nie przekaz marki. Poza tym zdaniem zasada nadal obowiązuje.
+
+### 2026-10-25: Oferta od środka, Jak pracujemy i O nas
+- **Oferta:** nowa sekcja „Liczy się też to, czego nie widać” (przed „od 999 zł”): wygląd to nie wszystko, liczy się też budowa strony od środka, którą Google bierze pod uwagę. Bez obietnicy pozycji w Google. Trzy karty: strony pisane w kodzie (domyślnie), WordPress dla łatwego zarządzania, sklep internetowy (WooCommerce, Shoper, Shopify; zakres i cena indywidualnie). Sklep jest wspomniany tylko tutaj.
+- **Jak pracujemy:**
+  - bez pigułek o płatności przy krokach i bez zdania „Przy każdym widzisz, co robisz Ty, a co my.”;
+  - w kroku „Treści” klient może przysłać swoje materiały albo zostawić wszystko nam;
+  - zamiast „Ile to trwa?” jest sekcja „Masz już stronę?” (odświeżenie starej strony z jej treściami).
+- **Czas realizacji:** na razie usunięty (sekcja w Jak pracujemy i pytanie w FAQ cennika), bo właściciele go jeszcze nie znają.
+- **Realizacje:** bez miejscowości (pole `miasto` usunięte ze schematu i plików).
+- **O nas:**
+  - wstęp mówi, że jesteśmy młodzi i cały czas się rozwijamy (umiejętności, kolejne technologie);
+  - zasada 1 to tłumaczenie wszystkiego prosto;
+  - zasada 2 „Mało Twojego czasu” zastąpiła „Lekko i szybko” (szybkość dalej jest na stronie głównej i w ofercie).
+- **Odejście od `SPRZEDAZ.md`, zasada 8:** fakty o płatności zostają w zapewnieniach, w pasku i FAQ cennika oraz w FAQ strony głównej, ale już nie przy krokach w Jak pracujemy.
+- **Dlaczego:** decyzja właścicieli.
 
 ### 2026-10-25: Ceny, opieka i strona główna
 - **Ceny pakietów:** Wizytówka od 999 zł, Firma od 1 999 zł, Firma z rezerwacjami od 2 999 zł (cennik i konfigurator w `src/scripts/app.js`).
@@ -306,7 +321,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ### 2026-10-25: Strona główna bez dopisków o płatności przy krokach
 - **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty po akceptacji projektu” i „Druga połowa po zrobieniu strony”.
 - **Dlaczego:** decyzja właścicieli.
-- **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatność jest tylko w zapewnieniu „Najpierw projekt, potem płatność” i w FAQ (ramka w sekcji „od 999 zł” też zniknęła, zob. „Ceny, opieka i strona główna”). Pigułki zostały w „Jak pracujemy” i w mailu z potwierdzeniem dla klienta.
+- **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatność jest tylko w zapewnieniu „Najpierw projekt, potem płatność” i w FAQ (ramka w sekcji „od 999 zł” też zniknęła, zob. „Ceny, opieka i strona główna”). Pigułki zostały tylko w mailu z potwierdzeniem dla klienta (z „Jak pracujemy” też zniknęły, zob. „Oferta od środka, Jak pracujemy i O nas”).
 
 ### 2026-10-25: Zdjęcia zespołu
 - **Co:** w O nas są portrety Mateusza i Sebastiana od właścicieli (pliki w `src/assets/zespol/`, Astro robi z nich AVIF).
