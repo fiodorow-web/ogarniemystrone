@@ -201,7 +201,16 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Decyzje
 
-<!-- Tu zapisuj ważne decyzje: wybór technologii, sposób wysyłki formularza, zmiany w brandbooku. Data, co, dlaczego. -->
+### 2026-10-25: Na razie bez kafla „Rezerwacje online”
+- **Co:** ze strony głównej zniknął kafel „04 · rezerwacje” z przykładowymi terminami. Zostało 5 kafli: dolny rząd to „Szybka nawet w terenie” i „Kopie zapasowe robimy my” (5 + 7 kolumn).
+- **Dlaczego:** decyzja właścicieli, na razie nie pokazujemy rezerwacji online.
+- **Gdzie rezerwacje jeszcze są** (bez zmian, czekają na decyzję):
+  - pakiet „Firma z rezerwacjami” w cenniku;
+  - pytanie o rezerwacje w konfiguratorze;
+  - dodatek w ofercie;
+  - temat „Rezerwacje online” w formularzu;
+  - filtr „Z rezerwacjami” w realizacjach.
+- **Powrót:** kafel, jego style i skrypt są w commicie, który go usunął.
 
 ### 2026-10-23: „Kto ogarnie Twoją stronę” tylko w O nas
 - **Co:** sekcja z Mateuszem i Sebastianem zniknęła ze strony głównej. Zespół jest na `/o-nas`, do której prowadzi menu.

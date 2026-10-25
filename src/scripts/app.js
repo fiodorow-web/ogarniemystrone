@@ -281,17 +281,6 @@
     });
   }
 
-  var slotsBox = $('[data-slots]');
-  if (slotsBox) {
-    var slotOut = $('[data-slot-out]');
-    $$('.slot', slotsBox).forEach(function (s) {
-      s.addEventListener('click', function () {
-        $$('.slot', slotsBox).forEach(function (o) { o.setAttribute('aria-pressed', o === s ? 'true' : 'false'); });
-        slotOut.textContent = 'Wybrany termin: ' + s.textContent + '. Tak klient rezerwuje wizytę bez dzwonienia.';
-      });
-    });
-  }
-
   var speed = $('[data-speed]');
   function runSpeed() {
     speed.classList.remove('run', 'done');

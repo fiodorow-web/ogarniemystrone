@@ -340,9 +340,9 @@ html.locked{overflow:hidden}
 .t1{grid-column:1/8;grid-row:span 2;flex-direction:row;justify-content:space-between;align-items:stretch;gap:1.25rem}
 .t2{grid-column:8/13}
 .t3{grid-column:8/13}
-.t4{grid-column:1/5}
-.t5{grid-column:5/9}
-.t6{grid-column:9/13}
+/* Kafel t4 (rezerwacje online) zdjęty na razie, zob. „Decyzje” w CLAUDE.md */
+.t5{grid-column:1/6}
+.t6{grid-column:6/13}
 .tile-txt{display:flex;flex-direction:column;justify-content:flex-end;gap:.85rem;max-width:22rem;padding-bottom:.4rem}
 .t1 .tile-h{font-size:clamp(2.2rem,1.4rem + 2.4vw,3.6rem)}
 
@@ -381,13 +381,6 @@ html.locked{overflow:hidden}
 @keyframes flip{0%{transform:rotateX(0)}45%{transform:rotateX(90deg);opacity:.2}100%{transform:rotateX(0)}}
 .hours .btn{margin-top:10px;align-self:flex-start}
 
-/* Terminy */
-.slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
-.slot{min-height:44px;border-radius:10px;border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.1);color:#ffffff;font-weight:600;font-size:.88rem;font-variant-numeric:tabular-nums;cursor:pointer;transition:transform var(--t2) var(--e-pop),background-color var(--t1)}
-.slot:hover{transform:translateY(-2px);background:rgba(255,255,255,.18)}
-.slot[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:#111714;transform:scale(1.04)}
-.slot[aria-pressed="true"]::before{content:"✓ "}
-
 /* Szybkość */
 .speed{display:flex;align-items:center;gap:12px;min-height:44px}
 .sig{display:flex;align-items:flex-end;gap:3px;height:20px}
@@ -418,8 +411,7 @@ html.locked{overflow:hidden}
 @media (max-width:1099px) and (min-width:700px){
   .bento{grid-template-columns:repeat(2,minmax(0,1fr))}
   .t1{grid-column:1/-1;grid-row:auto;min-height:380px}
-  .t2,.t3,.t4,.t5{grid-column:auto}
-  .t6{grid-column:1/-1}
+  .t2,.t3,.t5,.t6{grid-column:auto}
 }
 /* Telefon: kafelki jako przewijany pasek z licznikiem */
 @media (max-width:699px){
