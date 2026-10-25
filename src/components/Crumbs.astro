@@ -1,8 +1,9 @@
 ---
-// Ścieżka „Start / {name}” nad tytułem podstrony.
+// Ścieżka „Start / {name}” nad tytułem podstrony; z parent: „Start / {parent} / {name}”.
 interface Props {
   name: string;
+  parent?: { name: string; path: string };
 }
-const { name } = Astro.props;
+const { name, parent } = Astro.props;
 ---
-<nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span><span aria-current="page">{name}</span></nav>
+<nav class="crumbs" aria-label="Ścieżka"><a href="/">Start</a><span aria-hidden="true">/</span>{parent && <Fragment><a href={parent.path}>{parent.name}</a><span aria-hidden="true">/</span></Fragment>}<span aria-current="page">{name}</span></nav>

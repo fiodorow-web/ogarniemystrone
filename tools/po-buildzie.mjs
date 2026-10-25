@@ -15,7 +15,9 @@ import { zglosIndexNow } from './indexnow.mjs';
 // Pliki źródłowe strony: z nich bierze się data zmiany do <lastmod>
 const zrodla = (urlPath) => {
   const nazwa = urlPath === '/' ? 'index' : urlPath.slice(1);
-  return [`src/pages/${nazwa}.astro`, ...(nazwa === 'realizacje' ? ['src/content/realizacje'] : [])];
+  if (nazwa.startsWith('blog/')) return [`src/content/${nazwa}.md`];
+  const tresci = { realizacje: ['src/content/realizacje'], blog: ['src/content/blog'] }[nazwa] ?? [];
+  return [`src/pages/${nazwa}.astro`, ...tresci];
 };
 
 // Zmiany w tych plikach dotyczą treści każdej strony

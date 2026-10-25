@@ -32,6 +32,7 @@ src/layouts/Base.astro     <head> (meta, canonical, OG, Twitter, JSON-LD, preloa
 src/components/            Header, Footer (z sekcją „Napisz. Resztę ogarniemy my.”), Loop (pętla), Arrow, Assure (zapewnienia),
                            Crumbs (ścieżka), Faq, CopyEmail, PriceFrom (sekcja „od 999 zł”)
 src/content/realizacje/    realizacje: jeden plik .md na realizację; pola opisane w src/content.config.ts
+src/content/blog/          wpisy na blogu: jeden plik .md na wpis, adres /blog/{nazwa pliku}; lista na /blog (src/pages/blog.astro)
 src/site.js                dane firmy w jednym miejscu (e-mail, telefon, domena) i JSON-LD strony głównej
 src/formularz/             formularz po stronie serwera: obsluga.js (sprawdzanie, ochrona przed spamem, wysyłka przez Resend),
                            maile.js (zgłoszenie do nas i potwierdzenie dla klienta)
@@ -46,6 +47,7 @@ astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, int
 tools/po-buildzie.mjs      po buildzie: sitemap.xml (lastmod z daty ostatniego commita pliku strony), robots.txt, kontrola linków i kotwic,
                            Content-Security-Policy w <meta> każdej strony, przy wdrożeniu produkcji zgłoszenie IndexNow
 tools/indexnow.mjs         IndexNow: klucz (plik public/<klucz>.txt) i wysyłka listy zmienionych podstron
+tools/twarde-spacje.mjs    twarde spacje w treściach z Markdowna (tytuł, zajawka i treść wpisu)
 tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekierowania .html i ukośnika, 404, kompresja
 ```
 
@@ -79,7 +81,11 @@ Jak dodać:
   - oba z górnej części strony głównej, z odrzuconym banerem cookies.
 
   Astro robi z nich AVIF w kilku rozmiarach. Kafel pokazuje stronę na komputerze, a na pierwszym planie tę samą stronę w ramce telefonu;
-- **blog:** kolekcja `blog` w `src/content.config.ts` i strony w `src/pages/blog/`, przy pierwszym wpisie.
+- **wpis na blogu:** plik `.md` w `src/content/blog/` (nazwa pliku = adres, np. `ile-kosztuje-strona-internetowa.md` → `/blog/ile-kosztuje-strona-internetowa`). Pola: `tytul`, `opis` (meta description, do ok. 155 znaków), `zajawka`, `data`, opcjonalnie `aktualizacja` (tylko przy istotnej zmianie treści). Lista, „Czytaj dalej”, sitemap, okruszki i dane BlogPosting robią się same, a twarde spacje wstawia `tools/twarde-spacje.mjs`. Zasady treści:
+  - piszemy według brandbooka (sekcja 8): na „Ty”, prosto, bez obietnic pozycji w Google;
+  - żadnych wymyślonych liczb ani opinii. Każde twierdzenie z zewnątrz ma link do źródła (Google, web.dev, Nielsen Norman Group, dokumentacja producenta);
+  - ceny i fakty o współpracy tylko w zatwierdzonym brzmieniu;
+  - wpisy linkują do cennika, oferty, kontaktu i do siebie nawzajem.
 
 Przydatne szczegóły:
 - `compressHTML: false` w `astro.config.mjs` musi zostać. Astro 7 domyślnie zwija białe znaki i usunąłby celowe spacje między elementami w tekstach.
@@ -252,6 +258,13 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ### 2026-10-25: Opis Mateusza w O nas wspomina fotografię
 - **Co:** w opisie Mateusza jest „W weekendy zamieniam klawiaturę na aparat i fotografuję różne eventy.”.
 - **Odejście od brandbooka** (sekcja 8: bez nawiązań do fotografii): świadoma decyzja Mateusza. To jego osobisty opis, a nie przekaz marki. Poza tym zdaniem zasada nadal obowiązuje.
+
+### 2026-10-25: Blog
+- **Co:** `/blog` (lista) i `/blog/{wpis}`. Pierwsze wpisy: „Ile kosztuje strona internetowa dla małej firmy w 2026 roku?”, „Co powinna mieć strona wizytówka małej firmy?”, „Strona w kodzie czy WordPress?”.
+- **Menu:** blog nie wchodzi do menu (zasada 11 z `SPRZEDAZ.md`, najwyżej 5 pozycji). Link „Blog” jest na końcu menu w stopce, po „Kontakt”.
+- **Pisane według** zasad skilla claude-blog (AgriciDaniel/claude-blog): odpowiedź na początku, poprawna hierarchia nagłówków, zero wymyślonych statystyk, źródła przy twierdzeniach, linki wewnętrzne, dane BlogPosting. Skill nie jest zainstalowany w projekcie.
+- **Bez zdjęć:** wpisy nie mają okładek, bo brandbook (sekcja 9) i „Zasady pracy” wykluczają zdjęcia stockowe. Właściciele pytali o Unsplash, decyzja czeka.
+- **Dlaczego:** decyzja właścicieli, lepsza widoczność w Google na pytania małych firm.
 
 ### 2026-10-25: Oferta od środka, Jak pracujemy i O nas
 - **Oferta:** nowa sekcja „Liczy się też to, czego nie widać” (przed „od 999 zł”): wygląd to nie wszystko, liczy się też budowa strony od środka, którą Google bierze pod uwagę. Bez obietnicy pozycji w Google. Trzy karty: strony pisane w kodzie (domyślnie), WordPress dla łatwego zarządzania, sklep internetowy (WooCommerce, Shoper, Shopify; zakres i cena indywidualnie). Sklep jest wspomniany tylko tutaj.

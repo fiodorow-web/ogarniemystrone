@@ -15,10 +15,12 @@ interface Props {
   description: string;
   /** Nazwa w okruszkach JSON-LD (BreadcrumbList). */
   breadcrumb?: string;
+  /** Poziom pośredni okruszków, np. { name: 'Blog', path: '/blog' }. */
+  breadcrumbParent?: { name: string; path: string };
   ogTitle?: string;
   /** 'home': dane strukturalne ProfessionalService. */
   schema?: 'home';
-  /** Dodatkowe dane strukturalne (JSON-LD) obok okruszków, np. osoby na /o-nas. */
+  /** Dodatkowe dane strukturalne (JSON-LD) obok okruszków, np. osoby na /o-nas, BlogPosting we wpisie. */
   ld?: object;
   /** false: bez sekcji „Napisz. Resztę ogarniemy my.” */
   footCta?: boolean;
@@ -27,7 +29,7 @@ interface Props {
   /** false: noindex, bez canonical i bez sitemap. */
   index?: boolean;
 }
-const { title, description, breadcrumb, ogTitle, schema, ld, footCta = true, preloadSerif = true, index = true } = Astro.props;
+const { title, description, breadcrumb, breadcrumbParent, ogTitle, schema, ld, footCta = true, preloadSerif = true, index = true } = Astro.props;
 
 const slug = Astro.url.pathname.replace(/^\/|\.html$|\/$/g, '') || 'index';
 const isPage = slug !== '404' && index;
@@ -38,9 +40,10 @@ const breadcrumbLd = !schema && breadcrumb && url ? JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Start', item: `${SITE.domain}/` },
-    { '@type': 'ListItem', position: 2, name: breadcrumb, item: url },
-  ],
+    { name: 'Start', item: `${SITE.domain}/` },
+    ...(breadcrumbParent ? [{ name: breadcrumbParent.name, item: SITE.domain + breadcrumbParent.path }] : []),
+    { name: breadcrumb, item: url },
+  ].map((el, i) => ({ '@type': 'ListItem', position: i + 1, ...el })),
 }) : null;
 ---
 <!doctype html>

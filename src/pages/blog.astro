@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Crumbs from '../components/Crumbs.astro';
+import Loop from '../components/Loop.astro';
+import PostCard from '../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+// Wpisy z src/content/blog/*.md, najnowsze pierwsze.
+const wpisy = (await getCollection('blog')).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+---
+<Base
+  title="Blog o stronach internetowych dla małych firm – Ogarniemy Stronę"
+  description="Poradniki o stronach internetowych dla małych firm: ile kosztuje strona, co powinna zawierać, strona w kodzie czy WordPress. Konkretnie i po ludzku."
+  breadcrumb="Blog"
+>
+  <header class="wrap page-head">
+    <Crumbs name="Blog" />
+    <h1 id="h-blog" class="page-title">Blog o&nbsp;<span class="loopw">stronach<Loop class="lp lp-enter" hidden /></span></h1>
+    <p class="lead">Konkretnie i&nbsp;po ludzku o&nbsp;stronach internetowych dla małych firm: ile kosztują, co powinny mieć i&nbsp;jak je wybrać.</p>
+  </header>
+
+  <section class="sec sec-tight" aria-label="Wpisy">
+    <div class="wrap">
+      <ul class="posts">
+{wpisy.map((wpis, i) => <PostCard wpis={wpis} class={['rv', 'rv rv2', 'rv rv3'][i % 3]} />)}
+      </ul>
+    </div>
+  </section>
+</Base>

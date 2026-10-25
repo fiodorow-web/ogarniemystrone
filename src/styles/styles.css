@@ -609,6 +609,36 @@ html.locked{overflow:hidden}
 .work-s{font-size:.92rem;color:var(--muted)}
 @media (max-width:700px){.works{grid-template-columns:minmax(0,1fr)}}
 
+/* Blog: lista wpisów i treść wpisu */
+.posts{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:14px}
+.posts-more{margin-top:clamp(1.6rem,1.2rem + 1.4vw,2.6rem)}
+.post-card a{display:flex;flex-direction:column;gap:.7rem;height:100%;padding:1.5rem 1.5rem 1.1rem;border-radius:var(--r-l);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none;transition:transform var(--t3) var(--e-pop),box-shadow var(--t3) var(--e-out)}
+.post-card a:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:var(--shadow-2),inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none}
+.post-card time{font-size:.9rem;color:var(--muted)}
+.post-card-t{font-family:var(--f-display);font-weight:720;font-stretch:86%;font-size:clamp(1.45rem,1.2rem + .8vw,1.9rem);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
+.post-card p{color:var(--muted)}
+.post-card .more{margin-top:auto}
+.post-card a:hover .arr{transform:translateX(5px) rotate(-10deg)}
+.post-title{font-family:var(--f-display);font-weight:760;font-stretch:84%;font-size:clamp(2.2rem,1.4rem + 3vw,4.4rem);line-height:.98;letter-spacing:-.03em;text-wrap:balance;max-width:22ch}
+.post-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .6rem;font-size:.95rem;color:var(--muted)}
+.post-meta a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
+.post-body{padding-bottom:clamp(3.9rem,2.6rem + 4.6vw,6.7rem)}
+@media (min-width:1024px){.post-body .post-text{margin-left:1.6%}}
+.post-text{max-width:68ch}
+.post-text > * + *{margin-top:1.1rem}
+.post-text h2{font-family:var(--f-display);font-weight:720;font-stretch:84%;font-size:clamp(1.65rem,1.25rem + 1.2vw,2.3rem);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;margin-top:2.6rem}
+.post-text h3{font-family:var(--f-display);font-weight:700;font-stretch:90%;font-size:1.35rem;line-height:1.15;margin-top:1.8rem}
+.post-text ul,.post-text ol{padding-left:1.3rem}
+.post-text li + li{margin-top:.45rem}
+.post-text li::marker{color:var(--loop);font-weight:700}
+.post-text a{color:var(--link);text-decoration:underline;text-underline-offset:.16em}
+.post-text strong{font-weight:700}
+.post-text table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:.95rem}
+.post-text th,.post-text td{padding:.7rem 1.1rem .7rem 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.post-text th{font-weight:700;border-bottom-color:var(--line-strong)}
+@media (max-width:560px){.post-text table{font-size:.85rem}.post-text th,.post-text td{padding-right:.7rem}}
+.post-text blockquote{margin:1.6rem 0 0;padding:1.1rem 1.3rem;border-radius:28px 18px 22px 16px;background:var(--mint)}
+
 /* Cennik */
 .pkgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
 .pkg{position:relative;display:flex;flex-direction:column;gap:1rem;padding:2rem 1.6rem 1.7rem;border-radius:var(--r-l);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);transition:transform var(--t3) var(--e-pop),box-shadow var(--t3)}

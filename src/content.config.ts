@@ -20,4 +20,20 @@ const realizacje = defineCollection({
   }),
 });
 
-export const collections = { realizacje };
+// Wpisy na blogu: src/content/blog/*.md, adres /blog/{nazwa pliku}.
+const blog = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+  schema: z.object({
+    /** Tytuł wpisu: <h1> i <title>. */
+    tytul: z.string(),
+    /** Opis dla Google i do udostępniania (meta description), do ok. 155 znaków. */
+    opis: z.string(),
+    /** Jedno lub dwa zdania pod tytułem i na liście wpisów. */
+    zajawka: z.string(),
+    data: z.coerce.date(),
+    /** Tylko przy istotnej zmianie treści, nie dla odświeżenia daty. */
+    aktualizacja: z.coerce.date().optional(),
+  }),
+});
+
+export const collections = { realizacje, blog };

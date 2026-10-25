@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Crumbs from '../../components/Crumbs.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getCollection } from 'astro:content';
+import { SITE, LD_ID, LD_FIRMA } from '../../site.js';
+import { twarde, twardeHtml } from '../../../tools/twarde-spacje.mjs';
+
+// Wpis z src/content/blog/{slug}.md pod adresem /blog/{slug}.
+export async function getStaticPaths() {
+  const wpisy = await getCollection('blog');
+  return wpisy.map((wpis) => ({ params: { slug: wpis.id }, props: { wpis } }));
+}
+const { wpis } = Astro.props;
+// Treść wpisu jako gotowy HTML z Markdowna, z twardymi spacjami (tools/twarde-spacje.mjs)
+const tresc = twardeHtml(wpis.rendered?.html ?? '');
+const w = wpis.data;
+const dataPL = (d: Date) => new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Warsaw' }).format(d);
+const iso = (d: Date) => d.toISOString().slice(0, 10);
+// Czas czytania: ok. 200 słów na minutę
+const minuty = Math.max(1, Math.round((wpis.body ?? '').split(/\s+/).length / 200));
+const inne = (await getCollection('blog')).filter((x) => x.id !== wpis.id).sort((a, b) => b.data.data.getTime() - a.data.data.getTime()).slice(0, 2);
+
+const url = `${SITE.domain}/blog/${wpis.id}`;
+// Autorzy i firma przez te same @id co na stronie głównej i w O nas (src/site.js)
+const AUTORZY = [[LD_ID.mateusz, 'Mateusz Fiodorow'], [LD_ID.sebastian, 'Sebastian Herman']].map(([id, name]) => ({ '@type': 'Person', '@id': id, name, url: `${SITE.domain}/o-nas` }));
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: w.tytul,
+  description: w.opis,
+  datePublished: iso(w.data),
+  dateModified: iso(w.aktualizacja ?? w.data),
+  inLanguage: 'pl-PL',
+  mainEntityOfPage: url,
+  image: `${SITE.domain}/og.png`,
+  author: AUTORZY,
+  publisher: LD_FIRMA,
+  isPartOf: { '@id': LD_ID.witryna },
+};
+---
+<Base
+  title={`${w.tytul} – Ogarniemy Stronę`}
+  description={w.opis}
+  breadcrumb={w.tytul}
+  breadcrumbParent={{ name: 'Blog', path: '/blog' }}
+  ld={ld}
+>
+  <article>
+    <header class="wrap page-head">
+      <Crumbs name={w.tytul} parent={{ name: 'Blog', path: '/blog' }} />
+      <h1 class="post-title">{twarde(w.tytul)}</h1>
+      <p class="lead">{twarde(w.zajawka)}</p>
+      <p class="post-meta"><a href="/o-nas">Mateusz Fiodorow i&nbsp;Sebastian Herman</a><span aria-hidden="true">·</span><time datetime={iso(w.data)}>{dataPL(w.data)}</time>{w.aktualizacja && <Fragment><span aria-hidden="true">·</span><span>aktualizacja: <time datetime={iso(w.aktualizacja)}>{dataPL(w.aktualizacja)}</time></span></Fragment>}<span aria-hidden="true">·</span><span>{minuty} min czytania</span></p>
+    </header>
+    <div class="wrap post-body">
+      <div class="post-text">
+        <Fragment set:html={tresc} />
+      </div>
+    </div>
+  </article>
+
+{inne.length > 0 && (
+  <section class="sec sec-alt" aria-labelledby="h-dalej">
+    <div class="wrap">
+      <h2 id="h-dalej" class="h2 h2-s kin rv">Czytaj dalej</h2>
+      <ul class="posts posts-more">
+{inne.map((x, i) => <PostCard wpis={x} h="h3" class={['rv', 'rv rv2'][i % 2]} />)}
+      </ul>
+    </div>
+  </section>
+)}
+</Base>
