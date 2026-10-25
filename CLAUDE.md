@@ -42,7 +42,8 @@ src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycię
 public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, logo.png (sygnet dla Google), stopka/
 brand/                     logo i sygnet (SVG z krzywymi + PNG)
 astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, integracja po buildzie)
-tools/po-buildzie.mjs      po buildzie: sitemap.xml (lastmod z daty ostatniego commita pliku strony), robots.txt, kontrola linków i kotwic
+tools/po-buildzie.mjs      po buildzie: sitemap.xml (lastmod z daty ostatniego commita pliku strony), robots.txt, kontrola linków i kotwic,
+                           Content-Security-Policy w <meta> każdej strony
 tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekierowania .html i ukośnika, 404, kompresja
 ```
 
@@ -82,6 +83,7 @@ Przydatne szczegóły:
 - `compressHTML: false` w `astro.config.mjs` musi zostać. Astro 7 domyślnie zwija białe znaki i usunąłby celowe spacje między elementami w tekstach.
 - Tekst z twardymi spacjami przekazywany do komponentu w atrybucie (np. `<Faq q="Czy działacie w&nbsp;całej Polsce?">`) jest wstawiany jako HTML.
 - Listy z `.map()` w `.astro` nie mają białych znaków między elementami. To nie ma znaczenia w kontenerach flex/grid i blokowych, ale w tekście ciągłym trzeba je dodać.
+- **Content-Security-Policy:** `tools/po-buildzie.mjs` wpisuje do każdej strony `<meta http-equiv="Content-Security-Policy">`. Skrypty wpisane w HTML dostają skrót SHA-256 automatycznie przy buildzie. Wszystko inne musi pochodzić z tej samej domeny: zewnętrzny skrypt, obrazek albo font zostanie zablokowany (to zgodne z wymogiem 5). Zakaz osadzania strony w ramce (`frame-ancestors 'none'`, `X-Frame-Options: DENY`) jest w nagłówkach w `vercel.json`, bo w `<meta>` nie działa. Lokalny podgląd tych nagłówków nie ustawia.
 - `<body data-page="…">` ma nazwę pliku. Skrypt sprawdza tylko `kontakt` (dok na telefonie ukrywa tam przycisk CTA).
 - `app.js` korzysta z kluczy przeglądarki:
   - `localStorage`: `os-motyw` (motyw), `os-szkic` (wersja robocza formularza), `os-lista` (lista „Co warto mieć pod ręką”);
@@ -221,6 +223,12 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: Content-Security-Policy
+- **Co:** CSP w `<meta>` każdej strony (generowana po buildzie, skróty skryptów liczone automatycznie) i nagłówki `frame-ancestors 'none'` oraz `X-Frame-Options: DENY` w `vercel.json`.
+- **Dlaczego:** audyt SEO (sekcja techniczna): bez ochrony przed ramką formularz kontaktowy dało się osadzić na obcej stronie (clickjacking). CSP blokuje też wstrzyknięte i obce skrypty.
+- **Test przed wdrożeniem:** wszystkie strony i interakcje (motyw, menu, FAQ, konfigurator, formularz, kopiowanie, kafle) bez naruszeń; wstrzyknięty i obcy skrypt są blokowane.
+- **Uwaga:** na podglądach Vercela pasek narzędzi Vercela (vercel.live) może być blokowany. Na produkcji go nie ma.
 
 ### 2026-10-25: Poprawki dostępności przeniesionych ze wzorca
 - **Co:** trzy błędy wzorca HTML poprawione na prośbę właścicieli („rób co trzeba” po audycie SEO):

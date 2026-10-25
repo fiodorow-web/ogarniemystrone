@@ -1,10 +1,12 @@
 // Integracja Astro uruchamiana po zbudowaniu dist/:
 // - sitemap.xml ze wszystkich stron, które nie mają noindex,
 // - robots.txt,
-// - kontrola linków wewnętrznych i kotwic: zepsuty link zatrzymuje build.
+// - kontrola linków wewnętrznych i kotwic: zepsuty link zatrzymuje build,
+// - Content-Security-Policy w <meta> każdej strony.
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -82,6 +84,26 @@ export default function poBuildzie() {
           }
         }
         if (errors.length) throw new Error('Build przerwany:\n- ' + errors.join('\n- '));
+
+        // ── Content-Security-Policy w <meta> ──
+        // Skrypty wpisane w HTML (bezpiecznik motywu w <head>, statystyki) przechodzą po skrócie SHA-256, liczonym tu przy każdym buildzie.
+        // Zakaz osadzania w ramce (frame-ancestors) działa tylko w nagłówku, dlatego jest w vercel.json.
+        for (const p of pages) {
+          const skroty = [...p.html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)]
+            .filter(([, attrs]) => !/\ssrc=|application\/ld\+json/.test(attrs))
+            .map(([, , kod]) => `'sha256-${crypto.createHash('sha256').update(kod).digest('base64')}'`);
+          const csp = [
+            "default-src 'self'",
+            `script-src 'self' ${[...new Set(skroty)].join(' ')}`.trim(),
+            "style-src 'self' 'unsafe-inline'",
+            "img-src 'self' data:",
+            "object-src 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+          ].join('; ');
+          p.html = p.html.replace('<meta charset="utf-8">', `<meta charset="utf-8">\n<meta http-equiv="Content-Security-Policy" content="${csp}">`);
+          fs.writeFileSync(path.join(DIST, p.rel), p.html);
+        }
 
         // ── SEO ──
         // <lastmod> tylko z prawdziwą datą zmiany strony; data builda zmieniałaby się przy każdym wdrożeniu
