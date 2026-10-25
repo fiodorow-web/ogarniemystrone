@@ -222,6 +222,13 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Decyzje
 
+### 2026-10-25: Poprawki dostępności przeniesionych ze wzorca
+- **Co:** trzy błędy wzorca HTML poprawione na prośbę właścicieli („rób co trzeba” po audycie SEO):
+  - przycisk „Umów rozmowę” w stopce ma ciemny tekst na limonce (było 1,29:1);
+  - linki w stopce i „Start” w okruszkach mają 48 px wysokości (było 40–44 px);
+  - słowa zdania „Ty skupiasz się…” przed rozjaśnieniem mają `opacity: .48`, czyli kontrast min. 3:1 (było .16, 1,4:1). Efekt rozjaśniania przy przewijaniu zostaje.
+- **Co zostaje:** klasa `.logo.replay` w CSS nie jest używana; kliknięcie logo przeładowuje stronę główną, a pętla i tak rysuje się przy wejściu. Link do polityki w zgodzie pod formularzem jest w zdaniu, więc nie ma 48 px (wyjątek WCAG dla linków w tekście).
+
 ### 2026-10-25: Tytuły i opisy z frazą „strony internetowe” (audyt SEO)
 - **Co:** podstrony mają tytuły z tematem zamiast samej nazwy sekcji, np. „Cennik stron internetowych od 999 zł – Ogarniemy Stronę”, „Tworzenie stron internetowych dla firm – Ogarniemy Stronę”. Tytuł strony głównej i polityki prywatności bez zmian. Opisy /oferta, /realizacje, /jak-pracujemy, /cennik i /kontakt poprawione (długość do 150 znaków, tylko zatwierdzone fakty).
 - **W treści:** lead strony głównej to zdanie z BRANDBOOK.md, sekcja 1: „Nowoczesne strony internetowe dla małych firm…”, a H1 cennika „Ile kosztuje strona internetowa?”. Lead jest przez to o linię dłuższy na 1440 i 390 px.
