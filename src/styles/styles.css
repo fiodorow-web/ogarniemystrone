@@ -606,7 +606,7 @@ html.locked{overflow:hidden}
 .pkg.is-match .pkg-match{opacity:1;transform:rotate(3deg)}
 @media (max-width:900px){.pkgs{grid-template-columns:minmax(0,1fr)}.pkg-hl{margin:0}}
 .konf{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"h h" "f o";gap:2.4rem 3.4rem;align-items:start}
-.konf .sec-head{grid-area:h}
+.konf .sec-head{grid-area:h;margin-left:0} /* nagłówek równo z pytaniami pod nim */
 .konf-form{grid-area:f;display:flex;flex-direction:column;gap:1.6rem}
 .konf-out{grid-area:o;position:sticky;top:96px}
 .q{border:0;padding:0;margin:0;min-width:0}
