@@ -33,6 +33,9 @@ src/components/            Header, Footer (z sekcją „Napisz. Resztę ogarniem
                            Crumbs (ścieżka), Faq, CopyEmail, PriceFrom (sekcja „od 999 zł”)
 src/content/realizacje/    realizacje: jeden plik .md na realizację; pola opisane w src/content.config.ts
 src/site.js                dane firmy w jednym miejscu (e-mail, telefon, domena) i JSON-LD strony głównej
+src/formularz/             formularz po stronie serwera: obsluga.js (sprawdzanie, ochrona przed spamem, wysyłka przez Resend),
+                           maile.js (zgłoszenie do nas i potwierdzenie dla klienta)
+api/kontakt.js             POST /api/kontakt: funkcja Vercela wołająca src/formularz/obsluga.js (reszta strony jest statyczna)
 src/styles/styles.css      wszystkie style; tokeny na górze pliku
 src/scripts/app.js         wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie (trafia do dist bez zmian)
 src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
@@ -46,7 +49,7 @@ tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekie
 Polecenia:
 - `npm run dev`: podgląd na http://localhost:3000, odświeża się po każdej zmianie;
 - `npm run build`: buduje `dist/`. Build zatrzymuje się na zepsutym linku wewnętrznym albo na brakującej kotwicy;
-- `npm run preview`: po buildzie podgląd `dist/` na http://localhost:4000 tak, jak poda go Vercel.
+- `npm run preview`: po buildzie podgląd `dist/` na http://localhost:4000 tak, jak poda go Vercel. Formularz działa tu naprawdę, tylko maile zamiast wysyłki zapisują się w `.podglad-maili/` (HTML i tekst). Po zmianie szablonów zrestartuj podgląd.
 
 Właściwości `<Base>` (każda podstrona):
 - obowiązkowe: `title`, `description`;
@@ -160,7 +163,9 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - podczas wysyłki przycisk pokazuje „Ogarniamy…”;
   - po wysłaniu pokazuje „Dziękujemy, {imię}.”;
   - przy błędzie wysyłki pokazuje komunikat z adresem e-mail;
-  - „Wyczyść formularz” działa.
+  - „Wyczyść formularz” działa;
+  - po wysłaniu do `kontakt@` przychodzi zgłoszenie, a klient, który podał e-mail, dostaje potwierdzenie (sprawdź w `.podglad-maili/`);
+  - bez JavaScriptu formularz też się wysyła i pokazuje `/dziekujemy`.
 - [ ] Przyciski „kopiuj” przy e-mailu kopiują adres i pokazują potwierdzenie.
 - [ ] FAQ się rozwija, lista „Co warto mieć pod ręką” zapamiętuje zaznaczenia.
 - [ ] Przycisk „do góry” pokazuje postęp przewijania.
@@ -175,13 +180,12 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Do zrobienia
 
-1. **Formularz kontaktowy jest w trybie pokazowym** (`FORM_ENDPOINT = ''` w `src/scripts/app.js`). Potrzebny jest prawdziwy endpoint, np. funkcja na Vercelu (w Astro: adapter `@astrojs/vercel` i endpoint z `prerender = false`; reszta stron zostaje statyczna). Wymagania:
-   - wiadomość trafia na `kontakt@ogarniemystrone.pl`;
-   - walidacja po stronie serwera;
-   - ochrona przed spamem bez ciasteczek: pole-pułapka i limit zgłoszeń, bez reCAPTCHA;
-   - poczta stoi na SEOHOST, więc wysyłka może iść przez ich SMTP;
-   - dane logowania tylko w zmiennych środowiskowych Vercela, nigdy w repozytorium;
-   - po podłączeniu trzeba zaktualizować politykę prywatności.
+1. **Formularz: podłączyć Resend** (kod jest gotowy, zob. „Decyzje”). Kroki właścicieli:
+   - konto w Resend, domena `wiadomosci.ogarniemystrone.pl` w regionie Ireland (`eu-west-1`);
+   - rekordy DNS z zakładki Records w Resend dodać w panelu SEOHOST. To są nowe rekordy pod `wiadomosci` (`resend._domainkey.wiadomosci`, `send.wiadomosci`), istniejących rekordów poczty nie zmieniamy;
+   - klucz API z uprawnieniem tylko do wysyłki i tylko dla tej domeny;
+   - w Vercelu (Settings → Environment Variables, Production i Preview) zmienna `RESEND_API_KEY`. Opcjonalnie `FORMULARZ_DO` i `FORMULARZ_OD`, opis w `src/formularz/obsluga.js`;
+   - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
    - `[CENA]` pakietów Firma i Firma z rezerwacjami (`cennik`, także w `src/scripts/app.js` w konfiguratorze);
    - `[Zakres do ustalenia]`;
@@ -196,7 +200,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - rekordy zmienia się tylko w panelu SEOHOST, bo w rejestrze .pl domena ma serwery nazw `ns1.seohost.pl` i `ns2.seohost.pl` (stan z 2026-10-25). Strefa DNS w panelu Zenboxu jest nieaktywna i jej zmiany nic nie dają;
    - poczta nie zależy od rekordu A domeny: MX wskazuje `mail.ogarniemystrone.pl` (osobny rekord A), a SPF to `redirect=_spf-h22.microhost.pl`;
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
-   - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta;
+   - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta. Wyjątek na prośbę właścicieli (podłączenie Resend, 2026-10-25): nowe rekordy pod subdomeną `wiadomosci`, które nie zmieniają istniejących;
    - przed wdrożeniem na produkcję zawsze zapytaj.
 
 ## Zasady pracy
@@ -212,6 +216,28 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Commituj małymi krokami z opisem po polsku.
 
 ## Decyzje
+
+### 2026-10-25: Formularz przez Resend, jako funkcja w `api/`
+- **Co:**
+  - `POST /api/kontakt` to funkcja Vercela w `api/kontakt.js`, a logika jest w `src/formularz/`. Strona zostaje statyczna, bez adaptera Astro, więc `vercel.json`, czyste adresy i 404 działają jak dotąd;
+  - zgłoszenie idzie na `kontakt@ogarniemystrone.pl` z „Odpowiedz do” ustawionym na klienta;
+  - klient, który podał e-mail, dostaje potwierdzenie z czterema krokami i zatwierdzonymi zdaniami o płatności;
+  - nadawca to `formularz@wiadomosci.ogarniemystrone.pl`.
+- **Dlaczego Resend, a nie SMTP SEOHOST:**
+  - lepsza dostarczalność potwierdzeń do obcych skrzynek;
+  - podgląd wysłanych maili w panelu Resend;
+  - wysyłka przez zwykłe zapytanie HTTPS, bez hasła do skrzynki w Vercelu.
+
+  Osobna subdomena chroni reputację głównej domeny, z której idzie firmowa poczta.
+- **Ochrona przed spamem** (bez ciasteczek i reCAPTCHA):
+  - pole-pułapka;
+  - czas wypełnienia: przy mniej niż 3 s zgłoszenie dostajemy z dopiskiem „[możliwy spam]”, a klient nie dostaje potwierdzenia;
+  - limit 5 zgłoszeń na 15 minut z jednego IP;
+  - odrzucanie zapytań z obcych stron.
+
+  Potwierdzenie nie powtarza treści wiadomości, a imię nie może zawierać linków, więc formularza nie da się użyć do wysyłania spamu na cudze adresy.
+- **Bez JavaScriptu:** formularz wysyła się zwykłym POST-em i przekierowuje na `/dziekujemy` (noindex, poza sitemap).
+- **Polityka prywatności:** dopisany Resend (Plus Five Five, Inc., USA), standardowe klauzule umowne, EU-U.S. DPF i 15 minut pamiętania IP. Umowa powierzenia (DPA) obowiązuje od akceptacji regulaminu Resend.
 
 ### 2026-10-25: Bez Białegostoku na stronie
 - **Co:** strona nie mówi, skąd jesteśmy:
