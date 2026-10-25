@@ -243,7 +243,7 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
   - „Zmiany bez dzwonienia do nas”, a nie „panel CMS”;
   - „Szybka także w terenie”, a nie „optymalizacja Core Web Vitals”.
 - **Konkret zamiast przymiotników:** „Cztery kroki, zero niespodzianek”, „Dobierz pakiet w 20 sekund”, „Strony od 999 zł”.
-- **Fakty o współpracy zawsze w tym samym brzmieniu:** „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Połowa kwoty, gdy projekt Ci się spodoba”, „Druga połowa po zrobieniu strony”, „Odpowiedź do 24 h w dni robocze”.
+- **Fakty o współpracy zawsze w tym samym brzmieniu:** „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Połowa kwoty po akceptacji projektu”, „Druga połowa po zrobieniu strony”, „Odpowiedź do 24 h w dni robocze”.
 - **Bez obietnic, których nie kontrolujemy:** nie piszemy o pozycji w Google ani o liczbie klientów.
 - **„Ogarnąć” to czasownik marki.** Używamy go z umiarem, najwyżej raz lub dwa razy na ekran:
   - „ogarniemy”, „Ogarnij ten bałagan”;

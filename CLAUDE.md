@@ -218,8 +218,20 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - **Dlaczego:** decyzja właścicieli.
 - **Co zostaje:** strona nadal nie używa ciasteczek śledzących, mówi o tym polityka prywatności. Wagę podstrony sprawdzamy narzędziami (DevTools, Lighthouse), cel 150–250 KB się nie zmienia.
 
+### 2026-10-25: „Po akceptacji projektu” zamiast „gdy projekt Ci się spodoba”
+- **Co:** zatwierdzone brzmienie faktu o płatności to teraz „Połowa kwoty po akceptacji projektu”. Zmienione:
+  - ramka w sekcji „od 999 zł”;
+  - pasek i FAQ w cenniku;
+  - FAQ na stronie głównej;
+  - „Co będzie dalej” na kontakcie;
+  - Jak pracujemy;
+  - BRANDBOOK.md i SPRZEDAZ.md.
+
+  Pytanie „Co, jeśli projekt mi się nie spodoba?” zostaje, bo to słowa klienta.
+- **Dlaczego:** decyzja właścicieli, brzmi konkretniej.
+
 ### 2026-10-25: Strona główna bez dopisków o płatności przy krokach
-- **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty, gdy projekt Ci się spodoba” i „Druga połowa po zrobieniu strony”.
+- **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty po akceptacji projektu” i „Druga połowa po zrobieniu strony”.
 - **Dlaczego:** decyzja właścicieli.
 - **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatności są tylko w ramce „Najpierw projekt, potem płatność” w sekcji „od 999 zł”. Pigułki zostały w „Jak pracujemy” i w mailu z potwierdzeniem dla klienta.
 
