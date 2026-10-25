@@ -513,7 +513,7 @@ html.locked{overflow:hidden}
 .page-head{display:flex;flex-direction:column;align-items:flex-start;gap:1.3rem;padding-top:clamp(2.4rem,1.2rem + 5vw,5.6rem);padding-bottom:clamp(2.4rem,1.6rem + 3vw,4rem)}
 @media (min-width:1024px){.page-head{padding-left:calc(var(--gl) + 1.6%)}}
 .crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;font-size:.9rem;color:var(--muted)}
-.crumbs a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
+.crumbs a{display:inline-flex;align-items:center;min-height:48px;color:var(--muted)}
 
 /* Oferta – lista zen */
 .zen{list-style:none;padding:0;margin-top:2rem;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:clamp(2rem,5vw,5.5rem)}
@@ -787,13 +787,13 @@ html.locked{overflow:hidden}
 .logo-inv:hover{color:#ffffff}
 .foot-k{margin-bottom:.4rem;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.66)}
 .foot-nav ul{list-style:none;padding:0}
-.foot-nav a,.foot-c a{display:inline-flex;align-items:center;min-height:40px;text-decoration:none}
+.foot-nav a,.foot-c a{display:inline-flex;align-items:center;min-height:48px;text-decoration:none}
 .foot-nav a:hover,.foot-c a:hover{text-decoration:underline}
 .foot-c p{color:rgba(255,255,255,.78);overflow-wrap:anywhere}
 .foot-c a{overflow-wrap:anywhere}
 .foot-c a[href^="tel:"]{white-space:nowrap}
 .foot-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1.6rem;margin-top:2.8rem;padding-top:1.4rem;border-top:1px solid var(--foot-line);font-size:.875rem;color:rgba(255,255,255,.66)}
-.foot-meta a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.8)}
+.foot-meta a{display:inline-flex;align-items:center;min-height:48px;color:rgba(255,255,255,.8)}
 @media (max-width:760px){.foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.foot-brand{grid-column:1/-1}}
 @media (max-width:480px){.foot-c{grid-column:1/-1}}
 @media (max-width:979px){.site-foot{padding-bottom:calc(env(safe-area-inset-bottom,0px) + 6.5rem)}}
