@@ -1,6 +1,6 @@
 ---
-// Limonkowa sekcja „od 999 zł” z ramką „Najpierw projekt, potem płatność” (SPRZEDAZ.md, zasady 4 i 8).
-// Sloty: casual (dopisek nad ceną), side (akapit <p> nad ramką).
+// Limonkowa sekcja „od 999 zł” (SPRZEDAZ.md, zasada 4).
+// Sloty: casual (dopisek nad ceną), side (akapit <p> nad przyciskami).
 import Arrow from './Arrow.astro';
 
 interface Props {
@@ -18,7 +18,6 @@ const { id } = Astro.props;
       </h2>
       <div class="price-side rv">
         <slot name="side" />
-        <p class="price-safe"><b>Najpierw projekt, potem płatność.</b> Połowa kwoty po akceptacji projektu, druga po zrobieniu strony.</p>
         <div class="cta-row">
           <a class="btn btn-ink" href="/cennik#konfigurator">Dobierz pakiet<Arrow /></a>
           <a class="more more-ink" href="/cennik">Zobacz cennik</a>

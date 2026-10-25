@@ -20,30 +20,10 @@ const twarde = (s) => s.replace(/(^|\s)([aiouwzAIOUWZ])\s/g, '$1$2 ');
 
 const dataPL = (d, opcje) => new Intl.DateTimeFormat('pl-PL', { timeZone: 'Europe/Warsaw', ...opcje }).format(d);
 const kiedy = (d) => dataPL(d, { weekday: 'long', day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' });
-const weekend = (t) => ['Sat', 'Sun'].includes(new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Warsaw', weekday: 'short' }).format(t));
 
-const godzinaPL = (t) => {
-  const c = Object.fromEntries(new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Warsaw', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(t).map((x) => [x.type, Number(x.value)]));
-  return { h: c.hour, m: c.minute };
-};
-
-/**
- * Termin z obietnicy „odpowiedź do 24 h w dni robocze”: liczymy tylko godziny od poniedziałku do piątku (święta pomijamy).
- * Zgłoszenie z weekendu liczymy od poniedziałku 9:00, więc termin wypada we wtorek o 9:00.
- */
+/** Termin z obietnicy „odpowiedź do 24 h”: 24 godziny od wysłania zgłoszenia, także w weekend. */
 export function terminOdpowiedzi(teraz) {
-  let t = teraz.getTime();
-  if (weekend(t)) {
-    while (weekend(t)) t += 3600e3;
-    const { h, m } = godzinaPL(t);
-    t += ((9 - h) * 60 - m) * 60e3;
-  }
-  let godziny = 24;
-  while (godziny > 0) {
-    if (!weekend(t)) godziny--;
-    t += 3600e3;
-  }
-  return new Date(t);
+  return new Date(teraz.getTime() + 24 * 3600e3);
 }
 
 // ── Klocki ────────────────────────────────────────────────────────────
@@ -120,7 +100,7 @@ ${d.temat.length ? `<div style="margin:0 0 14px">${d.temat.map((t) => pigulka(es
 <div style="margin:6px 0 22px;padding:16px 18px;border-radius:14px;background:${K.tlo};border-left:4px solid ${K.limonka};font:16px/1.6 ${FONT};color:${K.tekst}">${d.wiadomosc ? akapity(d.wiadomosc) : `<span style="color:${K.szary}">Bez wiadomości, tylko dane kontaktowe.</span>`}</div>
 <div>${odpisz}${sms}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;border-top:1px solid ${K.linia}"><tr>
-<td style="padding-top:14px;font:14px/1.5 ${FONT};color:${K.szary}">Termin odpowiedzi (24&nbsp;h w&nbsp;dni robocze):<br><b style="color:${K.tekst}">${esc(termin)}</b></td>
+<td style="padding-top:14px;font:14px/1.5 ${FONT};color:${K.szary}">Termin odpowiedzi (24&nbsp;h):<br><b style="color:${K.tekst}">${esc(termin)}</b></td>
 </tr></table>`;
 
   const stopka = `Wysłane ${esc(kiedy(teraz))} z&nbsp;formularza na <a href="${STRONA}/kontakt" style="color:${K.szary}">ogarniemystrone.pl/kontakt</a>.${d.email ? ` Odpowiedź na tego maila trafi do: ${esc(d.kontakt)}.` : ''}`;
@@ -137,7 +117,7 @@ ${d.temat.length ? `<div style="margin:0 0 14px">${d.temat.map((t) => pigulka(es
     ``,
     d.wiadomosc || '(bez wiadomości)',
     ``,
-    twarde(`Termin odpowiedzi (24 h w dni robocze): ${termin}`),
+    twarde(`Termin odpowiedzi (24 h): ${termin}`),
     `Wysłane ${kiedy(teraz)} z formularza na ogarniemystrone.pl/kontakt.${d.email ? ` Odpowiedź na tego maila trafi do: ${d.kontakt}.` : ''}`,
   ].filter((l) => l !== false && l !== undefined).join('\n');
 
@@ -169,7 +149,7 @@ export function mailDoKlienta(d) {
   const tresc = `
 ${etykieta('Dotarło')}
 <h1 style="margin:14px 0 12px;font:800 32px/1.1 ${FONT};letter-spacing:-.02em;color:${K.tekst}">Dziękujemy, ${esc(imie)}.</h1>
-<p style="margin:0 0 8px;font:17px/1.6 ${FONT};color:${K.tekst}">Twoja wiadomość jest już u&nbsp;nas. Odpiszemy do 24&nbsp;h w&nbsp;dni robocze, żeby umówić termin rozmowy.</p>
+<p style="margin:0 0 8px;font:17px/1.6 ${FONT};color:${K.tekst}">Twoja wiadomość jest już u&nbsp;nas. Odpiszemy do 24&nbsp;h, żeby umówić termin rozmowy.</p>
 ${d.temat.length ? `<div style="margin:14px 0 4px">${d.temat.map((t) => pigulka(esc(t))).join('')}</div>` : ''}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:22px 0 4px;border-top:1px solid ${K.linia}"><tr><td style="padding-top:20px">
 ${etykieta('Co dalej')}
@@ -184,7 +164,7 @@ ${etykieta('Co dalej')}
   const text = twarde([
     `Dziękujemy, ${imie}.`,
     ``,
-    `Twoja wiadomość jest już u nas. Odpiszemy do 24 h w dni robocze, żeby umówić termin rozmowy.`,
+    `Twoja wiadomość jest już u nas. Odpiszemy do 24 h, żeby umówić termin rozmowy.`,
     ``,
     `Co dalej:`,
     ...KROKI.map(([n, h, p, platnosc]) => bezTagow(`${n} ${h}: ${p}${platnosc ? ` ${platnosc}.` : ''}`)),
@@ -199,7 +179,7 @@ ${etykieta('Co dalej')}
 
   return {
     subject: 'Dziękujemy za wiadomość, odpiszemy do 24 h',
-    html: szkielet({ tytul: 'Dziękujemy za wiadomość', zajawka: 'Odpiszemy do 24 h w dni robocze, żeby umówić termin rozmowy.', tresc, stopka }),
+    html: szkielet({ tytul: 'Dziękujemy za wiadomość', zajawka: 'Odpiszemy do 24 h, żeby umówić termin rozmowy.', tresc, stopka }),
     text,
   };
 }

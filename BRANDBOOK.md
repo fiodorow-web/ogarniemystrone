@@ -226,7 +226,7 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
   - po zaznaczeniu obrys przyjmuje kolor pętli z poświatą 22%;
   - błąd ma czerwony obrys i komunikat pod polem;
   - wersja robocza zapisuje się sama.
-- **Zapewnienia** (`.assure`): krótka lista z zielonymi ptaszkami tuż pod przyciskiem: „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Odpowiedź do 24 h w dni robocze”. Stoją przy każdym głównym CTA.
+- **Zapewnienia** (`.assure`): krótka lista z zielonymi ptaszkami tuż pod przyciskiem: „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Odpowiedź do 24 h”. Stoją przy każdym głównym CTA.
 - **Pigułka płatności** (`.st-pay`): miętowa etykieta przy kroku współpracy, lekko obrócona.
 - **Pasek płatności** (`.pay-steps`): trzy kafle „0 zł → 50% → 50%”. Środkowy jest miętowy.
 - **Ikony:** liniowe, siatka 24 × 24, kreska 2 px, zaokrąglone końce i łączenia, kolor `currentColor`.
@@ -243,7 +243,7 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
   - „Zmiany bez dzwonienia do nas”, a nie „panel CMS”;
   - „Szybka także w terenie”, a nie „optymalizacja Core Web Vitals”.
 - **Konkret zamiast przymiotników:** „Cztery kroki, zero niespodzianek”, „Dobierz pakiet w 20 sekund”, „Strony od 999 zł”.
-- **Fakty o współpracy zawsze w tym samym brzmieniu:** „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Połowa kwoty po akceptacji projektu”, „Druga połowa po zrobieniu strony”, „Odpowiedź do 24 h w dni robocze”.
+- **Fakty o współpracy zawsze w tym samym brzmieniu:** „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Połowa kwoty po akceptacji projektu”, „Druga połowa po zrobieniu strony”, „Odpowiedź do 24 h”.
 - **Bez obietnic, których nie kontrolujemy:** nie piszemy o pozycji w Google ani o liczbie klientów.
 - **„Ogarnąć” to czasownik marki.** Używamy go z umiarem, najwyżej raz lub dwa razy na ekran:
   - „ogarniemy”, „Ogarnij ten bałagan”;

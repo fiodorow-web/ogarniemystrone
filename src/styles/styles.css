@@ -352,19 +352,45 @@ html.locked{overflow:hidden}
 .t1 .tile-h{font-size:clamp(2.2rem,1.4rem + 2.4vw,3.6rem)}
 
 /* Telefon w kafelku 1 – zachodzi poza krawędź */
-.phone{flex:0 0 auto;align-self:flex-start;width:min(46%,250px);aspect-ratio:9/18.5;margin:.6rem .2rem -7rem 0;padding:9px;border-radius:34px;background:#111714;box-shadow:var(--shadow-2);rotate:4deg;translate:0 var(--py,0px);transition:rotate var(--t4) var(--e-pop),scale var(--t4) var(--e-pop)}
+.phone{container-type:inline-size;flex:0 0 auto;align-self:flex-start;width:min(46%,250px);aspect-ratio:9/18.5;margin:.6rem .2rem -7rem 0;padding:9px;border-radius:34px;background:#111714;box-shadow:var(--shadow-2);rotate:4deg;translate:0 var(--py,0px);transition:rotate var(--t4) var(--e-pop),scale var(--t4) var(--e-pop)}
 .t1:hover .phone{rotate:-1.5deg;scale:1.03}
-.ph-screen{height:100%;display:flex;flex-direction:column;gap:9px;padding:14px 12px;border-radius:26px;background:#ffffff;color:#111714;font-size:11px;line-height:1.3;overflow:hidden}
-.ph-bar{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid #dde3df;font-family:var(--f-display);font-size:12px}
+.ph-screen{position:relative;height:100%;display:flex;flex-direction:column;gap:8px;padding:14px 12px;border-radius:26px;background:#ffffff;color:#111714;font-size:min(11px,4.75cqi);line-height:1.3;overflow:hidden}
+.ph-bar{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid #dde3df;font-family:var(--f-display);font-size:1.1em}
 .ph-bar i{width:16px;height:2px;background:#111714;box-shadow:0 5px 0 #111714,0 -5px 0 #111714}
-.ph-l{height:9px;border-radius:5px;background:#e9eee7}
-.w90{width:90%}.w70{width:70%}.w60{width:60%}.w50{width:50%}.w40{width:40%}
-.ph-call{position:relative;align-self:flex-start;margin:4px 0;padding:7px 14px;border-radius:999px;background:#0d6a4f;color:#ffffff;font-weight:600}
+.ph-hero{display:flex;flex-direction:column;gap:4px;padding:11px 11px 12px;border-radius:14px 10px 12px 9px;background:#0d6a4f;color:#ffffff}
+.ph-hero span{font-size:.78em;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#c8f169}
+.ph-hero b{font-family:var(--f-display);font-weight:760;font-stretch:84%;font-size:1.55em;line-height:1;letter-spacing:-.02em;text-wrap:balance}
+.ph-acts{display:flex;gap:5px}
+.ph-act{flex:1;min-width:0;padding:.55em 0;border-radius:999px;border:1.5px solid #dde3df;text-align:center;font-weight:600;font-size:.9em;white-space:nowrap}
+.ph-call{position:relative;border-color:#0d6a4f;background:#0d6a4f;color:#ffffff;cursor:pointer}
 .t1:hover .ph-call::after{content:"";position:absolute;inset:-4px;border-radius:inherit;border:2px solid #0d6a4f;animation:ring 1.1s var(--e-out) infinite}
 @keyframes ring{to{inset:-12px;opacity:0}}
-.ph-row{display:flex;justify-content:space-between;gap:6px;padding:5px 0;border-bottom:1px dashed #dde3df}
+.ph-open{display:flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap}
+.ph-open i{flex-shrink:0;width:7px;height:7px;border-radius:50%;background:#0d6a4f;box-shadow:0 0 0 3px #ddf0e6}
+.ph-open.shut i{background:#b3261e;box-shadow:0 0 0 3px #f6dedc}
+.ph-row{display:flex;justify-content:space-between;gap:6px;padding:4px 0;white-space:nowrap;border-bottom:1px dashed #dde3df}
 .ph-map{position:relative;flex:1;min-height:60px;border-radius:12px;background:#ddf0e6;background-image:linear-gradient(90deg,rgba(13,106,79,.08) 1px,transparent 1px),linear-gradient(rgba(13,106,79,.08) 1px,transparent 1px);background-size:14px 14px}
-.ph-pin{position:absolute;left:52%;top:38%;width:16px;height:16px;border-radius:50% 50% 50% 0;background:#0d6a4f;rotate:-45deg}
+/* Trasa do firmy: rysuje się, gdy kafel wjedzie w ekran, a na końcu spada pinezka */
+.ph-route{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ph-route path{fill:none;stroke:#0d6a4f;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1.1}
+.js .ph-route path{stroke-dashoffset:1.01;transition:stroke-dashoffset 1300ms var(--e-soft) 500ms}
+.js .rv.in .ph-route path{stroke-dashoffset:0}
+.ph-me{position:absolute;left:calc(18% - 6px);top:calc(82% - 6px);width:12px;height:12px;border-radius:50%;background:#111714;border:2.5px solid #ffffff;box-shadow:0 0 0 3px rgba(17,23,20,.14)}
+.ph-pin{position:absolute;left:calc(57% - 8px);top:calc(44% - 19px);width:16px;height:16px;border-radius:50% 50% 50% 0;background:#0d6a4f;rotate:-45deg}
+.js .ph-pin{opacity:0;translate:0 -14px;transition:opacity var(--t2) 1700ms,translate var(--t4) var(--e-pop) 1700ms}
+.js .rv.in .ph-pin{opacity:1;translate:0 0}
+/* Próbne połączenie: ekran rozmowy wjeżdża od dołu (app.js: data-ph-btn, data-ph-call) */
+.ph-dial{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:16px;background:#0d6a4f;color:#ffffff;text-align:center;translate:0 101%;transition:translate var(--t4) var(--e-out)}
+.ph-screen.calling .ph-dial{translate:0 0}
+.ph-av{position:relative;display:grid;place-items:center;width:2.95em;height:2.95em;margin-bottom:6px;border-radius:50%;background:#c8f169;color:#111714;font-family:var(--f-display);font-weight:760;font-stretch:84%;font-size:1.8em}
+.ph-screen.ringing .ph-av::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid #c8f169;animation:ring 1.1s var(--e-out) infinite}
+.ph-dial b{font-family:var(--f-display);font-weight:720;font-stretch:86%;font-size:1.45em;line-height:1.1}
+.ph-dial [data-ph-time]{font-variant-numeric:tabular-nums;opacity:.82}
+.ph-end{display:grid;place-items:center;width:40px;height:40px;margin-top:28px;border-radius:50%;background:#b3261e;color:#ffffff}
+.ph-end svg{rotate:135deg}
+.c-lime .link-btn{color:#111714}
+.t1 .link-btn{align-self:flex-start}
+.w90{width:90%}.w70{width:70%}.w60{width:60%}.w50{width:50%}.w40{width:40%}
 
 /* Wyszukiwarka */
 .search{display:flex;flex-direction:column;gap:8px;margin-block:.2rem}
@@ -425,7 +451,8 @@ html.locked{overflow:hidden}
   .tile{flex:0 0 min(86%,370px);scroll-snap-align:start;min-height:430px}
   .tile:hover{transform:none}
   .t1{flex-direction:column}
-  .phone{width:58%;align-self:flex-end;margin:0 .4rem -9rem 0}
+  .phone{width:66%;align-self:flex-end;margin:0 .4rem -9rem 0}
+  .ph-dial{justify-content:flex-start;padding-top:24%}
   .car-ctrl{display:flex;align-items:center;justify-content:flex-end;gap:.75rem;margin-top:1rem}
   .car-count{min-width:3.5rem;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
 }
@@ -794,8 +821,11 @@ html.locked{overflow:hidden}
 .foot-cta .assure li::before{border-color:var(--lime)}
 .st-pay{align-self:flex-start;max-width:100%;padding:.34rem .8rem;border-radius:12px;background:var(--mint);color:var(--ink) !important;font-size:.875rem;font-weight:600;line-height:1.3;rotate:-1deg}
 .tl-body .st-pay{margin-top:-.2rem}
-.price-safe{padding:.9rem 1.1rem;border-radius:var(--r-m);background:rgba(255,255,255,.55);font-size:1rem !important}
-.price-safe b{font-weight:700}
+.care{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem 1.4rem;margin-top:clamp(1.6rem,3vw,2.4rem);padding:1.25rem 1.6rem;border-radius:28px 18px 22px 16px;background:var(--mint)}
+.care-h{font-family:var(--f-display);font-weight:720;font-stretch:84%;font-size:clamp(1.35rem,1.15rem + .6vw,1.7rem);line-height:1.05;letter-spacing:-.02em}
+.care-p{color:var(--muted)}
+.care-p b{font-family:var(--f-display);font-weight:780;font-stretch:78%;font-size:2rem;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.care-d{flex:1 1 20rem;color:var(--muted)}
 .pay{display:flex;flex-direction:column;gap:1.1rem;margin-top:clamp(2.4rem,4vw,3.4rem)}
 .pay-h{font-family:var(--f-display);font-weight:720;font-stretch:84%;font-size:clamp(1.6rem,1.2rem + 1.3vw,2.4rem);line-height:1.02;letter-spacing:-.025em;text-wrap:balance}
 .pay-steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}

@@ -298,6 +298,42 @@
     } else { runSpeed(); }
   }
 
+  /* ── Kafel z telefonem: „Otwarte teraz” według zegara i próbne połączenie ── */
+  var ph = $('[data-ph]');
+  if (ph) {
+    var hm = function (m) { return Math.floor(m / 60) + ':' + ('0' + (m % 60)).slice(-2); };
+    var OPEN = [null, [480, 960], [480, 960], [480, 960], [480, 960], [480, 960], [540, 780]];
+    var now = new Date(), day = now.getDay(), mins = now.getHours() * 60 + now.getMinutes();
+    var today = OPEN[day], openTxt;
+    if (today && mins >= today[0] && mins < today[1]) openTxt = 'Otwarte teraz · do ' + hm(today[1]);
+    else if (today && mins < today[0]) openTxt = 'Zamknięte · od ' + hm(today[0]);
+    else openTxt = 'Zamknięte · ' + (day === 6 ? 'w pon.' : 'jutro') + ' od ' + hm(OPEN[day === 6 ? 1 : day + 1][0]);
+    $('[data-ph-open-txt]').textContent = openTxt;
+    $('[data-ph-open]').classList.toggle('shut', openTxt.indexOf('Zamknięte') === 0);
+
+    var phTime = $('[data-ph-time]');
+    var phTimers = [];
+    var phCall = function () {
+      phTimers.forEach(clearTimeout);
+      phTimers = [];
+      phTime.textContent = 'Łączenie…';
+      ph.classList.add('calling', 'ringing');
+      var at = function (ms, fn) { phTimers.push(setTimeout(fn, ms)); };
+      for (var s = 1; s <= 4; s++) {
+        (function (s) {
+          at(1300 + (s - 1) * 1000, function () { ph.classList.remove('ringing'); phTime.textContent = '00:0' + s; });
+        })(s);
+      }
+      at(5300, function () { phTime.textContent = 'Rozmowa zakończona'; });
+      at(6500, function () { ph.classList.remove('calling', 'ringing'); });
+    };
+    $('[data-ph-btn]').addEventListener('click', function () {
+      phCall();
+      toast('Jedno dotknięcie i klient już do Ciebie dzwoni.');
+    });
+    $('[data-ph-call]').addEventListener('click', phCall);
+  }
+
   /* Pasek kafelków na telefonie */
   var car = $('[data-car]');
   if (car) {
@@ -501,7 +537,7 @@
     var kDots = $$('.konf-dots i');
     var pkgs = $$('[data-pkg]');
     var NAMES = { wizytowka: 'Wizytówka', firma: 'Firma', rezerwacje: 'Firma z rezerwacjami' };
-    var PRICES = { wizytowka: 'od 999 zł', firma: 'od [CENA] zł', rezerwacje: 'od [CENA] zł' };
+    var PRICES = { wizytowka: 'od 999 zł', firma: 'od 1 999 zł', rezerwacje: 'od 2 999 zł' };
     var kSummary = '';
     var val = function (n) { var el = konf.querySelector('input[name="' + n + '"]:checked'); return el ? el.value : ''; };
     var konfUpdate = function () {
