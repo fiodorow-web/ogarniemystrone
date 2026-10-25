@@ -220,6 +220,11 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Decyzje
 
+### 2026-10-25: Tytuły i opisy z frazą „strony internetowe” (audyt SEO)
+- **Co:** podstrony mają tytuły z tematem zamiast samej nazwy sekcji, np. „Cennik stron internetowych od 999 zł – Ogarniemy Stronę”, „Tworzenie stron internetowych dla firm – Ogarniemy Stronę”. Tytuł strony głównej i polityki prywatności bez zmian. Opisy /oferta, /realizacje, /jak-pracujemy, /cennik i /kontakt poprawione (długość do 150 znaków, tylko zatwierdzone fakty).
+- **W treści:** lead strony głównej to zdanie z BRANDBOOK.md, sekcja 1: „Nowoczesne strony internetowe dla małych firm…”, a H1 cennika „Ile kosztuje strona internetowa?”. Lead jest przez to o linię dłuższy na 1440 i 390 px.
+- **Dlaczego:** audyt SEO (claude-seo 2.5.0) pokazał, że fraza „strona internetowa” nie występowała w treści ani w nagłówkach żadnej strony, a 7 z 8 tytułów miało tylko nazwę sekcji. Decyzja właścicieli.
+
 ### 2026-10-25: Opis Mateusza w O nas wspomina fotografię
 - **Co:** w opisie Mateusza jest „W weekendy zamieniam klawiaturę na aparat i fotografuję różne eventy.”.
 - **Odejście od brandbooka** (sekcja 8: bez nawiązań do fotografii): świadoma decyzja Mateusza. To jego osobisty opis, a nie przekaz marki. Poza tym zdaniem zasada nadal obowiązuje.
