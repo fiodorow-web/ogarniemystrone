@@ -281,7 +281,16 @@ html.locked{overflow:hidden}
 .mess.is-order .stk .p,.mess.is-order .stk .tg-p{opacity:0;transform:translateY(-6px)}
 .mess.is-order .stk .s,.mess.is-order .stk .tg-s{opacity:1;transform:none}
 .mess-btn{gap:.7rem}
-.mess-ico{width:30px;height:14px;overflow:visible}
+/* Ikona: pętla wokół trzech mini-naklejek; krzywe przy bałaganie, w rzędzie po ogarnięciu */
+.mess-ico{display:grid;place-items:center;flex:none;width:40px;height:20px}
+.mess-ico > svg{grid-area:1/1;overflow:visible}
+.mess-ico > svg:first-child{width:100%;height:100%}
+.mess-mini{width:21px;height:9px}
+.mess-mini rect{fill:currentColor;transform-box:fill-box;transform-origin:center;transition:transform var(--t3) var(--e-sway)}
+.mess-mini rect:nth-child(1){transform:translate(-1px,-1.5px) rotate(-16deg)}
+.mess-mini rect:nth-child(2){transform:translateY(1.5px) rotate(12deg);transition-delay:55ms}
+.mess-mini rect:nth-child(3){transform:translate(1px,-.5px) rotate(-7deg);transition-delay:110ms}
+.mess-btn[aria-pressed="true"] .mess-mini rect{transform:none}
 .mess-ico path{fill:none;stroke:currentColor;stroke-width:9;stroke-linecap:round;stroke-dasharray:1 1.1;stroke-dashoffset:0;transition:stroke-dashoffset var(--t4) var(--e-soft)}
 .mess-btn:hover .mess-ico path{animation:draw 700ms var(--e-soft)}
 .mess-btn[aria-pressed="true"]{border-color:var(--loop)}
