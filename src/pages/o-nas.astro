@@ -2,6 +2,12 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
+import { Picture } from 'astro:assets';
+import zdjMateusz from '../assets/zespol/mateusz.jpeg';
+import zdjSebastian from '../assets/zespol/sebastian.jpeg';
+
+// Zdjęcia w ramce 4:5; --kadr ustawia, który fragment zdjęcia widać (object-position), żeby twarze stały podobnie
+const ZDJ = { formats: ['avif'], fallbackFormat: 'webp', widths: [360, 560, 920], sizes: '(max-width: 640px) 84vw, 460px', alt: '', loading: 'eager' } as const;
 ---
 <Base
   title="O nas – Ogarniemy Stronę"
@@ -17,14 +23,14 @@ import Loop from '../components/Loop.astro';
   <section class="sec sec-tight" aria-label="Zespół">
     <div class="wrap duo">
       <article class="person rv" data-par="-0.03">
-        <div class="portrait" aria-hidden="true"><span>[Zdjęcie: Mateusz przy pracy]</span></div>
+        <div class="portrait foto" style="--kadr:50% 0%" aria-hidden="true"><Picture src={zdjMateusz} {...ZDJ} /></div>
         <p class="hi">Cześć, tu Mateusz</p>
         <h2 class="person-n">Mateusz Fiodorow</h2>
         <p class="person-r">Student informatyki</p>
         <p>[Dopisz 1–2 zdania o&nbsp;sobie: czym się zajmujesz w&nbsp;projektach.]</p>
       </article>
       <article class="person person-2 rv rv2" data-par="0.04">
-        <div class="portrait p2" aria-hidden="true"><span>[Zdjęcie: Sebastian przy pracy]</span></div>
+        <div class="portrait p2 foto" style="--kadr:50% 100%" aria-hidden="true"><Picture src={zdjSebastian} {...ZDJ} /></div>
         <p class="hi">Cześć, tu Sebastian</p>
         <h2 class="person-n">Sebastian Herman</h2>
         <p class="person-r">Student informatyki</p>
