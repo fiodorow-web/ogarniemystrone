@@ -87,6 +87,17 @@ ${tresc}
 </html>`;
 
 // ── Zgłoszenie do nas ─────────────────────────────────────────────────
+// Odpisać można przyciskiem „Odpisz” (nowy mail do klienta z cytatem jego wiadomości) albo zwykłym „Odpowiedz”
+// (Reply-To = klient). W obu przypadkach klient może zobaczyć ten mail w cytacie, więc temat i dopiski są neutralne.
+const CYTAT_MAX = 500; // dłuższa wiadomość jest ucinana, bo programy pocztowe nie przyjmują bardzo długich linków mailto
+function trescOdpowiedzi(d, teraz) {
+  const wiad = d.wiadomosc.length > CYTAT_MAX ? `${d.wiadomosc.slice(0, CYTAT_MAX).replace(/\s+\S*$/, '')} […]` : d.wiadomosc;
+  const cytat = [d.temat.length > 0 && d.temat.join(', '), ...(wiad ? wiad.split('\n') : [])].filter((l) => l !== false);
+  const linie = ['Dzień dobry,', '', '', ''];
+  if (cytat.length) linie.push('--', `Twoja wiadomość z formularza na ogarniemystrone.pl (${dataPL(teraz, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })}):`, ...cytat.map((l) => `> ${l}`));
+  return linie.join('\r\n');
+}
+
 /**
  * @param {{imie:string, firma:string, kontakt:string, email:boolean, temat:string[], wiadomosc:string}} d
  * @param {{teraz:Date, podejrzane?:string}} meta  podejrzane: powód, gdy zgłoszenie wygląda na automat (wysyłamy, ale bez potwierdzenia dla klienta)
@@ -96,28 +107,28 @@ export function mailDoNas(d, { teraz, podejrzane }) {
   const termin = kiedy(terminOdpowiedzi(teraz));
   const tel = d.kontakt.replace(/[^\d+]/g, '');
   const odpisz = d.email
-    ? przycisk(`mailto:${d.kontakt}?subject=${encodeURIComponent('Twoja wiadomość do Ogarniemy Stronę')}`, 'Odpisz')
+    ? przycisk(`mailto:${d.kontakt}?subject=${encodeURIComponent('Twoja wiadomość do Ogarniemy Stronę')}&body=${encodeURIComponent(trescOdpowiedzi(d, teraz))}`, 'Odpisz')
     : przycisk(`tel:${tel}`, 'Zadzwoń');
   const sms = d.email ? '' : przycisk(`sms:${tel}`, 'Napisz SMS', false);
 
   const tresc = `
 ${podejrzane ? `<p style="margin:0 0 18px;padding:12px 14px;border-radius:12px;background:#fff4d6;font:14px/1.5 ${FONT};color:${K.tekst}"><b>Uwaga, to może być automat:</b> ${esc(podejrzane)}. Klient nie dostał potwierdzenia.</p>` : ''}
-${etykieta('Nowe zapytanie')}
+${etykieta('Zapytanie ze strony')}
 <h1 style="margin:14px 0 6px;font:800 30px/1.1 ${FONT};letter-spacing:-.02em;color:${K.tekst}">${esc(kto)}</h1>
 <p style="margin:0 0 18px;font:16px/1.5 ${FONT}"><a href="${d.email ? `mailto:${esc(d.kontakt)}` : `tel:${esc(tel)}`}" style="color:${K.zielony};font-weight:600;text-decoration:underline">${esc(d.kontakt)}</a></p>
 ${d.temat.length ? `<div style="margin:0 0 14px">${d.temat.map((t) => pigulka(esc(t))).join('')}</div>` : ''}
 <div style="margin:6px 0 22px;padding:16px 18px;border-radius:14px;background:${K.tlo};border-left:4px solid ${K.limonka};font:16px/1.6 ${FONT};color:${K.tekst}">${d.wiadomosc ? akapity(d.wiadomosc) : `<span style="color:${K.szary}">Bez wiadomości, tylko dane kontaktowe.</span>`}</div>
 <div>${odpisz}${sms}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;border-top:1px solid ${K.linia}"><tr>
-<td style="padding-top:14px;font:14px/1.5 ${FONT};color:${K.szary}">Obiecaliśmy odpowiedź do 24&nbsp;h w&nbsp;dni robocze.<br><b style="color:${K.tekst}">Odpisz najpóźniej: ${esc(termin)}</b></td>
+<td style="padding-top:14px;font:14px/1.5 ${FONT};color:${K.szary}">Termin odpowiedzi (24&nbsp;h w&nbsp;dni robocze):<br><b style="color:${K.tekst}">${esc(termin)}</b></td>
 </tr></table>`;
 
-  const stopka = `Wysłane ${esc(kiedy(teraz))} z&nbsp;formularza na <a href="${STRONA}/kontakt" style="color:${K.szary}">ogarniemystrone.pl/kontakt</a>.${d.email ? ' „Odpowiedz” w&nbsp;programie pocztowym też trafi prosto do klienta.' : ''}`;
+  const stopka = `Wysłane ${esc(kiedy(teraz))} z&nbsp;formularza na <a href="${STRONA}/kontakt" style="color:${K.szary}">ogarniemystrone.pl/kontakt</a>.${d.email ? ` Odpowiedź na tego maila trafi do: ${esc(d.kontakt)}.` : ''}`;
 
   // false = pole niewypełnione, wiersz znika
   const text = [
     podejrzane && `UWAGA, to może być automat: ${podejrzane}. Klient nie dostał potwierdzenia.\n`,
-    `Nowe zapytanie ze strony`,
+    `Zapytanie ze strony`,
     ``,
     `Imię: ${d.imie}`,
     !!d.firma && `Firma: ${d.firma}`,
@@ -126,13 +137,13 @@ ${d.temat.length ? `<div style="margin:0 0 14px">${d.temat.map((t) => pigulka(es
     ``,
     d.wiadomosc || '(bez wiadomości)',
     ``,
-    twarde(`Odpisz najpóźniej: ${termin} (obiecaliśmy odpowiedź do 24 h w dni robocze).`),
-    `Wysłane ${kiedy(teraz)} z formularza na ogarniemystrone.pl/kontakt.`,
+    twarde(`Termin odpowiedzi (24 h w dni robocze): ${termin}`),
+    `Wysłane ${kiedy(teraz)} z formularza na ogarniemystrone.pl/kontakt.${d.email ? ` Odpowiedź na tego maila trafi do: ${d.kontakt}.` : ''}`,
   ].filter((l) => l !== false && l !== undefined).join('\n');
 
   return {
-    subject: `${podejrzane ? '[możliwy spam] ' : ''}Nowe zapytanie: ${kto}`,
-    html: szkielet({ tytul: `Nowe zapytanie: ${kto}`, zajawka: `${d.kontakt}${d.temat.length ? ' · ' + d.temat.join(', ') : ''}`, tresc, stopka }),
+    subject: `${podejrzane ? '[możliwy spam] ' : ''}Zapytanie ze strony: ${kto}`,
+    html: szkielet({ tytul: `Zapytanie ze strony: ${kto}`, zajawka: `${d.kontakt}${d.temat.length ? ' · ' + d.temat.join(', ') : ''}`, tresc, stopka }),
     text,
   };
 }

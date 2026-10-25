@@ -220,7 +220,8 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 ### 2026-10-25: Formularz przez Resend, jako funkcja w `api/`
 - **Co:**
   - `POST /api/kontakt` to funkcja Vercela w `api/kontakt.js`, a logika jest w `src/formularz/`. Strona zostaje statyczna, bez adaptera Astro, więc `vercel.json`, czyste adresy i 404 działają jak dotąd;
-  - zgłoszenie idzie na `kontakt@ogarniemystrone.pl` z „Odpowiedz do” ustawionym na klienta;
+  - zgłoszenie idzie na `kontakt@ogarniemystrone.pl` z „Odpowiedz do” ustawionym na klienta. Dalsza rozmowa idzie zwykłą pocztą z `kontakt@` (SEOHOST), bez Resend;
+  - odpisywać można przyciskiem „Odpisz” (nowy mail z cytatem wiadomości klienta, ucinanym do 500 znaków) albo zwykłym „Odpowiedz”. Klient może zobaczyć zgłoszenie w cytacie, dlatego temat („Zapytanie ze strony: …”) i dopiski są neutralne, bez wewnętrznych uwag;
   - klient, który podał e-mail, dostaje potwierdzenie z czterema krokami i zatwierdzonymi zdaniami o płatności;
   - nadawca to `formularz@wiadomosci.ogarniemystrone.pl`.
 - **Dlaczego Resend, a nie SMTP SEOHOST:**
