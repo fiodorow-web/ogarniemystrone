@@ -183,6 +183,8 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
 4. **Wdrożenie:**
    - domena jest zarejestrowana w Zenboxie, DNS i poczta są na SEOHOST;
+   - rekordy zmienia się tylko w panelu SEOHOST, bo w rejestrze .pl domena ma serwery nazw `ns1.seohost.pl` i `ns2.seohost.pl` (stan z 2026-10-25). Strefa DNS w panelu Zenboxu jest nieaktywna i jej zmiany nic nie dają;
+   - poczta nie zależy od rekordu A domeny: MX wskazuje `mail.ogarniemystrone.pl` (osobny rekord A), a SPF to `redirect=_spf-h22.microhost.pl`;
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
    - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta;
    - przed wdrożeniem na produkcję zawsze zapytaj.
