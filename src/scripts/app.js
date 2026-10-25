@@ -797,12 +797,4 @@
     });
   });
 
-  /* ── Waga strony w stopce (HTML + pliki, po kompresji) ── */
-  window.addEventListener('load', function () {
-    try {
-      var entries = performance.getEntriesByType('navigation').concat(performance.getEntriesByType('resource'));
-      var bytes = entries.reduce(function (s, e) { return s + (e.encodedBodySize || 0); }, 0);
-      if (bytes > 1024) $('[data-weight]').textContent = ' · Ta podstrona waży ok. ' + Math.round(bytes / 1024) + ' KB';
-    } catch (e) {}
-  });
 })();

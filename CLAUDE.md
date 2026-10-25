@@ -111,7 +111,7 @@ Przydatne szczegóły:
    - nie ma zewnętrznych żądań (żadnego Google Fonts z CDN, zewnętrznych skryptów i widżetów);
    - zasoby mają długi cache z hashem w nazwie;
    - cel Lighthouse: 95+ we wszystkich kategoriach, bez przesunięć układu (CLS ≈ 0).
-6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Stopka obiecuje to wprost. Jeśli kiedyś będzie potrzebna statystyka, tylko bez ciasteczek (np. Vercel Web Analytics) i po zgodzie właścicieli.
+6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Polityka prywatności mówi to wprost. Jeśli kiedyś będzie potrzebna statystyka, tylko bez ciasteczek (np. Vercel Web Analytics) i po zgodzie właścicieli.
 7. **Dostępność:**
    - WCAG 2.1 AA;
    - pełna obsługa klawiaturą: link „Przejdź do treści”, widoczny fokus, pułapka fokusu w menu, Escape zamyka menu;
@@ -164,7 +164,6 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - [ ] Przyciski „kopiuj” przy e-mailu kopiują adres i pokazują potwierdzenie.
 - [ ] FAQ się rozwija, lista „Co warto mieć pod ręką” zapamiętuje zaznaczenia.
 - [ ] Przycisk „do góry” pokazuje postęp przewijania.
-- [ ] Stopka pokazuje „Ta podstrona waży ok. X KB”.
 - [ ] Telefon:
   - dok „Menu” jest na dole, a CTA pojawia się w doku, gdy przycisk w pierwszym ekranie zniknie z widoku (na /kontakt CTA w doku się nie pojawia);
   - menu na cały ekran otwiera się kołem od przycisku;
@@ -213,6 +212,11 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Commituj małymi krokami z opisem po polsku.
 
 ## Decyzje
+
+### 2026-10-25: Stopka bez „Bez ciasteczek śledzących · Ta podstrona waży ok. X KB”
+- **Co:** w dolnym pasku stopki zostały tylko „© 2026 Ogarniemy Stronę” i link do polityki prywatności. Skrypt liczący wagę podstrony usunięty.
+- **Dlaczego:** decyzja właścicieli.
+- **Co zostaje:** strona nadal nie używa ciasteczek śledzących, mówi o tym polityka prywatności. Wagę podstrony sprawdzamy narzędziami (DevTools, Lighthouse), cel 150–250 KB się nie zmienia.
 
 ### 2026-10-25: Strona główna bez dopisków o płatności przy krokach
 - **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty, gdy projekt Ci się spodoba” i „Druga połowa po zrobieniu strony”.

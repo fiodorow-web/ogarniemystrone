@@ -277,8 +277,8 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
 
 To są obietnice marki, a nie tylko wymagania techniczne:
 - **Dostępność:** WCAG 2.1 AA, pełna obsługa klawiaturą i czytnikiem ekranu, ograniczony ruch na życzenie, treść czytelna bez JavaScriptu.
-- **Lekkość:** podstrona waży około 150–250 KB, fonty są lokalne, nie ma zewnętrznych skryptów. Stopka pokazuje rzeczywistą wagę podstrony.
-- **Prywatność:** w stopce piszemy „Bez ciasteczek śledzących”. Nie dodajemy analityki ani widżetów, które ustawiają ciasteczka śledzące.
+- **Lekkość:** podstrona waży około 150–250 KB, fonty są lokalne, nie ma zewnętrznych skryptów.
+- **Prywatność:** bez ciasteczek śledzących, co polityka prywatności mówi wprost. Nie dodajemy analityki ani widżetów, które ustawiają ciasteczka śledzące.
 - **Dwa motywy:** jasny i ciemny, z przełącznikiem i zapamiętaniem wyboru.
 
 ---
