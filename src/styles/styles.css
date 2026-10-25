@@ -150,6 +150,11 @@ button{font:inherit;color:inherit}
 .logo.replay .lp-logo path{animation:draw2 900ms var(--e-soft) both}
 .lp-hero path{animation:draw 1500ms var(--e-soft) 900ms both}
 .lp-enter path{animation:draw 1300ms var(--e-soft) 380ms both}
+/* „Dotarło” po wysłaniu formularza: pętla rysuje się, gdy podziękowanie się pokaże */
+.lp-sent path{animation:draw 1100ms var(--e-soft) 250ms both}
+/* Małe, rozstrzelone wersaliki potrzebują więcej miejsca niż zwykła pętla wokół słowa (ostatnia litera ma jeszcze .14em odstępu) */
+.sent-k .loopw{margin-left:.45em}
+.sent-k .lp-sent{left:-.6em;top:-.5em;width:calc(100% + 1.06em);height:calc(100% + 1em)}
 .lp-messy{transform:rotate(-4deg)}
 .lp-foot path{stroke:var(--lime)}
 .js .lp-foot path{stroke-dashoffset:1.01;transition:stroke-dashoffset 1300ms var(--e-soft)}
@@ -732,8 +737,6 @@ html.locked{overflow:hidden}
 .draft{font-size:.9rem;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:.25rem .6rem}
 .draft .link-btn{min-height:44px;font-size:.9rem}
 .sent{display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;padding:clamp(.5rem,1vw,1rem) 0;animation:pop var(--t4) var(--e-pop)}
-.sent-ill{width:120px;height:52px;overflow:visible}
-.sent-ill path{fill:none;stroke:var(--loop);stroke-width:7;stroke-linecap:round;stroke-dasharray:1 1.1;animation:draw 1100ms var(--e-soft) 150ms both}
 .sent-k{font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--link)}
 .sent-k::before{content:"✓ "}
 .sent-h{font-family:var(--f-display);font-weight:760;font-stretch:84%;font-size:clamp(2rem,1.5rem + 1.8vw,3rem);line-height:1;letter-spacing:-.03em}
