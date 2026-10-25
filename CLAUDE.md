@@ -182,7 +182,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 1. **Formularz: podłączyć Resend** (kod jest gotowy, zob. „Decyzje”). Kroki właścicieli:
    - konto w Resend, domena `wiadomosci.ogarniemystrone.pl` w regionie Ireland (`eu-west-1`);
-   - rekordy DNS z zakładki Records w Resend dodać w panelu SEOHOST. To są nowe rekordy pod `wiadomosci` (`resend._domainkey.wiadomosci`, `send.wiadomosci`), istniejących rekordów poczty nie zmieniamy;
+   - rekordy DNS z zakładki Records w Resend dodać w panelu SEOHOST. To są nowe rekordy pod `wiadomosci`: TXT `resend._domainkey.wiadomosci` (DKIM) oraz CNAME `rsend.wiadomosci` i `send.wiadomosci` (wysyłka). Istniejących rekordów poczty nie zmieniamy, a „Enable Receiving” w Resend zostaje wyłączone;
    - klucz API z uprawnieniem tylko do wysyłki i tylko dla tej domeny;
    - w Vercelu (Settings → Environment Variables, Production i Preview) zmienna `RESEND_API_KEY`. Opcjonalnie `FORMULARZ_DO` i `FORMULARZ_OD`, opis w `src/formularz/obsluga.js`;
    - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
