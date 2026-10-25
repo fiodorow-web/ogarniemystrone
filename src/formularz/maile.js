@@ -152,7 +152,7 @@ ${d.temat.length ? `<div style="margin:0 0 14px">${d.temat.map((t) => pigulka(es
 // Kroki i zdania o płatności dosłownie ze strony głównej (zatwierdzone brzmienie, SPRZEDAZ.md).
 const KROKI = [
   ['01', 'Rozmowa', 'Krótko o&nbsp;Twojej firmie i&nbsp;o&nbsp;tym, co ma się znaleźć na stronie.', 'Bezpłatnie, z&nbsp;wyceną'],
-  ['02', 'Projekt', 'Pokazujemy projekt na telefonie i&nbsp;komputerze. Poprawki wprowadzamy przed startem.', 'Połowa kwoty, gdy projekt Ci się spodoba'],
+  ['02', 'Projekt', 'Pokazujemy projekt na telefonie i&nbsp;komputerze. Poprawki wprowadzamy przed startem.', 'Połowa kwoty po akceptacji projektu'],
   ['03', 'Treści', 'Teksty piszemy my. Przed publikacją zatwierdzasz je mailem.', ''],
   ['04', 'Start i&nbsp;opieka', 'Strona startuje pod Twoim adresem, a&nbsp;my zostajemy po starcie.', 'Druga połowa po zrobieniu strony'],
 ];
