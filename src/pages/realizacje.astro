@@ -12,6 +12,7 @@ const RODZAJE = {
   rezerwacje: 'z rezerwacjami',
 };
 const works = (await getCollection('realizacje')).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+// Zrzuty mają alt dla wyszukiwarek, a ramka aria-hidden, bo nazwa realizacji jest w linku obok
 // Zastępcze miniatury, dopóki realizacja nie ma zrzutu ekranu
 const THUMBS = [
   { cls: 'thumb', lines: ['w60', 'w40'] },
@@ -38,7 +39,7 @@ const isExternal = (link: string) => /^https?:\/\//.test(link);
 {works.map(({ data: w }, i) => <Fragment>
         <a class={`work ${RV[i % 3]}`} href={w.link} target={isExternal(w.link) ? '_blank' : undefined} rel={isExternal(w.link) ? 'noopener' : undefined}>
 {w.zdjecie ? (
-          <span class={`${THUMBS[i % 3].cls} th-shot`} aria-hidden="true"><span class="shot-d"><Picture src={w.zdjecie} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 960]} sizes="(max-width: 700px) 70vw, (max-width: 1320px) 33vw, 470px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>{w.zdjecieTelefon && <span class="shot-m"><Picture src={w.zdjecieTelefon} formats={['avif']} fallbackFormat="webp" widths={[120, 240]} sizes="(max-width: 700px) 18vw, 120px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>}</span>
+          <span class={`${THUMBS[i % 3].cls} th-shot`} aria-hidden="true"><span class="shot-d"><Picture src={w.zdjecie} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 960]} sizes="(max-width: 700px) 70vw, (max-width: 1320px) 33vw, 470px" alt={`Strona ${w.nazwa} na komputerze`} loading={i < 2 ? 'eager' : 'lazy'} /></span>{w.zdjecieTelefon && <span class="shot-m"><Picture src={w.zdjecieTelefon} formats={['avif']} fallbackFormat="webp" widths={[120, 240]} sizes="(max-width: 700px) 18vw, 120px" alt={`Strona ${w.nazwa} na telefonie`} loading={i < 2 ? 'eager' : 'lazy'} /></span>}</span>
 ) : (
           <span class={THUMBS[i % 3].cls} aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class={`th-l ${THUMBS[i % 3].lines[0]}`}></span><span class={`th-l ${THUMBS[i % 3].lines[1]}`}></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
 )}
