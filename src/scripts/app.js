@@ -31,6 +31,28 @@
     del: function (k) { try { sessionStorage.removeItem(k); } catch (e) {} }
   };
 
+  /* ── Pojawianie się przy przewijaniu ──
+     Na początku skryptu, żeby błąd w innym module nie zostawił treści ukrytej.
+     rv-on wyłącza bezpiecznik z <head> (Base.astro), który po 3 s pokazuje wszystko. */
+  var revealEls = $$('.rv, .kin');
+  var foot = $('.site-foot');
+  if (hasIO) {
+    var revIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+    revealEls.forEach(function (el) { revIO.observe(el); });
+    var footIO = new IntersectionObserver(function (es) {
+      if (es[es.length - 1].isIntersecting) { foot.classList.add('in'); footIO.disconnect(); }
+    }, { threshold: 0.2 });
+    footIO.observe(foot);
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('in'); });
+    foot.classList.add('in');
+  }
+  root.classList.add('rv-on');
+
   /* ── Komunikat ── */
   var toastEl = $('[data-toast]');
   var toastT = 0;
@@ -439,25 +461,6 @@
       requestAnimationFrame(step);
     }, { threshold: 0.4 });
     cIO.observe(countEl);
-  }
-
-  /* ── Pojawianie się przy przewijaniu ── */
-  var revealEls = $$('.rv, .kin');
-  var foot = $('.site-foot');
-  if (hasIO) {
-    var revIO = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); }
-      });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
-    revealEls.forEach(function (el) { revIO.observe(el); });
-    var footIO = new IntersectionObserver(function (es) {
-      if (es[es.length - 1].isIntersecting) { foot.classList.add('in'); footIO.disconnect(); }
-    }, { threshold: 0.2 });
-    footIO.observe(foot);
-  } else {
-    revealEls.forEach(function (el) { el.classList.add('in'); });
-    foot.classList.add('in');
   }
 
   /* ── Przewijanie: nagłówek, postęp, paralaksa, rysowane linie ── */

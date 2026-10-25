@@ -70,7 +70,7 @@ const breadcrumbLd = !schema && breadcrumb && url ? JSON.stringify({
 <link rel="preload" href={fontBricolage} as="font" type="font/woff2" crossorigin>
 {preloadSerif && <link rel="preload" href={fontFraunces} as="font" type="font/woff2" crossorigin>}
 <link rel="preload" href={fontOnest} as="font" type="font/woff2" crossorigin>
-<script is:inline>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');try{var t=localStorage.getItem('os-motyw');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script is:inline>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');setTimeout(function(){if(!d.classList.contains('rv-on'))d.classList.add('rv-off');},3000);try{var t=localStorage.getItem('os-motyw');if(t==='dark'||t==='light')d.setAttribute('data-theme',t);}catch(e){}})();</script>
 <script is:inline src={appJs} defer></script>
 {schema === 'home' && <script is:inline type="application/ld+json" set:html={JSON.stringify(SCHEMA_HOME, null, 2)} />}
 {breadcrumbLd && <script is:inline type="application/ld+json" set:html={breadcrumbLd} />}

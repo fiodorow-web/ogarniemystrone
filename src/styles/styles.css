@@ -323,6 +323,10 @@ html.locked{overflow:hidden}
 .js .rv.rv3{transition-delay:140ms}
 .js .rv.rv4{transition-delay:210ms}
 .js .rv.in{opacity:1;transform:none}
+/* Bezpiecznik: app.js nie ruszył w 3 s (zablokowany albo błąd), więc treść pokazuje się bez animacji */
+.rv-off .rv{opacity:1;transform:none}
+.rv-off .kin{font-stretch:84%}
+.js.rv-off .tile.rv:not(.in){transform:none}
 
 /* ── Bento ── */
 .bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:minmax(232px,auto);gap:14px;margin-top:clamp(2.2rem,1.6rem + 2vw,3.5rem)}
