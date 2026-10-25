@@ -774,6 +774,8 @@ html.locked{overflow:hidden}
 /* ── Stopka ── */
 .site-foot{background:var(--foot-bg);color:#ffffff;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 1.5rem)}
 .site-foot a{color:#ffffff}
+/* Przycisk na limonce zostaje ciemny: .site-foot a ma większą specyficzność niż .btn-m */
+.site-foot .btn-m,.site-foot .btn-m:hover{color:#111714}
 .site-foot :focus-visible{outline-color:var(--lime)}
 .foot-cta{display:flex;flex-direction:column;align-items:flex-start;gap:2rem;padding-top:clamp(4.4rem,2.6rem + 6vw,8rem);padding-bottom:clamp(3.4rem,2.4rem + 4vw,5.4rem)}
 .foot-h{font-family:var(--f-display);font-weight:760;font-stretch:82%;font-size:clamp(2.6rem,1.2rem + 5.4vw,6.6rem);line-height:.92;letter-spacing:-.04em;max-width:14ch;margin-left:-.04em;text-wrap:balance}
