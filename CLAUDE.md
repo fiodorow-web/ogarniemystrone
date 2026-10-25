@@ -191,7 +191,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - `[Zakres do ustalenia]`;
    - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
    - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
-   - 1–2 zdania o Sebastianie w `o-nas` (`[Dopisz 1–2 zdania o sobie…]`); opis Mateusza już jest. Zdjęcia już są (`src/assets/zespol/`); większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
+   - zdjęcia zespołu w `o-nas` już są (`src/assets/zespol/`), opisy obu też; większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
 4. **Wdrożenie:**
