@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
+import Arrow from '../components/Arrow.astro';
 import { getCollection } from 'astro:content';
 import { Picture } from 'astro:assets';
 
@@ -12,6 +13,7 @@ const RODZAJE = {
   rezerwacje: 'z rezerwacjami',
 };
 const works = (await getCollection('realizacje')).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+// Zrzuty mają alt dla wyszukiwarek, a ramka aria-hidden, bo nazwa realizacji jest w linku obok
 // Zastępcze miniatury, dopóki realizacja nie ma zrzutu ekranu
 const THUMBS = [
   { cls: 'thumb', lines: ['w60', 'w40'] },
@@ -38,14 +40,15 @@ const isExternal = (link: string) => /^https?:\/\//.test(link);
 {works.map(({ data: w }, i) => <Fragment>
         <a class={`work ${RV[i % 3]}`} href={w.link} target={isExternal(w.link) ? '_blank' : undefined} rel={isExternal(w.link) ? 'noopener' : undefined}>
 {w.zdjecie ? (
-          <span class={`${THUMBS[i % 3].cls} th-shot`} aria-hidden="true"><span class="shot-d"><Picture src={w.zdjecie} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 960]} sizes="(max-width: 700px) 70vw, (max-width: 1320px) 33vw, 470px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>{w.zdjecieTelefon && <span class="shot-m"><Picture src={w.zdjecieTelefon} formats={['avif']} fallbackFormat="webp" widths={[120, 240]} sizes="(max-width: 700px) 18vw, 120px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>}</span>
+          <span class={`${THUMBS[i % 3].cls} th-shot`} aria-hidden="true"><span class="shot-d"><Picture src={w.zdjecie} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 960]} sizes="(max-width: 700px) 70vw, (max-width: 1320px) 33vw, 470px" alt={`Strona ${w.nazwa} na komputerze`} loading={i < 2 ? 'eager' : 'lazy'} /></span>{w.zdjecieTelefon && <span class="shot-m"><Picture src={w.zdjecieTelefon} formats={['avif']} fallbackFormat="webp" widths={[120, 240]} sizes="(max-width: 700px) 18vw, 120px" alt={`Strona ${w.nazwa} na telefonie`} loading={i < 2 ? 'eager' : 'lazy'} /></span>}</span>
 ) : (
           <span class={THUMBS[i % 3].cls} aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class={`th-l ${THUMBS[i % 3].lines[0]}`}></span><span class={`th-l ${THUMBS[i % 3].lines[1]}`}></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
 )}
-          <span class="work-meta"><span class="work-t">{w.nazwa}{isExternal(w.link) && <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>}</span><span class="work-s">{[w.miasto, w.branza, RODZAJE[w.rodzaj]].filter(Boolean).join(' · ')}</span>{isExternal(w.link) && <span class="sr-only"> (otwiera się w nowej karcie)</span>}</span>
+          <span class="work-meta"><span class="work-t">{w.nazwa}{isExternal(w.link) && <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>}</span><span class="work-s">{[w.branza, RODZAJE[w.rodzaj]].join(' · ')}</span>{isExternal(w.link) && <span class="sr-only"> (otwiera się w nowej karcie)</span>}</span>
         </a>
 </Fragment>)}
       </div>
+      <a class="more more-next rv" href="/cennik">Zobacz cennik<Arrow /></a>
     </div>
   </section>
 </Base>

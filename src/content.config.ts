@@ -7,8 +7,6 @@ const realizacje = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/realizacje' }),
   schema: ({ image }) => z.object({
     nazwa: z.string(),
-    /** Pomijane, gdy firma nie ma jednego miasta. */
-    miasto: z.string().optional(),
     branza: z.string(),
     rodzaj: z.enum(['wizytowka', 'podstrony', 'rezerwacje']),
     /** Kolejność na liście (rosnąco). Najmocniejsza realizacja pierwsza. */

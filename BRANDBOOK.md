@@ -227,7 +227,6 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
   - błąd ma czerwony obrys i komunikat pod polem;
   - wersja robocza zapisuje się sama.
 - **Zapewnienia** (`.assure`): krótka lista z zielonymi ptaszkami tuż pod przyciskiem: „Bezpłatna rozmowa i wycena”, „Najpierw projekt, potem płatność”, „Odpowiedź do 24 h”. Stoją przy każdym głównym CTA.
-- **Pigułka płatności** (`.st-pay`): miętowa etykieta przy kroku współpracy, lekko obrócona.
 - **Pasek płatności** (`.pay-steps`): trzy kafle „0 zł → 50% → 50%”. Środkowy jest miętowy.
 - **Ikony:** liniowe, siatka 24 × 24, kreska 2 px, zaokrąglone końce i łączenia, kolor `currentColor`.
 - **Fokus z klawiatury:** obrys 2 px w kolorze tekstu z odstępem 3 px. Zawsze widoczny.

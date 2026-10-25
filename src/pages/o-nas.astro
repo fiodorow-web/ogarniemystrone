@@ -2,35 +2,44 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
-import { Picture } from 'astro:assets';
+import Arrow from '../components/Arrow.astro';
+import { Picture, getImage } from 'astro:assets';
+import { SITE, LD_ID, LD_FIRMA } from '../site.js';
 import zdjMateusz from '../assets/zespol/mateusz.jpeg';
 import zdjSebastian from '../assets/zespol/sebastian.jpeg';
 
-// Zdjęcia w ramce 4:5; --kadr ustawia, który fragment zdjęcia widać (object-position), żeby twarze stały podobnie
-const ZDJ = { formats: ['avif'], fallbackFormat: 'webp', widths: [360, 560, 920], sizes: '(max-width: 640px) 84vw, 460px', alt: '', loading: 'eager' } as const;
+// Zdjęcia w ramce 4:5; --kadr ustawia, który fragment zdjęcia widać (object-position), żeby twarze stały podobnie.
+// alt z imieniem i nazwiskiem jest dla wyszukiwarek; ramka ma aria-hidden, bo imię jest w nagłówku pod zdjęciem.
+const ZDJ = { formats: ['avif'], fallbackFormat: 'webp', widths: [360, 560, 920], sizes: '(max-width: 640px) 84vw, 460px', loading: 'eager' } as const;
+
+// Osoby dla Google: te same @id co w danych strony głównej (src/site.js)
+const foto = async (src: ImageMetadata) => SITE.domain + (await getImage({ src, format: 'webp', width: 560 })).src;
+const osoba = async (id: string, name: string, src: ImageMetadata) => ({ '@type': 'Person', '@id': id, name, url: `${SITE.domain}/o-nas`, image: await foto(src), worksFor: { '@id': LD_ID.firma } });
+const LD = { '@context': 'https://schema.org', '@graph': [LD_FIRMA, await osoba(LD_ID.mateusz, 'Mateusz Fiodorow', zdjMateusz), await osoba(LD_ID.sebastian, 'Sebastian Herman', zdjSebastian)] };
 ---
 <Base
   title="O nas: Mateusz Fiodorow i Sebastian Herman – Ogarniemy Stronę"
   description="Mateusz Fiodorow i Sebastian Herman, studenci informatyki. Robimy strony dla małych firm i specjalistów z całej Polski."
   breadcrumb="O nas"
+  ld={LD}
 >
   <header class="wrap page-head">
     <Crumbs name="O nas" />
     <h1 id="h-onas" class="page-title">Kto ogarnie Twoją <span class="loopw">stronę<Loop class="lp lp-enter" hidden /></span></h1>
-    <p class="lead">Jesteśmy dwoma studentami informatyki. Robimy strony dla małych firm i&nbsp;specjalistów z&nbsp;różnych branż. Pracujemy zdalnie, z&nbsp;klientami z&nbsp;całej Polski.</p>
+    <p class="lead">Jesteśmy młodzi i&nbsp;cały czas rozwijamy się w&nbsp;projektowaniu stron internetowych: szlifujemy umiejętności i&nbsp;uczymy się kolejnych technologii. Robimy strony dla małych firm i&nbsp;specjalistów z&nbsp;różnych branż. Pracujemy zdalnie, z&nbsp;klientami z&nbsp;całej Polski.</p>
   </header>
 
   <section class="sec sec-tight" aria-label="Zespół">
     <div class="wrap duo">
       <article class="person rv" data-par="-0.03">
-        <div class="portrait foto" style="--kadr:50% 0%" aria-hidden="true"><Picture src={zdjMateusz} {...ZDJ} /></div>
+        <div class="portrait foto" style="--kadr:50% 0%" aria-hidden="true"><Picture src={zdjMateusz} alt="Mateusz Fiodorow" {...ZDJ} /></div>
         <p class="hi">Cześć, tu Mateusz</p>
         <h2 class="person-n">Mateusz Fiodorow</h2>
         <p class="person-r">Student informatyki</p>
         <p>Studiuję informatykę i&nbsp;pracuję jako IT&nbsp;support specialist, a&nbsp;najbardziej interesują mnie sieci komputerowe, serwery i&nbsp;tworzenie stron internetowych. W&nbsp;weekendy zamieniam klawiaturę na aparat i&nbsp;fotografuję różne eventy. Obie pasje uczą tego samego: liczy się każdy szczegół i&nbsp;dobre pierwsze wrażenie.</p>
       </article>
       <article class="person person-2 rv rv2" data-par="0.04">
-        <div class="portrait p2 foto" style="--kadr:50% 100%" aria-hidden="true"><Picture src={zdjSebastian} {...ZDJ} /></div>
+        <div class="portrait p2 foto" style="--kadr:50% 100%" aria-hidden="true"><Picture src={zdjSebastian} alt="Sebastian Herman" {...ZDJ} /></div>
         <p class="hi">Cześć, tu Sebastian</p>
         <h2 class="person-n">Sebastian Herman</h2>
         <p class="person-r">Student informatyki</p>
@@ -46,10 +55,11 @@ const ZDJ = { formats: ['avif'], fallbackFormat: 'webp', widths: [360, 560, 920]
         <h2 id="h-zasady" class="h2 kin">Trzy <em class="ac">proste</em> zasady</h2>
       </div>
       <ul class="rules">
-        <li class="rule c-lime rv"><span class="rule-n">1</span><h3>Konkretnie i&nbsp;po ludzku</h3><p>Piszemy o&nbsp;tym, co zyskasz w&nbsp;swojej pracy, a&nbsp;nie o&nbsp;technologii.</p></li>
-        <li class="rule rv rv2"><span class="rule-n">2</span><h3>Lekko i&nbsp;szybko</h3><p>Ruch tylko tam, gdzie pomaga. Strona ma się otwierać szybko, nawet przy słabym zasięgu.</p></li>
+        <li class="rule c-lime rv"><span class="rule-n">1</span><h3>Konkretnie i&nbsp;po ludzku</h3><p>Tłumaczymy wszystko najprościej, jak się da. Nawet jeśli nie znasz się na stronach, będziesz wiedzieć, co robimy i&nbsp;dlaczego.</p></li>
+        <li class="rule rv rv2"><span class="rule-n">2</span><h3>Mało Twojego czasu</h3><p>Wiemy, że nie masz czasu siedzieć nad stroną. Twój udział ograniczamy do minimum, a&nbsp;resztą zajmujemy się my.</p></li>
         <li class="rule c-green rv rv3"><span class="rule-n">3</span><h3>Zostajemy po starcie</h3><p>Pilnujemy kopii zapasowych i&nbsp;odpowiadamy na pytania także po uruchomieniu strony.</p></li>
       </ul>
+      <a class="more more-next rv" href="/realizacje">Zobacz nasze realizacje<Arrow /></a>
     </div>
   </section>
 

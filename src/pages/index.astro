@@ -5,6 +5,7 @@ import Assure from '../components/Assure.astro';
 import Faq from '../components/Faq.astro';
 import Loop from '../components/Loop.astro';
 import Arrow from '../components/Arrow.astro';
+// data-nosnippet na makietach (przykładowe godziny, wyszukiwanie, etykiety naklejek): Google nie bierze ich do opisów w wynikach
 ---
 <Base
   title="Ogarniemy Stronę – strony internetowe dla małych firm"
@@ -34,12 +35,12 @@ import Arrow from '../components/Arrow.astro';
 
     <div class="mess-wrap">
       <ul class="mess" data-mess aria-label="Typowy bałagan na stronach małych firm i to, jak go ogarniamy">
-        <li class="stk tape" style="--i:0"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Strona z&nbsp;2014 roku</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wygląda na dziś</span></span></li>
-        <li class="stk" style="--i:1"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Nie działa na telefonie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wygodna na każdym telefonie</span></span></li>
-        <li class="stk" style="--i:2"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Cennik w&nbsp;PDF-ie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Cennik na stronie, zmieniasz sam</span></span></li>
-        <li class="stk tape" style="--i:3"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Godziny tylko na Facebooku</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Godziny i&nbsp;dojazd w&nbsp;jednym miejscu</span></span></li>
-        <li class="stk" style="--i:4"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Formularz ląduje w&nbsp;spamie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wiadomości prosto na Twój <span class="nw">e-mail</span></span></span></li>
-        <li class="stk tape" style="--i:5"><span class="stk-tag"><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">W&nbsp;Google Cię nie ma</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Łatwiej Cię znaleźć w&nbsp;Google</span></span></li>
+        <li class="stk tape" style="--i:0"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Strona z&nbsp;2014 roku</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wygląda na dziś</span></span></li>
+        <li class="stk" style="--i:1"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Nie działa na telefonie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wygodna na każdym telefonie</span></span></li>
+        <li class="stk" style="--i:2"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Cennik w&nbsp;PDF-ie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Cennik na stronie, zmieniasz sam</span></span></li>
+        <li class="stk tape" style="--i:3"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Godziny tylko na Facebooku</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Godziny i&nbsp;dojazd w&nbsp;jednym miejscu</span></span></li>
+        <li class="stk" style="--i:4"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">Formularz ląduje w&nbsp;spamie</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Wiadomości prosto na Twój <span class="nw">e-mail</span></span></span></li>
+        <li class="stk tape" style="--i:5"><span class="stk-tag" data-nosnippet><span class="tg-p">przed</span><span class="tg-s">ogarnięte</span></span><span class="stk-face"><span class="p">W&nbsp;Google Cię nie ma</span><span class="sr-only"> – po ogarnięciu: </span><span class="s">Łatwiej Cię znaleźć w&nbsp;Google</span></span></li>
       </ul>
       <button class="btn btn-s mess-btn" type="button" data-mess-btn aria-pressed="false">
         <span class="mess-ico" aria-hidden="true"><Loop /><svg class="mess-mini" viewBox="0 0 24 10" focusable="false"><rect x=".5" y="2.5" width="6.5" height="5" rx="1"/><rect x="8.75" y="2.5" width="6.5" height="5" rx="1"/><rect x="17" y="2.5" width="6.5" height="5" rx="1"/></svg></span>
@@ -63,7 +64,7 @@ import Arrow from '../components/Arrow.astro';
             <p>Numer, dojazd i&nbsp;formularz są pod kciukiem. Tekst czyta się bez powiększania.</p>
             <button class="link-btn" type="button" data-ph-btn>Zadzwoń na próbę</button>
           </div>
-          <div class="phone" aria-hidden="true" data-par="-0.05">
+          <div class="phone" aria-hidden="true" data-nosnippet data-par="-0.05">
             <div class="ph-screen" data-ph>
               <div class="ph-bar"><b>Twoja Firma</b><i></i></div>
               <div class="ph-hero"><span>Zapraszamy</span><b>Dobra robota, blisko Ciebie</b></div>
@@ -79,7 +80,7 @@ import Arrow from '../components/Arrow.astro';
         <article class="tile t2 c-ink rv">
           <span class="vlabel" aria-hidden="true">02 · google</span>
           <h3 class="tile-h">Łatwiej Cię znaleźć</h3>
-          <div class="search" aria-hidden="true">
+          <div class="search" aria-hidden="true" data-nosnippet>
             <div class="s-box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><span class="s-typed" data-typer="fryzjer białystok|księgowa warszawa|mechanik siedlce|kwiaciarnia gdańsk">fryzjer białystok</span><span class="caret"></span></div>
             <div class="s-res s-you"><b>Twoja Firma</b><span>strona · godziny · dojazd</span></div>
             <div class="s-res s-dim"><span class="bar w70"></span><span class="bar w40"></span></div>
@@ -89,7 +90,7 @@ import Arrow from '../components/Arrow.astro';
         <article class="tile t3 c-mint rv">
           <span class="vlabel" aria-hidden="true">03 · zmiany</span>
           <h3 class="tile-h">Zmieniasz sam</h3>
-          <div class="hours" data-hours>
+          <div class="hours" data-hours data-nosnippet>
             <div class="hr"><span>pn–pt</span><b data-h1>8:00–16:00</b></div>
             <div class="hr"><span>sobota</span><b data-h2>9:00–13:00</b></div>
             <button class="btn btn-s btn-sm" type="button" data-hours-btn>Zmień godziny</button>
@@ -99,7 +100,7 @@ import Arrow from '../components/Arrow.astro';
         <article class="tile t5 rv">
           <span class="vlabel" aria-hidden="true">04 · szybkość</span>
           <h3 class="tile-h">Szybka nawet w&nbsp;terenie</h3>
-          <div class="speed" aria-hidden="true" data-speed>
+          <div class="speed" aria-hidden="true" data-nosnippet data-speed>
             <span class="sig"><i></i><i></i><i></i><i></i></span>
             <span class="load"><i></i></span>
             <span class="load-txt">Gotowe</span>
@@ -110,7 +111,7 @@ import Arrow from '../components/Arrow.astro';
         <article class="tile t6 pattern rv">
           <span class="vlabel" aria-hidden="true">05 · spokój</span>
           <h3 class="tile-h">Kopie zapasowe robimy&nbsp;my</h3>
-          <div class="backups" aria-hidden="true"><span>Kopia · dziś</span><span>Kopia · wczoraj</span><span>Kopia · 2 dni temu</span></div>
+          <div class="backups" aria-hidden="true" data-nosnippet><span>Kopia · dziś</span><span>Kopia · wczoraj</span><span>Kopia · 2 dni temu</span></div>
           <p>Strona działa i&nbsp;jest bezpieczna. Ty nawet o&nbsp;tym nie myślisz.</p>
         </article>
       </div>
@@ -119,6 +120,7 @@ import Arrow from '../components/Arrow.astro';
         <span class="car-count" aria-live="polite" data-car-count>1 / 5</span>
         <button class="round-btn" type="button" data-car-next aria-label="Następny kafelek"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button>
       </div>
+      <a class="more more-next rv" href="/oferta">Zobacz, co jest w&nbsp;każdej stronie<Arrow /></a>
     </div>
   </section>
 
