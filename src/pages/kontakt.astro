@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE } from '../site.js';
+import { SITE, telHref } from '../site.js';
 import CopyEmail from '../components/CopyEmail.astro';
 import Assure from '../components/Assure.astro';
 import Crumbs from '../components/Crumbs.astro';
@@ -24,7 +24,7 @@ import Arrow from '../components/Arrow.astro';
           <span class="c-lab">E-mail</span>
           <CopyEmail />
         </li>
-        <li><span class="c-lab">Telefon</span><span>{SITE.telefon}</span></li>
+        <li><span class="c-lab">Telefon</span><span class="c-tel">{SITE.telefony.map((t) => <a class="tel" href={telHref(t)}>{t}</a>)}</span></li>
       </ul>
       <div class="next">
         <h2 class="next-h">Co będzie dalej</h2>

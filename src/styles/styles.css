@@ -677,6 +677,8 @@ html.locked{overflow:hidden}
 .c-list li{display:flex;flex-wrap:wrap;align-items:center;gap:.25rem 1rem;padding:.6rem 0;border-bottom:1px solid var(--line)}
 .c-lab{min-width:5.5rem;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
 .copy{display:inline-flex;align-items:center;gap:.55rem;min-height:48px;padding:0;border:0;background:none;color:var(--link);font-weight:600;font-size:1.05rem;cursor:pointer;text-decoration:underline;text-underline-offset:.16em;overflow-wrap:anywhere;text-align:left}
+.c-tel{display:flex;flex-wrap:wrap;column-gap:1.4rem}
+.tel{display:inline-flex;align-items:center;min-height:48px;color:var(--link);font-weight:600;font-size:1.05rem;white-space:nowrap;text-underline-offset:.16em}
 .copy svg{transition:transform var(--t3) var(--e-pop)}
 .copy:hover svg{transform:rotate(-12deg) scale(1.15)}
 .copy.done svg{animation:wiggle 420ms var(--e-pop)}
@@ -755,6 +757,7 @@ html.locked{overflow:hidden}
 .foot-nav a:hover,.foot-c a:hover{text-decoration:underline}
 .foot-c p{color:rgba(255,255,255,.78);overflow-wrap:anywhere}
 .foot-c a{overflow-wrap:anywhere}
+.foot-c a[href^="tel:"]{white-space:nowrap}
 .foot-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem 1.6rem;margin-top:2.8rem;padding-top:1.4rem;border-top:1px solid var(--foot-line);font-size:.875rem;color:rgba(255,255,255,.66)}
 .foot-meta a{display:inline-flex;align-items:center;min-height:44px;color:rgba(255,255,255,.8)}
 @media (max-width:760px){.foot-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.foot-brand{grid-column:1/-1}}

@@ -5,7 +5,7 @@ import Loop from './Loop.astro';
 import Arrow from './Arrow.astro';
 import Assure from './Assure.astro';
 import CopyEmail from './CopyEmail.astro';
-import { SITE } from '../site.js';
+import { SITE, telHref } from '../site.js';
 
 interface Props {
   current: string | null;
@@ -49,7 +49,9 @@ const NAV = [
     <div class="foot-c">
       <p class="foot-k">Kontakt</p>
       <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
-      <p>{SITE.telefon}</p>
+{SITE.telefony.map((t) => <Fragment>
+      <p><a href={telHref(t)}>{t}</a></p>
+</Fragment>)}
     </div>
   </div>
   <div class="wrap foot-meta">
