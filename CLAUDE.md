@@ -114,7 +114,7 @@ Przydatne szczegóły:
    - nie ma zewnętrznych żądań (żadnego Google Fonts z CDN, zewnętrznych skryptów i widżetów);
    - zasoby mają długi cache z hashem w nazwie;
    - cel Lighthouse: 95+ we wszystkich kategoriach, bez przesunięć układu (CLS ≈ 0).
-6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Polityka prywatności mówi to wprost. Jeśli kiedyś będzie potrzebna statystyka, tylko bez ciasteczek (np. Vercel Web Analytics) i po zgodzie właścicieli.
+6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Polityka prywatności mówi to wprost. Statystyka to tylko Vercel Web Analytics (bez ciasteczek, skrypt z tej samej domeny), włączona za zgodą właścicieli, zob. „Decyzje”. Innej analityki nie dodajemy bez ich zgody.
 7. **Dostępność:**
    - WCAG 2.1 AA;
    - pełna obsługa klawiaturą: link „Przejdź do treści”, widoczny fokus, pułapka fokusu w menu, Escape zamyka menu;
@@ -220,6 +220,15 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: Statystyki odwiedzin: Vercel Web Analytics
+- **Co:**
+  - na końcu `<body>` w `src/layouts/Base.astro` jest `inject()` z paczki `@vercel/analytics`;
+  - skrypt ładuje się z tej samej domeny (`/_vercel/insights/script.js` albo ścieżka, którą Vercel poda w `PUBLIC_VERCEL_OBSERVABILITY_BASEPATH`), więc nie ma zewnętrznych żądań;
+  - lokalny podgląd (`tools/serve.mjs`) zwraca pod `/_vercel/` pusty skrypt.
+- **Dlaczego nie komponent `@vercel/analytics/astro`:** przy `build.format: 'file'` zapisywałby adresy plików (`/oferta.html`) zamiast adresów z paska (`/oferta`). Wstawiałby też własny znacznik HTML, który w `<head>` psuje dokument.
+- **Prywatność:** bez ciasteczek; odwiedzającego rozpoznaje skrót z zapytania usuwany po 24 h. Polityka prywatności (sekcja „Ciasteczka i statystyki”) opisuje, co się zapisuje.
+- **Dlaczego:** decyzja właścicieli (włączyli Web Analytics w Vercelu).
 
 ### 2026-10-25: Formularz przez Resend, jako funkcja w `api/`
 - **Co:**
