@@ -67,7 +67,7 @@ Jak dodać:
   - `nazwa`, `branza`, `rodzaj` (`wizytowka` | `podstrony` | `rezerwacje`), `kolejnosc`;
   - opcjonalnie `miasto`, `link`, `zdjecie`, `zdjecieTelefon`.
 
-  Liczniki filtrów liczą się same. Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
+  `rodzaj` trafia do opisu pod nazwą („kilka podstron”). Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
 
   Zrzuty kładzie się obok pliku `.md` jako WebP:
   - `zdjecie`: komputer 1536 × 960 (przy 1440 px menu niektórych stron łamie się w dwóch wierszach);
@@ -154,7 +154,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - pod pakietami jest pasek „Najpierw projekt, potem płatność” (0 zł → 50% → 50%);
   - FAQ zaczyna się od ceny i kończy pytaniem „Co, jeśli projekt mi się nie spodoba?”.
 - [ ] „Zapytaj o ten pakiet” przy każdym pakiecie wypełnia wiadomość na /kontakt.
-- [ ] Realizacje: filtry z licznikami i pusty stan „Tu jeszcze pusto.” dla filtra bez wyników.
+- [ ] Realizacje: wszystkie kafle od razu pod nagłówkiem, bez filtrów (zob. „Decyzje”); kafel z linkiem `https://…` otwiera się w nowej karcie.
 - [ ] Formularz:
   - wymagane są tylko imię i e-mail albo telefon, reszta pól ma dopisek „(opcjonalnie)”;
   - pod przyciskiem są zapewnienia (odpowiedź do 24 h, bezpłatna rozmowa i wycena);
@@ -220,6 +220,12 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: Realizacje bez filtrów
+- **Co:** na `/realizacje` nie ma już chipów „Wszystkie / Wizytówki / Kilka podstron / Z rezerwacjami” z licznikami ani pustego stanu „Tu jeszcze pusto.”. Kafle stoją od razu pod nagłówkiem. Przechylanie kafla za kursorem zostało.
+- **Dlaczego:** decyzja właścicieli. Na razie są tylko 4 realizacje do pokazania.
+- **Co zostaje:** pole `rodzaj` w realizacjach (opis pod nazwą), więc filtry da się przywrócić bez uzupełniania danych.
+- **Powrót:** gdy realizacji będzie więcej i w różnych rodzajach. Chipy, pusty stan, style i skrypt są w commicie, który je usunął.
 
 ### 2026-10-25: Statystyki odwiedzin: Vercel Web Analytics
 - **Co:**
@@ -297,7 +303,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - pytanie o rezerwacje w konfiguratorze;
   - dodatek w ofercie;
   - temat „Rezerwacje online” w formularzu;
-  - filtr „Z rezerwacjami” w realizacjach.
+  - `rodzaj: rezerwacje` w realizacjach (filtrów na razie nie ma).
 - **Powrót:** kafel, jego style i skrypt są w commicie, który go usunął.
 
 ### 2026-10-25: Bez słowa „żargon”

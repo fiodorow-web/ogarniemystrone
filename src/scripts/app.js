@@ -478,45 +478,9 @@
   });
   onScroll();
 
-  /* ── Realizacje: filtry z pustym stanem ── */
-  var chips = $$('[data-f]');
-  if (chips.length) {
-    var works = $$('[data-cat]');
-    var emptyEl = $('[data-empty]');
-    var emptyTxt = $('[data-empty-txt]');
-    var fStatus = $('[data-filter-status]');
-    var curFilter = 'all';
-    var plural = function (n) {
-      if (n === 1) return 'realizację';
-      var t = n % 10, h = n % 100;
-      return (t >= 2 && t <= 4 && (h < 12 || h > 14)) ? 'realizacje' : 'realizacji';
-    };
-    chips.forEach(function (ch) {
-      ch.addEventListener('click', function () {
-        curFilter = ch.getAttribute('data-f');
-        chips.forEach(function (c) { c.setAttribute('aria-pressed', c === ch ? 'true' : 'false'); });
-        var shown = 0;
-        works.forEach(function (w) {
-          var match = curFilter === 'all' || w.getAttribute('data-cat') === curFilter;
-          if (match) {
-            shown++;
-            if (w.hidden) {
-              w.hidden = false;
-              w.classList.add('out', 'in');
-              requestAnimationFrame(function () { requestAnimationFrame(function () { w.classList.remove('out'); }); });
-            }
-          } else if (!w.hidden) {
-            w.classList.add('out');
-            setTimeout(function () {
-              if (!(curFilter === 'all' || w.getAttribute('data-cat') === curFilter)) w.hidden = true;
-            }, reduce() ? 0 : 240);
-          }
-        });
-        emptyEl.hidden = shown !== 0;
-        if (shown === 0 && emptyTxt && ch.getAttribute('data-pusto')) emptyTxt.textContent = ch.getAttribute('data-pusto');
-        fStatus.textContent = shown === 0 ? 'Brak realizacji w tej kategorii.' : 'Pokazano ' + shown + ' ' + plural(shown) + '.';
-      });
-    });
+  /* ── Realizacje: kafle lekko przechylają się za kursorem ── */
+  var works = $$('[data-works] .work');
+  if (works.length) {
     if (mqFine.matches && !reduce()) {
       works.forEach(function (w) {
         w.addEventListener('pointermove', function (e) {
