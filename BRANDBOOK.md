@@ -13,7 +13,7 @@ Wartości liczbowe pochodzą z `src/assets/styles.css`. Jeśli brandbook i kod s
 | Hasło | **Ty robisz swoje, my ogarniemy stronę.** |
 | Co robimy | Nowoczesne strony internetowe dla małych firm i specjalistów z całej Polski. Projekt, treści, start i opieka po starcie. Strony od 999 zł. |
 | Dla kogo | Małe firmy i specjaliści z różnych branż. Nie zawężamy przekazu do jednej grupy (np. gabinetów i pacjentów). |
-| Kto | Mateusz Fiodorow i Sebastian Herman. Białystok, praca zdalnie dla całej Polski. |
+| Kto | Mateusz Fiodorow i Sebastian Herman. Praca zdalnie dla całej Polski. |
 | Czym nie jesteśmy | Nie „studio” i nie agencja. Marka nie ma żadnych nawiązań do fotografii. |
 
 **Koncepcja wizualna: „ogarnięte pudełko”.** Japoński porządek bento (siatka, oddech, spokojne marginesy) wypełniony brazylijską energią (nasycone bloki limonki i zieleni, wielka typografia, naklejki z taśmą). Każda strona opowiada tę samą historię: **bałagan → ogarnięte**. Bałagan to krzywe naklejki ze starymi problemami klienta. Ogarnięte to równa siatka, pętla i spokój.

@@ -19,9 +19,8 @@ export const SCHEMA_HOME = {
   email: SITE.email,
   description: 'Nowoczesne strony internetowe dla małych firm i specjalistów z całej Polski.',
   priceRange: 'od 999 zł',
+  // Bez adresu i współrzędnych: działamy zdalnie dla całej Polski, nie jako firma lokalna
   areaServed: { '@type': 'Country', name: 'Polska' },
-  address: { '@type': 'PostalAddress', addressLocality: 'Białystok', addressCountry: 'PL' },
-  geo: { '@type': 'GeoCoordinates', latitude: 53.1325, longitude: 23.1688 },
   founder: [
     { '@type': 'Person', name: 'Mateusz Fiodorow' },
     { '@type': 'Person', name: 'Sebastian Herman' },

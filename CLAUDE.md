@@ -76,7 +76,7 @@ Jak dodać:
 
 Przydatne szczegóły:
 - `compressHTML: false` w `astro.config.mjs` musi zostać. Astro 7 domyślnie zwija białe znaki i usunąłby celowe spacje między elementami w tekstach.
-- Tekst z twardymi spacjami przekazywany do komponentu w atrybucie (np. `<Faq q="Czy działacie tylko w&nbsp;Białymstoku?">`) jest wstawiany jako HTML.
+- Tekst z twardymi spacjami przekazywany do komponentu w atrybucie (np. `<Faq q="Czy działacie w&nbsp;całej Polsce?">`) jest wstawiany jako HTML.
 - Listy z `.map()` w `.astro` nie mają białych znaków między elementami. To nie ma znaczenia w kontenerach flex/grid i blokowych, ale w tekście ciągłym trzeba je dodać.
 - `<body data-page="…">` ma nazwę pliku. Skrypt sprawdza tylko `kontakt` (dok na telefonie ukrywa tam przycisk CTA).
 - `app.js` korzysta z kluczy przeglądarki:
@@ -212,6 +212,16 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Commituj małymi krokami z opisem po polsku.
 
 ## Decyzje
+
+### 2026-10-25: Bez Białegostoku na stronie
+- **Co:** strona nie mówi, skąd jesteśmy:
+  - zdanie na górze O nas i opis O nas dla Google;
+  - stopka: „Strony internetowe dla małych firm i specjalistów z całej Polski.”;
+  - FAQ na stronie głównej i w cenniku: „Czy działacie w całej Polsce?” zamiast „Czy działacie tylko w Białymstoku?”;
+  - JSON-LD strony głównej bez adresu i współrzędnych (zostaje `areaServed`: Polska).
+
+  Wcześniej zniknęła też sekcja „Białystok. Stąd robimy strony…” z O nas.
+- **Dlaczego:** decyzja właścicieli. To nie jest firma lokalna, tylko praca zdalna dla całej Polski.
 
 ### 2026-10-25: Stopka bez „Bez ciasteczek śledzących · Ta podstrona waży ok. X KB”
 - **Co:** w dolnym pasku stopki zostały tylko „© 2026 Ogarniemy Stronę” i link do polityki prywatności. Skrypt liczący wagę podstrony usunięty.
