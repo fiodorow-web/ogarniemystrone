@@ -2,9 +2,9 @@
   'use strict';
 
   /* ── Ustawienia ───────────────────────────────────────────────
-     FORM_ENDPOINT: adres, pod który formularz wysyła JSON (np. '/api/kontakt'
-     jako funkcja na Vercelu). Puste = tryb pokazowy: wysyłka jest udawana. */
-  var FORM_ENDPOINT = '';
+     FORM_ENDPOINT: adres, pod który formularz wysyła JSON (funkcja na Vercelu,
+     api/kontakt.js). Puste = tryb pokazowy: wysyłka jest udawana. */
+  var FORM_ENDPOINT = '/api/kontakt';
 
   var d = document;
   var root = d.documentElement;
@@ -478,45 +478,9 @@
   });
   onScroll();
 
-  /* ── Realizacje: filtry z pustym stanem ── */
-  var chips = $$('[data-f]');
-  if (chips.length) {
-    var works = $$('[data-cat]');
-    var emptyEl = $('[data-empty]');
-    var emptyTxt = $('[data-empty-txt]');
-    var fStatus = $('[data-filter-status]');
-    var curFilter = 'all';
-    var plural = function (n) {
-      if (n === 1) return 'realizację';
-      var t = n % 10, h = n % 100;
-      return (t >= 2 && t <= 4 && (h < 12 || h > 14)) ? 'realizacje' : 'realizacji';
-    };
-    chips.forEach(function (ch) {
-      ch.addEventListener('click', function () {
-        curFilter = ch.getAttribute('data-f');
-        chips.forEach(function (c) { c.setAttribute('aria-pressed', c === ch ? 'true' : 'false'); });
-        var shown = 0;
-        works.forEach(function (w) {
-          var match = curFilter === 'all' || w.getAttribute('data-cat') === curFilter;
-          if (match) {
-            shown++;
-            if (w.hidden) {
-              w.hidden = false;
-              w.classList.add('out', 'in');
-              requestAnimationFrame(function () { requestAnimationFrame(function () { w.classList.remove('out'); }); });
-            }
-          } else if (!w.hidden) {
-            w.classList.add('out');
-            setTimeout(function () {
-              if (!(curFilter === 'all' || w.getAttribute('data-cat') === curFilter)) w.hidden = true;
-            }, reduce() ? 0 : 240);
-          }
-        });
-        emptyEl.hidden = shown !== 0;
-        if (shown === 0 && emptyTxt && ch.getAttribute('data-pusto')) emptyTxt.textContent = ch.getAttribute('data-pusto');
-        fStatus.textContent = shown === 0 ? 'Brak realizacji w tej kategorii.' : 'Pokazano ' + shown + ' ' + plural(shown) + '.';
-      });
-    });
+  /* ── Realizacje: kafle lekko przechylają się za kursorem ── */
+  var works = $$('[data-works] .work');
+  if (works.length) {
     if (mqFine.matches && !reduce()) {
       works.forEach(function (w) {
         w.addEventListener('pointermove', function (e) {
@@ -631,6 +595,8 @@
     var draftNote = $('[data-draft-note]'), draftText = $('[data-draft-text]');
     var cntN = $('[data-count-n]'), cntMsg = $('[data-count-msg]');
     var DRAFT = 'os-szkic';
+    var fPulapka = $('[name="strona_www"]', form);
+    var shownAt = Date.now();
     var triedSubmit = false;
     var sending = false;
     var temat = function () { return $$('input[name="temat"]', form).filter(function (c) { return c.checked; }).map(function (c) { return c.value; }); };
@@ -745,7 +711,8 @@
       if (errs.length) { errs[0].focus(); return; }
       setBusy(true);
       var data = { imie: fImie.value.trim(), kontakt: fKontakt.value.trim(), firma: fFirma.value.trim(), temat: temat(), wiadomosc: fWiad.value.trim() };
-      sendData(data).then(function (ok) {
+      // Dla serwera: pole-pułapka (ludzie go nie widzą) i czas od pokazania formularza (ochrona przed automatami)
+      sendData(Object.assign({ strona_www: fPulapka ? fPulapka.value : '', t: Date.now() - shownAt }, data)).then(function (ok) {
         setBusy(false);
         if (!ok) throw new Error('send');
         $('[data-sent-h]').textContent = 'Dziękujemy, ' + data.imie.split(/\s+/)[0] + '.';
@@ -763,6 +730,7 @@
       });
     });
     $('[data-sent-again]').addEventListener('click', function () {
+      shownAt = Date.now();
       sent.hidden = true;
       form.hidden = false;
       fImie.focus();

@@ -13,6 +13,7 @@ Strona marki Ogarniemy Stronę. Zbudowana w [Astro](https://astro.build) jako st
 | `src/components/`, `src/layouts/` | Nagłówek, stopka, wspólne kawałki stron i układ z `<head>` |
 | `src/content/realizacje/` | Realizacje: jeden plik `.md` na realizację |
 | `src/site.js` | Dane firmy: e-mail, telefon, domena |
+| `api/kontakt.js`, `src/formularz/` | Formularz kontaktowy: funkcja na Vercelu, ochrona przed spamem, maile przez Resend |
 | `src/styles/`, `src/scripts/`, `src/assets/fonts/` | Style, skrypt z interakcjami, fonty |
 | `public/` | Pliki kopiowane bez zmian (favicon, obrazek do udostępniania, logo do stopki maila) |
 | `tools/` | Sitemap, robots i kontrola linków po buildzie; podgląd jak na Vercelu |
@@ -24,11 +25,11 @@ Wymaga Node.js 22.23 lub nowszego. Za pierwszym razem: `npm install`.
 ```
 npm run dev       # http://localhost:3000, odświeża się po każdej zmianie
 npm run build     # buduje dist/; zatrzymuje się na zepsutym linku albo brakującej kotwicy
-npm run preview   # http://localhost:4000, dist/ tak, jak poda go Vercel
+npm run preview   # http://localhost:4000, dist/ tak, jak poda go Vercel; maile z formularza zapisują się w .podglad-maili/
 ```
 
 ## Wdrożenie na Vercel
 
-Ustawienia są w `vercel.json`: framework Astro, build `npm run build`, katalog `dist`, czyste adresy bez ukośnika, nagłówki i długi cache dla `/_astro/`. Wystarczy zaimportować repozytorium w Vercelu. Domena: rekordy DNS ustawia się na SEOHOST. Rekordów poczty (MX, SPF, DKIM, DMARC) nie ruszamy.
+Ustawienia są w `vercel.json`: framework Astro, build `npm run build`, katalog `dist`, czyste adresy bez ukośnika, nagłówki i długi cache dla `/_astro/`. Wystarczy zaimportować repozytorium w Vercelu. Formularz potrzebuje zmiennej środowiskowej `RESEND_API_KEY` w ustawieniach projektu na Vercelu (szczegóły w `CLAUDE.md`, „Do zrobienia”). Domena: rekordy DNS ustawia się na SEOHOST. Rekordów poczty (MX, SPF, DKIM, DMARC) nie ruszamy.
 
 Wersja sprzed przenosin na Astro (czysty HTML/CSS/JS) jest w gicie pod tagiem `wzorzec-html`.

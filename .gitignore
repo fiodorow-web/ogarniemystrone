@@ -5,5 +5,8 @@ node_modules/
 .env.*
 .DS_Store
 
+# Lokalny podgląd maili z formularza (npm run preview)
+.podglad-maili/
+
 # Astro
 .astro/

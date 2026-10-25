@@ -33,6 +33,9 @@ src/components/            Header, Footer (z sekcją „Napisz. Resztę ogarniem
                            Crumbs (ścieżka), Faq, CopyEmail, PriceFrom (sekcja „od 999 zł”)
 src/content/realizacje/    realizacje: jeden plik .md na realizację; pola opisane w src/content.config.ts
 src/site.js                dane firmy w jednym miejscu (e-mail, telefon, domena) i JSON-LD strony głównej
+src/formularz/             formularz po stronie serwera: obsluga.js (sprawdzanie, ochrona przed spamem, wysyłka przez Resend),
+                           maile.js (zgłoszenie do nas i potwierdzenie dla klienta)
+api/kontakt.js             POST /api/kontakt: funkcja Vercela wołająca src/formularz/obsluga.js (reszta strony jest statyczna)
 src/styles/styles.css      wszystkie style; tokeny na górze pliku
 src/scripts/app.js         wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie (trafia do dist bez zmian)
 src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
@@ -46,7 +49,7 @@ tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekie
 Polecenia:
 - `npm run dev`: podgląd na http://localhost:3000, odświeża się po każdej zmianie;
 - `npm run build`: buduje `dist/`. Build zatrzymuje się na zepsutym linku wewnętrznym albo na brakującej kotwicy;
-- `npm run preview`: po buildzie podgląd `dist/` na http://localhost:4000 tak, jak poda go Vercel.
+- `npm run preview`: po buildzie podgląd `dist/` na http://localhost:4000 tak, jak poda go Vercel. Formularz działa tu naprawdę, tylko maile zamiast wysyłki zapisują się w `.podglad-maili/` (HTML i tekst). Po zmianie szablonów zrestartuj podgląd.
 
 Właściwości `<Base>` (każda podstrona):
 - obowiązkowe: `title`, `description`;
@@ -64,7 +67,7 @@ Jak dodać:
   - `nazwa`, `branza`, `rodzaj` (`wizytowka` | `podstrony` | `rezerwacje`), `kolejnosc`;
   - opcjonalnie `miasto`, `link`, `zdjecie`, `zdjecieTelefon`.
 
-  Liczniki filtrów liczą się same. Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
+  `rodzaj` trafia do opisu pod nazwą („kilka podstron”). Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
 
   Zrzuty kładzie się obok pliku `.md` jako WebP:
   - `zdjecie`: komputer 1536 × 960 (przy 1440 px menu niektórych stron łamie się w dwóch wierszach);
@@ -111,7 +114,7 @@ Przydatne szczegóły:
    - nie ma zewnętrznych żądań (żadnego Google Fonts z CDN, zewnętrznych skryptów i widżetów);
    - zasoby mają długi cache z hashem w nazwie;
    - cel Lighthouse: 95+ we wszystkich kategoriach, bez przesunięć układu (CLS ≈ 0).
-6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Polityka prywatności mówi to wprost. Jeśli kiedyś będzie potrzebna statystyka, tylko bez ciasteczek (np. Vercel Web Analytics) i po zgodzie właścicieli.
+6. **Prywatność:** bez ciasteczek śledzących i bez analityki, która je ustawia. Polityka prywatności mówi to wprost. Statystyka to tylko Vercel Web Analytics (bez ciasteczek, skrypt z tej samej domeny), włączona za zgodą właścicieli, zob. „Decyzje”. Innej analityki nie dodajemy bez ich zgody.
 7. **Dostępność:**
    - WCAG 2.1 AA;
    - pełna obsługa klawiaturą: link „Przejdź do treści”, widoczny fokus, pułapka fokusu w menu, Escape zamyka menu;
@@ -151,7 +154,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - pod pakietami jest pasek „Najpierw projekt, potem płatność” (0 zł → 50% → 50%);
   - FAQ zaczyna się od ceny i kończy pytaniem „Co, jeśli projekt mi się nie spodoba?”.
 - [ ] „Zapytaj o ten pakiet” przy każdym pakiecie wypełnia wiadomość na /kontakt.
-- [ ] Realizacje: filtry z licznikami i pusty stan „Tu jeszcze pusto.” dla filtra bez wyników.
+- [ ] Realizacje: wszystkie kafle od razu pod nagłówkiem, bez filtrów (zob. „Decyzje”); kafel z linkiem `https://…` otwiera się w nowej karcie.
 - [ ] Formularz:
   - wymagane są tylko imię i e-mail albo telefon, reszta pól ma dopisek „(opcjonalnie)”;
   - pod przyciskiem są zapewnienia (odpowiedź do 24 h, bezpłatna rozmowa i wycena);
@@ -160,7 +163,9 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - podczas wysyłki przycisk pokazuje „Ogarniamy…”;
   - po wysłaniu pokazuje „Dziękujemy, {imię}.”;
   - przy błędzie wysyłki pokazuje komunikat z adresem e-mail;
-  - „Wyczyść formularz” działa.
+  - „Wyczyść formularz” działa;
+  - po wysłaniu do `kontakt@` przychodzi zgłoszenie, a klient, który podał e-mail, dostaje potwierdzenie (sprawdź w `.podglad-maili/`);
+  - bez JavaScriptu formularz też się wysyła i pokazuje `/dziekujemy`.
 - [ ] Przyciski „kopiuj” przy e-mailu kopiują adres i pokazują potwierdzenie.
 - [ ] FAQ się rozwija, lista „Co warto mieć pod ręką” zapamiętuje zaznaczenia.
 - [ ] Przycisk „do góry” pokazuje postęp przewijania.
@@ -175,13 +180,12 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 
 ## Do zrobienia
 
-1. **Formularz kontaktowy jest w trybie pokazowym** (`FORM_ENDPOINT = ''` w `src/scripts/app.js`). Potrzebny jest prawdziwy endpoint, np. funkcja na Vercelu (w Astro: adapter `@astrojs/vercel` i endpoint z `prerender = false`; reszta stron zostaje statyczna). Wymagania:
-   - wiadomość trafia na `kontakt@ogarniemystrone.pl`;
-   - walidacja po stronie serwera;
-   - ochrona przed spamem bez ciasteczek: pole-pułapka i limit zgłoszeń, bez reCAPTCHA;
-   - poczta stoi na SEOHOST, więc wysyłka może iść przez ich SMTP;
-   - dane logowania tylko w zmiennych środowiskowych Vercela, nigdy w repozytorium;
-   - po podłączeniu trzeba zaktualizować politykę prywatności.
+1. **Formularz: podłączyć Resend** (kod jest gotowy, zob. „Decyzje”). Kroki właścicieli:
+   - konto w Resend, domena `wiadomosci.ogarniemystrone.pl` w regionie Ireland (`eu-west-1`);
+   - rekordy DNS z zakładki Records w Resend dodać w panelu SEOHOST. To są nowe rekordy pod `wiadomosci`: TXT `resend._domainkey.wiadomosci` (DKIM) oraz CNAME `rsend.wiadomosci` i `send.wiadomosci` (wysyłka). Istniejących rekordów poczty nie zmieniamy, a „Enable Receiving” w Resend zostaje wyłączone;
+   - klucz API z uprawnieniem tylko do wysyłki i tylko dla tej domeny;
+   - w Vercelu (Settings → Environment Variables, Production i Preview) zmienna `RESEND_API_KEY`. Opcjonalnie `FORMULARZ_DO` i `FORMULARZ_OD`, opis w `src/formularz/obsluga.js`;
+   - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
    - `[CENA]` pakietów Firma i Firma z rezerwacjami (`cennik`, także w `src/scripts/app.js` w konfiguratorze);
    - `[Zakres do ustalenia]`;
@@ -196,8 +200,8 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - rekordy zmienia się tylko w panelu SEOHOST, bo w rejestrze .pl domena ma serwery nazw `ns1.seohost.pl` i `ns2.seohost.pl` (stan z 2026-10-25). Strefa DNS w panelu Zenboxu jest nieaktywna i jej zmiany nic nie dają;
    - poczta nie zależy od rekordu A domeny: MX wskazuje `mail.ogarniemystrone.pl` (osobny rekord A), a SPF to `redirect=_spf-h22.microhost.pl`;
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
-   - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta;
-   - przed wdrożeniem na produkcję zawsze zapytaj.
+   - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta. Wyjątek na prośbę właścicieli (podłączenie Resend, 2026-10-25): nowe rekordy pod subdomeną `wiadomosci`, które nie zmieniają istniejących;
+   - przed wdrożeniem na produkcję zawsze zapytaj (zob. „Gałęzie” w „Zasadach pracy”).
 
 ## Zasady pracy
 
@@ -210,8 +214,50 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Nie dodawaj przewijanych pasków (marquee), emoji jako punktorów ani zdjęć stockowych.
 - Po każdej zmianie: zbuduj, uruchom podgląd i sprawdź zmienione miejsca na komputerze i telefonie w obu motywach.
 - Commituj małymi krokami z opisem po polsku.
+- **Gałęzie:**
+  - `preview` to wersja testowa: każdy push buduje na Vercelu podgląd pod stałym adresem gałęzi (Vercel → Deployments, gałąź `preview`). Tu trafiają wszystkie commity;
+  - `main` to produkcja (ogarniemystrone.pl): każdy push od razu wdraża stronę. Zmiany z `preview` przenosisz na `main` tylko wtedy, gdy właściciele napiszą wprost, że mają trafić na produkcję. Wysyłasz wtedy dokładnie to, co zaakceptowali, a potem `preview` dalej idzie od `main`;
+  - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
+
+### 2026-10-25: Realizacje bez filtrów
+- **Co:** na `/realizacje` nie ma już chipów „Wszystkie / Wizytówki / Kilka podstron / Z rezerwacjami” z licznikami ani pustego stanu „Tu jeszcze pusto.”. Kafle stoją od razu pod nagłówkiem. Przechylanie kafla za kursorem zostało.
+- **Dlaczego:** decyzja właścicieli. Na razie są tylko 4 realizacje do pokazania.
+- **Co zostaje:** pole `rodzaj` w realizacjach (opis pod nazwą), więc filtry da się przywrócić bez uzupełniania danych.
+- **Powrót:** gdy realizacji będzie więcej i w różnych rodzajach. Chipy, pusty stan, style i skrypt są w commicie, który je usunął.
+
+### 2026-10-25: Statystyki odwiedzin: Vercel Web Analytics
+- **Co:**
+  - na końcu `<body>` w `src/layouts/Base.astro` jest `inject()` z paczki `@vercel/analytics`;
+  - skrypt ładuje się z tej samej domeny (`/_vercel/insights/script.js` albo ścieżka, którą Vercel poda w `PUBLIC_VERCEL_OBSERVABILITY_BASEPATH`), więc nie ma zewnętrznych żądań;
+  - lokalny podgląd (`tools/serve.mjs`) zwraca pod `/_vercel/` pusty skrypt.
+- **Dlaczego nie komponent `@vercel/analytics/astro`:** przy `build.format: 'file'` zapisywałby adresy plików (`/oferta.html`) zamiast adresów z paska (`/oferta`). Wstawiałby też własny znacznik HTML, który w `<head>` psuje dokument.
+- **Prywatność:** bez ciasteczek; odwiedzającego rozpoznaje skrót z zapytania usuwany po 24 h. Polityka prywatności (sekcja „Ciasteczka i statystyki”) opisuje, co się zapisuje.
+- **Dlaczego:** decyzja właścicieli (włączyli Web Analytics w Vercelu).
+
+### 2026-10-25: Formularz przez Resend, jako funkcja w `api/`
+- **Co:**
+  - `POST /api/kontakt` to funkcja Vercela w `api/kontakt.js`, a logika jest w `src/formularz/`. Strona zostaje statyczna, bez adaptera Astro, więc `vercel.json`, czyste adresy i 404 działają jak dotąd;
+  - zgłoszenie idzie na `kontakt@ogarniemystrone.pl` z „Odpowiedz do” ustawionym na klienta. Dalsza rozmowa idzie zwykłą pocztą z `kontakt@` (SEOHOST), bez Resend;
+  - odpisywać można przyciskiem „Odpisz” (nowy mail z cytatem wiadomości klienta, ucinanym do 500 znaków) albo zwykłym „Odpowiedz”. Klient może zobaczyć zgłoszenie w cytacie, dlatego temat („Zapytanie ze strony: …”) i dopiski są neutralne, bez wewnętrznych uwag;
+  - klient, który podał e-mail, dostaje potwierdzenie z czterema krokami i zatwierdzonymi zdaniami o płatności;
+  - nadawca to `formularz@wiadomosci.ogarniemystrone.pl`.
+- **Dlaczego Resend, a nie SMTP SEOHOST:**
+  - lepsza dostarczalność potwierdzeń do obcych skrzynek;
+  - podgląd wysłanych maili w panelu Resend;
+  - wysyłka przez zwykłe zapytanie HTTPS, bez hasła do skrzynki w Vercelu.
+
+  Osobna subdomena chroni reputację głównej domeny, z której idzie firmowa poczta.
+- **Ochrona przed spamem** (bez ciasteczek i reCAPTCHA):
+  - pole-pułapka;
+  - czas wypełnienia: przy mniej niż 3 s zgłoszenie dostajemy z dopiskiem „[możliwy spam]”, a klient nie dostaje potwierdzenia;
+  - limit 5 zgłoszeń na 15 minut z jednego IP;
+  - odrzucanie zapytań z obcych stron.
+
+  Potwierdzenie nie powtarza treści wiadomości, a imię nie może zawierać linków, więc formularza nie da się użyć do wysyłania spamu na cudze adresy.
+- **Bez JavaScriptu:** formularz wysyła się zwykłym POST-em i przekierowuje na `/dziekujemy` (noindex, poza sitemap).
+- **Polityka prywatności:** dopisany Resend (Plus Five Five, Inc., USA), standardowe klauzule umowne, EU-U.S. DPF i 15 minut pamiętania IP. Umowa powierzenia (DPA) obowiązuje od akceptacji regulaminu Resend.
 
 ### 2026-10-25: Bez Białegostoku na stronie
 - **Co:** strona nie mówi, skąd jesteśmy:
@@ -257,7 +303,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - pytanie o rezerwacje w konfiguratorze;
   - dodatek w ofercie;
   - temat „Rezerwacje online” w formularzu;
-  - filtr „Z rezerwacjami” w realizacjach.
+  - `rodzaj: rezerwacje` w realizacjach (filtrów na razie nie ma).
 - **Powrót:** kafel, jego style i skrypt są w commicie, który go usunął.
 
 ### 2026-10-25: Bez słowa „żargon”
