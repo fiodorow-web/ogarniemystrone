@@ -1,6 +1,7 @@
 ---
 // Limonkowa sekcja „od 999 zł” (SPRZEDAZ.md, zasada 4).
 // Sloty: casual (dopisek nad ceną), side (akapit <p> nad przyciskami).
+// Spacje między spanami ceny są dla wyszukiwarek („od 999 zł”, nie „od999zł”); w inline-flex ich nie widać.
 import Arrow from './Arrow.astro';
 
 interface Props {
@@ -14,7 +15,7 @@ const { id } = Astro.props;
       <p class="casual rv"><slot name="casual" /></p>
       <h2 id={id} class="price-h">
         <span class="sr-only">Strony od 999 zł</span>
-        <span aria-hidden="true" class="price-vis" data-par="0.04"><span class="pr-od">od</span><span class="pr-num" data-count="999">999</span><span class="pr-zl">zł</span></span>
+        <span aria-hidden="true" class="price-vis" data-par="0.04" data-nosnippet><span class="pr-od">od</span> <span class="pr-num" data-count="999">999</span> <span class="pr-zl">zł</span></span>
       </h2>
       <div class="price-side rv">
         <slot name="side" />
