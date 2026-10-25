@@ -42,7 +42,7 @@ src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycię
 public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, logo.png (sygnet dla Google), stopka/
 brand/                     logo i sygnet (SVG z krzywymi + PNG)
 astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, integracja po buildzie)
-tools/po-buildzie.mjs      po buildzie: sitemap.xml, robots.txt, kontrola linków wewnętrznych i kotwic
+tools/po-buildzie.mjs      po buildzie: sitemap.xml (lastmod z daty ostatniego commita pliku strony), robots.txt, kontrola linków i kotwic
 tools/serve.mjs            podgląd dist/ jak na Vercelu: czyste adresy, przekierowania .html i ukośnika, 404, kompresja
 ```
 
