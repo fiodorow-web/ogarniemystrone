@@ -140,7 +140,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - naklejki „bałagan” układają się po przewinięciu i po kliknięciu „Ogarnij ten bałagan”;
   - działają liczniki, „Zmień godziny”, „Sprawdź jeszcze raz” i animowane słowa;
   - pod przyciskami w hero są trzy zapewnienia (bezpłatna rozmowa i wycena, najpierw projekt, odpowiedź do 24 h);
-  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki z pigułkami płatności → „od 999 zł” z ramką „Najpierw projekt, potem płatność” → „Częste pytania” → końcowe CTA z zapewnieniami (sekcja „Kto ogarnie Twoją stronę” jest tylko w O nas, zob. „Decyzje”).
+  - kolejność sekcji: hero → kafelki → zdanie „Ty skupiasz się…” → cztery kroki (bez dopisków o płatności, zob. „Decyzje”) → „od 999 zł” z ramką „Najpierw projekt, potem płatność” → „Częste pytania” → końcowe CTA z zapewnieniami (sekcja „Kto ogarnie Twoją stronę” jest tylko w O nas, zob. „Decyzje”).
 - [ ] Między podstronami jest płynne przejście, a nagłówek się nie przeładowuje wizualnie.
 - [ ] Konfigurator na `/cennik#konfigurator`:
   - przewija się pod nagłówek;
@@ -189,7 +189,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - `[NUMER TELEFONU]` (`src/site.js`; trafia do stopki i na stronę kontaktu);
    - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
    - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
-   - zdjęcia i 1–2 zdania o każdym w `o-nas` (`[Zdjęcie: Mateusz przy pracy]`, `[Zdjęcie: Sebastian przy pracy]`, `[Dopisz 1–2 zdania o sobie…]`);
+   - 1–2 zdania o każdym w `o-nas` (`[Dopisz 1–2 zdania o sobie…]`). Zdjęcia już są (`src/assets/zespol/`); większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość;
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
 4. **Wdrożenie:**
@@ -213,6 +213,15 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Commituj małymi krokami z opisem po polsku.
 
 ## Decyzje
+
+### 2026-10-25: Strona główna bez dopisków o płatności przy krokach
+- **Co:** przy „Cztery kroki, zero niespodzianek” nie ma już pigułek „Bezpłatnie, z wyceną”, „Połowa kwoty, gdy projekt Ci się spodoba” i „Druga połowa po zrobieniu strony”.
+- **Dlaczego:** decyzja właścicieli.
+- **Odejście od `SPRZEDAZ.md`, zasada 8:** na stronie głównej płatności są tylko w ramce „Najpierw projekt, potem płatność” w sekcji „od 999 zł”. Pigułki zostały w „Jak pracujemy” i w mailu z potwierdzeniem dla klienta.
+
+### 2026-10-25: Zdjęcia zespołu
+- **Co:** w O nas są portrety Mateusza i Sebastiana od właścicieli (pliki w `src/assets/zespol/`, Astro robi z nich AVIF).
+- **Kadr:** ramka 4:5. Część zdjęcia, która jest widoczna, ustawia `--kadr` (object-position) w `src/pages/o-nas.astro`.
 
 ### 2026-10-25: Na razie bez kafla „Rezerwacje online”
 - **Co:** ze strony głównej zniknął kafel „04 · rezerwacje” z przykładowymi terminami. Zostało 5 kafli: dolny rząd to „Szybka nawet w terenie” i „Kopie zapasowe robimy my” (5 + 7 kolumn).
