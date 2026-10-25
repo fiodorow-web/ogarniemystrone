@@ -456,6 +456,7 @@
   if (chips.length) {
     var works = $$('[data-cat]');
     var emptyEl = $('[data-empty]');
+    var emptyTxt = $('[data-empty-txt]');
     var fStatus = $('[data-filter-status]');
     var curFilter = 'all';
     var plural = function (n) {
@@ -485,6 +486,7 @@
           }
         });
         emptyEl.hidden = shown !== 0;
+        if (shown === 0 && emptyTxt && ch.getAttribute('data-pusto')) emptyTxt.textContent = ch.getAttribute('data-pusto');
         fStatus.textContent = shown === 0 ? 'Brak realizacji w tej kategorii.' : 'Pokazano ' + shown + ' ' + plural(shown) + '.';
       });
     });

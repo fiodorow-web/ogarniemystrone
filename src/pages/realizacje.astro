@@ -3,12 +3,14 @@ import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
 import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
 
 // Realizacje z src/content/realizacje/*.md; liczniki filtrów liczą się same.
+// pusto: tekst pustego stanu, gdy filtr nie ma wyników
 const RODZAJE = {
-  wizytowka: { chip: 'Wizytówki', nazwa: 'wizytówka' },
-  podstrony: { chip: 'Kilka podstron', nazwa: 'kilka podstron' },
-  rezerwacje: { chip: 'Z&nbsp;rezerwacjami', nazwa: 'z rezerwacjami' },
+  wizytowka: { chip: 'Wizytówki', nazwa: 'wizytówka', pusto: 'Pierwsza strona wizytówka może być Twoja.' },
+  podstrony: { chip: 'Kilka podstron', nazwa: 'kilka podstron', pusto: 'Pierwsza strona z\u00a0kilkoma podstronami może być Twoja.' },
+  rezerwacje: { chip: 'Z&nbsp;rezerwacjami', nazwa: 'z rezerwacjami', pusto: 'Pierwsza strona z\u00a0rezerwacjami online może być Twoja.' },
 };
 const works = (await getCollection('realizacje')).sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
 const count = (rodzaj: string) => works.filter((w) => w.data.rodzaj === rodzaj).length;
@@ -19,6 +21,7 @@ const THUMBS = [
   { cls: 'thumb th-alt2', lines: ['w50', 'w70'] },
 ];
 const RV = ['rv', 'rv rv2', 'rv rv3'];
+const isExternal = (link: string) => /^https?:\/\//.test(link);
 ---
 <Base
   title="Realizacje – Ogarniemy Stronę"
@@ -36,22 +39,26 @@ const RV = ['rv', 'rv rv2', 'rv rv3'];
       <div class="chips" role="group" aria-label="Filtruj realizacje" data-filter>
         <button class="chip" type="button" aria-pressed="true" data-f="all">Wszystkie <span class="chip-n">{works.length}</span></button>
 {Object.entries(RODZAJE).map(([rodzaj, r]) => <Fragment>
-        <button class="chip" type="button" aria-pressed="false" data-f={rodzaj}><Fragment set:html={r.chip} /> <span class="chip-n">{count(rodzaj)}</span></button>
+        <button class="chip" type="button" aria-pressed="false" data-f={rodzaj} data-pusto={r.pusto}><Fragment set:html={r.chip} /> <span class="chip-n">{count(rodzaj)}</span></button>
 </Fragment>)}
       </div>
       <p class="sr-only" role="status" data-filter-status></p>
       <div class="works" data-works>
 {works.map(({ data: w }, i) => <Fragment>
-        <a class={`work ${RV[i % 3]}`} href={w.link} data-cat={w.rodzaj}>
+        <a class={`work ${RV[i % 3]}`} href={w.link} data-cat={w.rodzaj} target={isExternal(w.link) ? '_blank' : undefined} rel={isExternal(w.link) ? 'noopener' : undefined}>
+{w.zdjecie ? (
+          <span class={`${THUMBS[i % 3].cls} th-shot`} aria-hidden="true"><span class="shot-d"><Picture src={w.zdjecie} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 960]} sizes="(max-width: 700px) 70vw, (max-width: 1320px) 33vw, 470px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>{w.zdjecieTelefon && <span class="shot-m"><Picture src={w.zdjecieTelefon} formats={['avif']} fallbackFormat="webp" widths={[120, 240]} sizes="(max-width: 700px) 18vw, 120px" alt="" loading={i < 2 ? 'eager' : 'lazy'} /></span>}</span>
+) : (
           <span class={THUMBS[i % 3].cls} aria-hidden="true"><span class="th-win"><i></i><i></i><i></i></span><span class={`th-l ${THUMBS[i % 3].lines[0]}`}></span><span class={`th-l ${THUMBS[i % 3].lines[1]}`}></span><span class="th-btn"></span><span class="th-label">[Zdjęcie realizacji]</span></span>
-          <span class="work-meta"><span class="work-t">{w.nazwa}</span><span class="work-s">{w.miasto} · {w.branza} · {RODZAJE[w.rodzaj].nazwa}</span></span>
+)}
+          <span class="work-meta"><span class="work-t">{w.nazwa}{isExternal(w.link) && <svg class="ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>}</span><span class="work-s">{[w.miasto, w.branza, RODZAJE[w.rodzaj].nazwa].filter(Boolean).join(' · ')}</span>{isExternal(w.link) && <span class="sr-only"> (otwiera się w nowej karcie)</span>}</span>
         </a>
 </Fragment>)}
       </div>
       <div class="empty" hidden data-empty>
         <svg class="empty-ill" viewBox="0 0 160 120" aria-hidden="true" focusable="false"><rect x="34" y="40" width="92" height="62" rx="10"/><path d="M34 52h92"/><path class="empty-lp" pathLength="1" d="M122 30C92 18 40 20 22 44 10 62 22 98 64 108 104 116 150 104 152 74 154 52 138 34 108 30"/></svg>
         <h2 class="empty-h">Tu jeszcze pusto.</h2>
-        <p>Pierwsza strona z&nbsp;rezerwacjami online może być Twoja.</p>
+        <p data-empty-txt>Pierwsza strona z&nbsp;rezerwacjami online może być Twoja.</p>
         <a class="btn btn-s" href="/kontakt">Umów rozmowę</a>
       </div>
     </div>
