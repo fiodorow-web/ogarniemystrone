@@ -201,6 +201,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
    - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta. Wyjątek na prośbę właścicieli (podłączenie Resend, 2026-10-25): nowe rekordy pod subdomeną `wiadomosci`, które nie zmieniają istniejących;
    - przed wdrożeniem na produkcję zawsze zapytaj (zob. „Gałęzie” w „Zasadach pracy”).
+5. **Google Search Console:** właściwość typu Domena `sc-domain:ogarniemystrone.pl` jest na koncie Google Mateusza (weryfikacja rekordem TXT `google-site-verification` na apeksie, obok SPF; nie usuwać). Konto serwisowe narzędzi SEO ma uprawnienia „Pełne”. Sitemap wysłana 2026-10-25. Do zrobienia: Bing Webmaster Tools (import z Search Console).
 
 ## Zasady pracy
 
