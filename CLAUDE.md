@@ -60,7 +60,18 @@ Właściwości `<Base>` (każda podstrona):
 
 Jak dodać:
 - **podstronę:** plik w `src/pages/` z `<Base>`; do menu tylko zgodnie z `SPRZEDAZ.md` (zasada 11, najwyżej 5 pozycji). Sitemap uzupełnia się sam;
-- **realizację:** plik `.md` w `src/content/realizacje/` (`nazwa`, `miasto`, `branza`, `rodzaj`: `wizytowka` | `podstrony` | `rezerwacje`, `kolejnosc`, opcjonalnie `link`). Liczniki filtrów liczą się same. Zdjęcia: dodać pole `zdjecie` i `<Image>` z `astro:assets` przy pierwszym prawdziwym zrzucie;
+- **realizację:** plik `.md` w `src/content/realizacje/`. Pola:
+  - `nazwa`, `branza`, `rodzaj` (`wizytowka` | `podstrony` | `rezerwacje`), `kolejnosc`;
+  - opcjonalnie `miasto`, `link`, `zdjecie`, `zdjecieTelefon`.
+
+  Liczniki filtrów liczą się same. Link `https://…` otwiera się w nowej karcie ze strzałką „↗”.
+
+  Zrzuty kładzie się obok pliku `.md` jako WebP:
+  - `zdjecie`: komputer 1536 × 960 (przy 1440 px menu niektórych stron łamie się w dwóch wierszach);
+  - `zdjecieTelefon`: telefon 390 × 844 @2x;
+  - oba z górnej części strony głównej, z odrzuconym banerem cookies.
+
+  Astro robi z nich AVIF w kilku rozmiarach. Kafel pokazuje stronę na komputerze, a na pierwszym planie tę samą stronę w ramce telefonu;
 - **blog:** kolekcja `blog` w `src/content.config.ts` i strony w `src/pages/blog/`, przy pierwszym wpisie.
 
 Przydatne szczegóły:
@@ -177,7 +188,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - `[Zakres do ustalenia]`;
    - `[NUMER TELEFONU]` (`src/site.js`; trafia do stopki i na stronę kontaktu);
    - `[Czas realizacji – do uzupełnienia]` (`jak-pracujemy`, FAQ w `cennik`);
-   - realizacje: `[Nazwa firmy]`, `[Miasto]`, `[branża]`, `[Zdjęcie realizacji]` (`src/content/realizacje/`);
+   - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
    - zdjęcia i 1–2 zdania o każdym w `o-nas` (`[Zdjęcie: Mateusz przy pracy]`, `[Zdjęcie: Sebastian przy pracy]`, `[Dopisz 1–2 zdania o sobie…]`);
    - `[Dane administratora – do uzupełnienia]` w polityce prywatności.
 3. **Opinie klientów:** gdy pojawią się pierwsze, dodaj je według `SPRZEDAZ.md` („Czego jeszcze brakuje”). Tylko prawdziwe, z linkiem do Google.
