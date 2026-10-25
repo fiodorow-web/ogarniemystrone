@@ -18,6 +18,8 @@ interface Props {
   ogTitle?: string;
   /** 'home': dane strukturalne ProfessionalService. */
   schema?: 'home';
+  /** Dodatkowe dane strukturalne (JSON-LD) obok okruszków, np. osoby na /o-nas. */
+  ld?: object;
   /** false: bez sekcji „Napisz. Resztę ogarniemy my.” */
   footCta?: boolean;
   /** false: strona nie używa Fraunces, więc go nie wczytujemy z wyprzedzeniem. */
@@ -25,7 +27,7 @@ interface Props {
   /** false: noindex, bez canonical i bez sitemap. */
   index?: boolean;
 }
-const { title, description, breadcrumb, ogTitle, schema, footCta = true, preloadSerif = true, index = true } = Astro.props;
+const { title, description, breadcrumb, ogTitle, schema, ld, footCta = true, preloadSerif = true, index = true } = Astro.props;
 
 const slug = Astro.url.pathname.replace(/^\/|\.html$|\/$/g, '') || 'index';
 const isPage = slug !== '404' && index;
@@ -74,6 +76,7 @@ const breadcrumbLd = !schema && breadcrumb && url ? JSON.stringify({
 <script is:inline src={appJs} defer></script>
 {schema === 'home' && <script is:inline type="application/ld+json" set:html={JSON.stringify(SCHEMA_HOME, null, 2)} />}
 {breadcrumbLd && <script is:inline type="application/ld+json" set:html={breadcrumbLd} />}
+{ld && <script is:inline type="application/ld+json" set:html={JSON.stringify(ld)} />}
 </head>
 <body data-page={slug}>
 

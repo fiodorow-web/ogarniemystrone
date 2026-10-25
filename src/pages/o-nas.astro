@@ -2,17 +2,24 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
-import { Picture } from 'astro:assets';
+import { Picture, getImage } from 'astro:assets';
+import { SITE, LD_ID, LD_FIRMA } from '../site.js';
 import zdjMateusz from '../assets/zespol/mateusz.jpeg';
 import zdjSebastian from '../assets/zespol/sebastian.jpeg';
 
 // Zdjęcia w ramce 4:5; --kadr ustawia, który fragment zdjęcia widać (object-position), żeby twarze stały podobnie
 const ZDJ = { formats: ['avif'], fallbackFormat: 'webp', widths: [360, 560, 920], sizes: '(max-width: 640px) 84vw, 460px', alt: '', loading: 'eager' } as const;
+
+// Osoby dla Google: te same @id co w danych strony głównej (src/site.js)
+const foto = async (src: ImageMetadata) => SITE.domain + (await getImage({ src, format: 'webp', width: 560 })).src;
+const osoba = async (id: string, name: string, src: ImageMetadata) => ({ '@type': 'Person', '@id': id, name, url: `${SITE.domain}/o-nas`, image: await foto(src), worksFor: { '@id': LD_ID.firma } });
+const LD = { '@context': 'https://schema.org', '@graph': [LD_FIRMA, await osoba(LD_ID.mateusz, 'Mateusz Fiodorow', zdjMateusz), await osoba(LD_ID.sebastian, 'Sebastian Herman', zdjSebastian)] };
 ---
 <Base
   title="O nas: Mateusz Fiodorow i Sebastian Herman – Ogarniemy Stronę"
   description="Mateusz Fiodorow i Sebastian Herman, studenci informatyki. Robimy strony dla małych firm i specjalistów z całej Polski."
   breadcrumb="O nas"
+  ld={LD}
 >
   <header class="wrap page-head">
     <Crumbs name="O nas" />

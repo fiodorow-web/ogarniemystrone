@@ -39,7 +39,7 @@ api/kontakt.js             POST /api/kontakt: funkcja Vercela wołająca src/for
 src/styles/styles.css      wszystkie style; tokeny na górze pliku
 src/scripts/app.js         wszystkie interakcje; moduły uruchamiają się, tylko gdy ich element jest na stronie (trafia do dist bez zmian)
 src/assets/fonts/          Bricolage Grotesque, Fraunces Italic, Onest (przycięte WOFF2 z polskimi znakami)
-public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, stopka/
+public/                    kopiowane bez zmian: favicon.svg, og.png, apple-touch-icon.png, logo.png (sygnet dla Google), stopka/
 brand/                     logo i sygnet (SVG z krzywymi + PNG)
 astro.config.mjs           konfiguracja (czyste adresy, compressHTML: false, integracja po buildzie)
 tools/po-buildzie.mjs      po buildzie: sitemap.xml, robots.txt, kontrola linków wewnętrznych i kotwic
@@ -57,6 +57,7 @@ Właściwości `<Base>` (każda podstrona):
   - `breadcrumb` (JSON-LD okruszków);
   - `ogTitle`;
   - `schema="home"`;
+  - `ld` (dodatkowy JSON-LD obok okruszków, np. osoby na `/o-nas`; identyfikatory `@id` są w `LD_ID` w `src/site.js`);
   - `footCta={false}` (bez sekcji „Napisz. Resztę ogarniemy my.”);
   - `preloadSerif={false}` (strona bez Fraunces);
   - `index={false}` (noindex, bez canonical i poza sitemap).
