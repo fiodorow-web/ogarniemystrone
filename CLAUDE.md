@@ -201,7 +201,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - poczta nie zależy od rekordu A domeny: MX wskazuje `mail.ogarniemystrone.pl` (osobny rekord A), a SPF to `redirect=_spf-h22.microhost.pl`;
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
    - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta. Wyjątek na prośbę właścicieli (podłączenie Resend, 2026-10-25): nowe rekordy pod subdomeną `wiadomosci`, które nie zmieniają istniejących;
-   - przed wdrożeniem na produkcję zawsze zapytaj.
+   - przed wdrożeniem na produkcję zawsze zapytaj (zob. „Gałęzie” w „Zasadach pracy”).
 
 ## Zasady pracy
 
@@ -214,6 +214,10 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - Nie dodawaj przewijanych pasków (marquee), emoji jako punktorów ani zdjęć stockowych.
 - Po każdej zmianie: zbuduj, uruchom podgląd i sprawdź zmienione miejsca na komputerze i telefonie w obu motywach.
 - Commituj małymi krokami z opisem po polsku.
+- **Gałęzie:**
+  - `preview` to wersja testowa: każdy push buduje na Vercelu podgląd pod stałym adresem gałęzi (Vercel → Deployments, gałąź `preview`). Tu trafiają wszystkie commity;
+  - `main` to produkcja (ogarniemystrone.pl): każdy push od razu wdraża stronę. Zmiany z `preview` przenosisz na `main` tylko wtedy, gdy właściciele napiszą wprost, że mają trafić na produkcję. Wysyłasz wtedy dokładnie to, co zaakceptowali, a potem `preview` dalej idzie od `main`;
+  - nie commituj bezpośrednio na `main`.
 
 ## Decyzje
 
