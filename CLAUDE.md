@@ -199,7 +199,6 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - w Vercelu (Settings → Environment Variables, Production i Preview) zmienna `RESEND_API_KEY`. Opcjonalnie `FORMULARZ_DO` i `FORMULARZ_OD`, opis w `src/formularz/obsluga.js`;
    - test na podglądzie Vercela przed produkcją: zgłoszenie z e-mailem, z telefonem i bez JavaScriptu.
 2. **Treści do uzupełnienia** (zapytaj właścicieli, nie wymyślaj):
-   - `[Zakres do ustalenia]`;
    - czas realizacji: na razie nigdzie go nie podajemy (zob. „Decyzje”). Gdy właściciele go ustalą, wróci do FAQ w `cennik` i do `jak-pracujemy`;
    - realizacje ACS i W Dobrej Formie są jeszcze na adresach `*.vercel.app`: po starcie ich stron podmienić `link` w `src/content/realizacje/acs.md` i `w-dobrej-formie.md` (zrzuty też warto zrobić od nowa);
    - zdjęcia zespołu w `o-nas` już są (`src/assets/zespol/`), opisy obu też; większy plik Sebastiana (ma 768 px szerokości, ramka na retinie potrzebuje ok. 920 px) poprawiłby ostrość.
