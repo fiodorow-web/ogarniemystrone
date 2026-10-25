@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Crumbs from '../components/Crumbs.astro';
 import Loop from '../components/Loop.astro';
+import Arrow from '../components/Arrow.astro';
 import { Picture, getImage } from 'astro:assets';
 import { SITE, LD_ID, LD_FIRMA } from '../site.js';
 import zdjMateusz from '../assets/zespol/mateusz.jpeg';
@@ -58,6 +59,7 @@ const LD = { '@context': 'https://schema.org', '@graph': [LD_FIRMA, await osoba(
         <li class="rule rv rv2"><span class="rule-n">2</span><h3>Mało Twojego czasu</h3><p>Wiemy, że nie masz czasu siedzieć nad stroną. Twój udział ograniczamy do minimum, a&nbsp;resztą zajmujemy się my.</p></li>
         <li class="rule c-green rv rv3"><span class="rule-n">3</span><h3>Zostajemy po starcie</h3><p>Pilnujemy kopii zapasowych i&nbsp;odpowiadamy na pytania także po uruchomieniu strony.</p></li>
       </ul>
+      <a class="more more-next rv" href="/realizacje">Zobacz nasze realizacje<Arrow /></a>
     </div>
   </section>
 
