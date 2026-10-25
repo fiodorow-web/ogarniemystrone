@@ -1,0 +1,25 @@
+---
+// Tu trafia formularz wysłany bez JavaScriptu (api/kontakt.js przekierowuje po udanej wysyłce).
+// Z JavaScriptem podziękowanie pokazuje się w miejscu formularza na /kontakt.
+import Base from '../layouts/Base.astro';
+import Loop from '../components/Loop.astro';
+---
+<Base
+  title="Dziękujemy – Ogarniemy Stronę"
+  description="Wiadomość dotarła. Odpiszemy do 24 h w dni robocze."
+  index={false}
+  footCta={false}
+>
+  <div class="wrap lost">
+    <div class="sent">
+      <Loop class="sent-ill" hidden />
+      <p class="sent-k">Dotarło</p>
+      <h1 id="h-dzieki" class="sent-h">Dziękujemy.</h1>
+      <p class="lead">Odpiszemy do 24&nbsp;h w&nbsp;dni robocze, żeby umówić termin rozmowy.</p>
+      <div class="cta-row">
+        <a class="btn btn-p" href="/">Wróć na start</a>
+        <a class="more" href="/realizacje">Zobacz nasze realizacje</a>
+      </div>
+    </div>
+  </div>
+</Base>

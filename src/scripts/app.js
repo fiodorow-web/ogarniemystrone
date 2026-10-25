@@ -2,9 +2,9 @@
   'use strict';
 
   /* ── Ustawienia ───────────────────────────────────────────────
-     FORM_ENDPOINT: adres, pod który formularz wysyła JSON (np. '/api/kontakt'
-     jako funkcja na Vercelu). Puste = tryb pokazowy: wysyłka jest udawana. */
-  var FORM_ENDPOINT = '';
+     FORM_ENDPOINT: adres, pod który formularz wysyła JSON (funkcja na Vercelu,
+     api/kontakt.js). Puste = tryb pokazowy: wysyłka jest udawana. */
+  var FORM_ENDPOINT = '/api/kontakt';
 
   var d = document;
   var root = d.documentElement;
@@ -631,6 +631,8 @@
     var draftNote = $('[data-draft-note]'), draftText = $('[data-draft-text]');
     var cntN = $('[data-count-n]'), cntMsg = $('[data-count-msg]');
     var DRAFT = 'os-szkic';
+    var fPulapka = $('[name="strona_www"]', form);
+    var shownAt = Date.now();
     var triedSubmit = false;
     var sending = false;
     var temat = function () { return $$('input[name="temat"]', form).filter(function (c) { return c.checked; }).map(function (c) { return c.value; }); };
@@ -745,7 +747,8 @@
       if (errs.length) { errs[0].focus(); return; }
       setBusy(true);
       var data = { imie: fImie.value.trim(), kontakt: fKontakt.value.trim(), firma: fFirma.value.trim(), temat: temat(), wiadomosc: fWiad.value.trim() };
-      sendData(data).then(function (ok) {
+      // Dla serwera: pole-pułapka (ludzie go nie widzą) i czas od pokazania formularza (ochrona przed automatami)
+      sendData(Object.assign({ strona_www: fPulapka ? fPulapka.value : '', t: Date.now() - shownAt }, data)).then(function (ok) {
         setBusy(false);
         if (!ok) throw new Error('send');
         $('[data-sent-h]').textContent = 'Dziękujemy, ' + data.imie.split(/\s+/)[0] + '.';
@@ -763,6 +766,7 @@
       });
     });
     $('[data-sent-again]').addEventListener('click', function () {
+      shownAt = Date.now();
       sent.hidden = true;
       form.hidden = false;
       fImie.focus();

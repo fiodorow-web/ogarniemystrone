@@ -708,7 +708,9 @@ html.locked{overflow:hidden}
 @keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
 .ferr{display:flex;align-items:flex-start;gap:.45rem;color:var(--danger);font-size:.92rem;line-height:1.4}
 .ferr::before{content:"!";display:inline-grid;place-items:center;width:18px;height:18px;flex-shrink:0;margin-top:1px;border-radius:50%;background:var(--danger);color:var(--bg);font-size:.75rem;font-weight:700}
-.fhint,.fnote{font-size:.9rem;color:var(--muted)}
+.fhint,/* Pole-pułapka na automaty: poza ekranem, niedostępne dla klawiatury i czytników */
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.fnote{font-size:.9rem;color:var(--muted)}
 .tchips{display:flex;flex-wrap:wrap;gap:8px}
 .tchip{position:relative}
 .tchip input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
