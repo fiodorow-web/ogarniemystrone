@@ -23,7 +23,7 @@ const realizacje = defineCollection({
 // Wpisy na blogu: src/content/blog/*.md, adres /blog/{nazwa pliku}.
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     /** Tytuł wpisu: <h1> i <title>. */
     tytul: z.string(),
     /** Opis dla Google i do udostępniania (meta description), do ok. 155 znaków. */
@@ -33,6 +33,12 @@ const blog = defineCollection({
     data: z.coerce.date(),
     /** Tylko przy istotnej zmianie treści, nie dla odświeżenia daty. */
     aktualizacja: z.coerce.date().optional(),
+    /** Okładka (min. 1200 × 630, plik w src/content/blog/okladki/): nad treścią, na liście wpisów i przy udostępnianiu. */
+    okladka: image().optional(),
+    okladkaAlt: z.string().optional(),
+    /** Autor i źródło zdjęcia do podpisu (licencja z bazy, np. CC0 ze StockSnap przez Openverse). */
+    okladkaAutor: z.string().optional(),
+    okladkaLink: z.string().url().optional(),
   }),
 });
 

@@ -268,6 +268,7 @@ Wszystkie trzy kroje są na licencji SIL Open Font License. Na stronie są osadz
 
 - Grafika marki to typografia, bloki koloru, naklejki i pętla. Ilustracji nie potrzebujemy.
 - Zdjęcia pokazują tylko prawdziwych ludzi i prawdziwe realizacje: Mateusza i Sebastiana przy pracy oraz zrzuty stron klientów. Nie używamy stocków.
+- **Wyjątek: okładki wpisów na blogu** (decyzja właścicieli, 2026-10-25). Mogą być zdjęciami z darmowych baz na wolnej licencji (np. CC0 przez Openverse), zawsze z podpisem: autor i źródło. Bez nawiązań do fotografii (np. aparatów) i bez widocznych logo obcych marek. Poza blogiem zasada bez stocków obowiązuje dalej.
 - Zrzuty realizacji pokazujemy w ramce urządzenia albo jako czysty zrzut z zaokrągleniem 16–22 px.
 
 ---

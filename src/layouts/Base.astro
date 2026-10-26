@@ -18,6 +18,10 @@ interface Props {
   /** Poziom pośredni okruszków, np. { name: 'Blog', path: '/blog' }. */
   breadcrumbParent?: { name: string; path: string };
   ogTitle?: string;
+  /** Własny obrazek do udostępniania (adres bezwzględny, 1200 × 630) zamiast og.png. */
+  ogImage?: { url: string; alt: string };
+  /** Wpis na blogu: og:type article z datami (RRRR-MM-DD). */
+  article?: { published: string; modified?: string };
   /** 'home': dane strukturalne ProfessionalService. */
   schema?: 'home';
   /** Dodatkowe dane strukturalne (JSON-LD) obok okruszków, np. osoby na /o-nas, BlogPosting we wpisie. */
@@ -29,7 +33,7 @@ interface Props {
   /** false: noindex, bez canonical i bez sitemap. */
   index?: boolean;
 }
-const { title, description, breadcrumb, breadcrumbParent, ogTitle, schema, ld, footCta = true, preloadSerif = true, index = true } = Astro.props;
+const { title, description, breadcrumb, breadcrumbParent, ogTitle, ogImage, article, schema, ld, footCta = true, preloadSerif = true, index = true } = Astro.props;
 
 const slug = Astro.url.pathname.replace(/^\/|\.html$|\/$/g, '') || 'index';
 const isPage = slug !== '404' && index;
@@ -59,16 +63,18 @@ const breadcrumbLd = !schema && breadcrumb && url ? JSON.stringify({
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content={SITE.themeLight} media="(prefers-color-scheme: light)">
 <meta name="theme-color" content={SITE.themeDark} media="(prefers-color-scheme: dark)">
-<meta property="og:type" content="website">
+<meta property="og:type" content={article ? 'article' : 'website'}>
+{article && <meta property="article:published_time" content={article.published}>}
+{article && <meta property="article:modified_time" content={article.modified ?? article.published}>}
 <meta property="og:locale" content="pl_PL">
 <meta property="og:site_name" content={SITE.name}>
 <meta property="og:title" content={ogTitle || title}>
 <meta property="og:description" content={description}>
 {url && <meta property="og:url" content={url}>}
-<meta property="og:image" content={`${SITE.domain}/og.png`}>
+<meta property="og:image" content={ogImage?.url ?? `${SITE.domain}/og.png`}>
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content={SITE.ogImageAlt}>
+<meta property="og:image:alt" content={ogImage?.alt ?? SITE.ogImageAlt}>
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">

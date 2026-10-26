@@ -220,7 +220,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
   - nie używasz słowa „studio” ani nawiązań do fotografii;
   - stosujesz twarde spacje po jednoliterowych słowach.
 - Nie zmieniaj palety, krojów, logo ani pętli bez zgody. Jeśli coś w brandbooku przeszkadza, zaproponuj zmianę.
-- Nie dodawaj przewijanych pasków (marquee), emoji jako punktorów ani zdjęć stockowych.
+- Nie dodawaj przewijanych pasków (marquee), emoji jako punktorów ani zdjęć stockowych (wyjątek: okładki wpisów na blogu, zob. „Decyzje”).
 - Po każdej zmianie: zbuduj, uruchom podgląd i sprawdź zmienione miejsca na komputerze i telefonie w obu motywach.
 - Commituj małymi krokami z opisem po polsku.
 - **Gałęzie:**
@@ -258,10 +258,10 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
 - **Odejście od brandbooka** (sekcja 8: bez nawiązań do fotografii): świadoma decyzja Mateusza. To jego osobisty opis, a nie przekaz marki. Poza tym zdaniem zasada nadal obowiązuje.
 
 ### 2026-10-25: Blog
-- **Co:** `/blog` (lista) i `/blog/{wpis}`. Pierwsze wpisy: „Ile kosztuje strona internetowa dla małej firmy w 2026 roku?”, „Co powinna mieć strona wizytówka małej firmy?”, „Strona w kodzie czy WordPress?”.
+- **Co:** `/blog` (lista) i `/blog/{wpis}`. Pierwsze wpisy: „Ile kosztuje strona internetowa dla małej firmy?”, „Strona wizytówka: 10 rzeczy, których szuka klient”, „Strona w kodzie czy WordPress? Co wybrać dla małej firmy”.
 - **Menu:** blog nie wchodzi do menu (zasada 11 z `SPRZEDAZ.md`, najwyżej 5 pozycji). Link „Blog” jest na końcu menu w stopce, po „Kontakt”.
-- **Pisane według** zasad skilla claude-blog (AgriciDaniel/claude-blog): odpowiedź na początku, poprawna hierarchia nagłówków, zero wymyślonych statystyk, źródła przy twierdzeniach, linki wewnętrzne, dane BlogPosting. Skill nie jest zainstalowany w projekcie.
-- **Bez zdjęć:** wpisy nie mają okładek, bo brandbook (sekcja 9) i „Zasady pracy” wykluczają zdjęcia stockowe. Właściciele pytali o Unsplash, decyzja czeka.
+- **Skill claude-blog** (AgriciDaniel/claude-blog, commit `3544423`) jest zainstalowany w `~/.claude` (skille `blog*`, agenci, skrypty w `~/.claude/scripts`). Wpisy przeszły jego `blog-analyze` i `blog-rewrite`: ramka „W skrócie”, definicje pojęć, źródła przy twierdzeniach, linki wewnętrzne, FAQ, notka „O autorach”, og:type article. Jego skrypty na Windowsie wymagają nakładki ustawiającej brakujące `os.O_NOFOLLOW` (tylko POSIX). Analizator nie ma profilu polskiego: wzorce typu „Key Takeaways”, `/about` czy „is/are” nie rozpoznają polskich odpowiedników, a Flesch nie pasuje do polszczyzny.
+- **Okładki:** wyjątek od zakazu stocków tylko dla bloga (BRANDBOOK.md, sekcja 9). Zdjęcia wybrał skrypt skilla `generate_hero.py` (Openverse, licencja CC0), pliki w `src/content/blog/okladki/`, podpis z autorem i źródłem pod okładką. Okładka jest też obrazkiem do udostępniania (og:image) i w BlogPosting.
 - **Dlaczego:** decyzja właścicieli, lepsza widoczność w Google na pytania małych firm.
 
 ### 2026-10-25: Oferta od środka, Jak pracujemy i O nas

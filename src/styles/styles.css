@@ -612,8 +612,13 @@ html.locked{overflow:hidden}
 /* Blog: lista wpisów i treść wpisu */
 .posts{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:14px}
 .posts-more{margin-top:clamp(1.6rem,1.2rem + 1.4vw,2.6rem)}
-.post-card a{display:flex;flex-direction:column;gap:.7rem;height:100%;padding:1.5rem 1.5rem 1.1rem;border-radius:var(--r-l);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none;transition:transform var(--t3) var(--e-pop),box-shadow var(--t3) var(--e-out)}
+.post-card a{display:flex;flex-direction:column;gap:.7rem;height:100%;padding:12px 12px 1.1rem;border-radius:var(--r-l);background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none;transition:transform var(--t3) var(--e-pop),box-shadow var(--t3) var(--e-out)}
 .post-card a:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:var(--shadow-2),inset 0 0 0 1px var(--line);color:var(--ink);text-decoration:none}
+.post-card-img{display:block;aspect-ratio:1200/630;margin-bottom:.4rem;border-radius:14px;overflow:hidden;background:var(--surface-2)}
+.post-card-img picture{display:contents}
+.post-card-img img{display:block;width:100%;height:100%;object-fit:cover;transition:scale var(--t4) var(--e-out)}
+.post-card a:hover .post-card-img img{scale:1.04}
+.post-card time,.post-card-t,.post-card p,.post-card .more{padding-inline:.75rem}
 .post-card time{font-size:.9rem;color:var(--muted)}
 .post-card-t{font-family:var(--f-display);font-weight:720;font-stretch:86%;font-size:clamp(1.45rem,1.2rem + .8vw,1.9rem);line-height:1.05;letter-spacing:-.02em;text-wrap:balance}
 .post-card p{color:var(--muted)}
@@ -624,6 +629,15 @@ html.locked{overflow:hidden}
 .post-meta a{display:inline-flex;align-items:center;min-height:44px;color:var(--muted)}
 .post-body{padding-bottom:clamp(3.9rem,2.6rem + 4.6vw,6.7rem)}
 @media (min-width:1024px){.post-body .post-text{margin-left:1.6%}}
+.post-cover{max-width:68ch;margin:0 0 2.4rem}
+@media (min-width:1024px){.post-body .post-cover,.post-body .post-authors{margin-left:1.6%}}
+.post-cover picture{display:contents}
+.post-cover img{display:block;width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;border-radius:28px 18px 22px 16px}
+.post-cover figcaption{margin-top:.6rem;font-size:.85rem;color:var(--muted)}
+.post-cover figcaption a{color:var(--muted)}
+.post-authors{max-width:68ch;margin-top:3rem;padding:1.2rem 1.4rem;border-radius:var(--r-l);box-shadow:inset 0 0 0 1px var(--line);color:var(--muted)}
+.post-authors b{color:var(--ink)}
+.post-authors a{color:var(--link);text-decoration:underline;text-underline-offset:.16em}
 .post-text{max-width:68ch}
 .post-text > * + *{margin-top:1.1rem}
 .post-text h2{font-family:var(--f-display);font-weight:720;font-stretch:84%;font-size:clamp(1.65rem,1.25rem + 1.2vw,2.3rem);line-height:1.05;letter-spacing:-.025em;text-wrap:balance;margin-top:2.6rem}
@@ -633,11 +647,15 @@ html.locked{overflow:hidden}
 .post-text li::marker{color:var(--loop);font-weight:700}
 .post-text a{color:var(--link);text-decoration:underline;text-underline-offset:.16em}
 .post-text strong{font-weight:700}
-.post-text table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse;font-size:.95rem}
+.post-text .table-scroll{max-width:100%;overflow-x:auto;border-radius:4px}
+.post-text table{border-collapse:collapse;font-size:.95rem}
 .post-text th,.post-text td{padding:.7rem 1.1rem .7rem 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.post-text th{font-weight:700;border-bottom-color:var(--line-strong)}
+.post-text th{font-weight:700}
+.post-text thead th{border-bottom-color:var(--line-strong)}
 @media (max-width:560px){.post-text table{font-size:.85rem}.post-text th,.post-text td{padding-right:.7rem}}
 .post-text blockquote{margin:1.6rem 0 0;padding:1.1rem 1.3rem;border-radius:28px 18px 22px 16px;background:var(--mint)}
+.post-text blockquote > * + *{margin-top:.6rem}
+.post-text blockquote ul{padding-left:1.2rem}
 
 /* Cennik */
 .pkgs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}

@@ -1,6 +1,7 @@
 ---
 // Kafel wpisu na liście bloga i w „Czytaj dalej” pod wpisem. Cały kafel jest linkiem.
 import Arrow from './Arrow.astro';
+import { Picture } from 'astro:assets';
 import { twarde } from '../../tools/twarde-spacje.mjs';
 import type { CollectionEntry } from 'astro:content';
 
@@ -11,11 +12,12 @@ interface Props {
   h?: 'h2' | 'h3';
 }
 const { wpis, class: cls = '', h: H = 'h2' } = Astro.props;
-const { tytul, zajawka, data } = wpis.data;
+const { tytul, zajawka, data, okladka, okladkaAlt } = wpis.data;
 const dataPL = new Intl.DateTimeFormat('pl-PL', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Warsaw' }).format(data);
 ---
 <li class={`post-card ${cls}`}>
   <a href={`/blog/${wpis.id}`}>
+{okladka && <span class="post-card-img" aria-hidden="true"><Picture src={okladka} formats={['avif']} fallbackFormat="webp" widths={[400, 640, 800]} sizes="(max-width: 700px) 86vw, 400px" alt={okladkaAlt ?? ''} loading="lazy" /></span>}
     <time datetime={data.toISOString().slice(0, 10)}>{dataPL}</time>
     <H class="post-card-t">{twarde(tytul)}</H>
     <p>{twarde(zajawka)}</p>
