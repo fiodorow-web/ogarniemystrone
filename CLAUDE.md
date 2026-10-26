@@ -207,6 +207,7 @@ Sprawdź po każdej większej zmianie, a przy zmianie technologii przed usunięc
    - domena jest zarejestrowana w Zenboxie, DNS i poczta są na SEOHOST;
    - rekordy zmienia się tylko w panelu SEOHOST, bo w rejestrze .pl domena ma serwery nazw `ns1.seohost.pl` i `ns2.seohost.pl` (stan z 2026-10-25). Strefa DNS w panelu Zenboxu jest nieaktywna i jej zmiany nic nie dają;
    - poczta nie zależy od rekordu A domeny: MX wskazuje `mail.ogarniemystrone.pl` (osobny rekord A), a SPF to `redirect=_spf-h22.microhost.pl`;
+   - webmail (poczta.seohost.pl): przy logowaniu wybierz „Serwer h22”, nie „logowanie po domenie”. Ta opcja łączy się z `ogarniemystrone.pl`, który po podpięciu domeny do Vercela wskazuje na Vercel, więc kończy się „Błąd połączenia z serwerem”. Programy pocztowe ustawiamy na `h22.seohost.pl` (IMAP 993, SMTP 465, SSL/TLS);
    - przy podpinaniu domeny do Vercela dodaj tylko rekordy, które poda Vercel (apex i `www`);
    - **nigdy nie zmieniaj rekordów MX, SPF, DKIM ani DMARC**, bo od nich zależy firmowa poczta. Wyjątek na prośbę właścicieli (podłączenie Resend, 2026-10-25): nowe rekordy pod subdomeną `wiadomosci`, które nie zmieniają istniejących;
    - przed wdrożeniem na produkcję zawsze zapytaj (zob. „Gałęzie” w „Zasadach pracy”).
