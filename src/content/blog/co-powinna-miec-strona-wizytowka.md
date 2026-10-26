@@ -10,18 +10,18 @@ okladkaAutor: "Negative Space"
 okladkaLink: "https://stocksnap.io/photo/office-work-QK8UF7C718"
 ---
 
-Co powinna mieć strona wizytówka małej firmy? Przede wszystkim odpowiedzi na pytania klienta: czym się zajmujesz, gdzie jesteś i jak się z Tobą skontaktować. **Strona wizytówka** to jedna strona internetowa z najważniejszymi informacjami o firmie. Czasu na przekonanie klienta jest mało. Według badania [Nielsen Norman Group z 2011 roku](https://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/) ludzie w pierwszych 10–20 sekundach decydują, czy zostać na stronie. Oto 10 rzeczy, które powinna mieć dobra wizytówka.
+Co powinna mieć strona wizytówka małej firmy? Przede wszystkim odpowiedzi na pytania klienta: czym się zajmujesz, gdzie jesteś i jak się z Tobą skontaktować. **Strona wizytówka** to jedna strona internetowa z najważniejszymi informacjami o firmie. Czasu na przekonanie klienta jest mało. Jakob Nielsen z Nielsen Norman Group [w artykule z 2011 roku](https://www.nngroup.com/articles/how-long-do-users-stay-on-web-pages/) opisał, że ludzie w pierwszych 10–20 sekundach decydują, czy zostać na stronie. Oto 10 rzeczy, które powinna mieć dobra wizytówka.
 
 > **W skrócie**
 >
 > - Na samej górze: co robisz, dla kogo i gdzie, a obok przycisk „Zadzwoń”.
 > - Dalej godziny, adres z dojazdem, oferta z cenami, prawdziwe zdjęcia i opinie oraz krótki formularz.
-> - Strona ma być wygodna na telefonie i szybka. Google ocenia ją głównie w wersji mobilnej.
-> - Nazwa, adres, telefon i godziny muszą się zgadzać z Profilem Firmy w Google.
+> - Strona ma być wygodna na smartfonie i szybka. Google ocenia ją głównie w wersji mobilnej.
+> - Nazwa, adres, telefon i godziny powinny się zgadzać z Profilem Firmy w Google.
 
 ## 1. Jasne zdanie na samej górze
 
-Pierwsze zdanie mówi, co robisz, dla kogo i gdzie. Na przykład: „Księgowość dla jednoosobowych firm, online w całej Polsce”. Hasło w stylu „Pasja i jakość od lat” nic klientowi nie mówi. Na stronie, którą zrobiliśmy dla firmy Książczak Parkiety i Schody, na samej górze jest „Podłogi i schody na długie lata”: od razu wiadomo, czym firma się zajmuje. Więcej przykładów znajdziesz w [realizacjach](/realizacje).
+Pierwsze zdanie mówi, co robisz, dla kogo i gdzie. Na przykład: „Księgowość dla jednoosobowych firm, online w całej Polsce”. Hasło w stylu „Pasja i jakość od lat” nic klientowi nie mówi. Na stronie, którą zrobiliśmy dla firmy Książczak Parkiety i Schody, na samej górze jest „Podłogi i schody na długie lata”. To minimum: od razu wiadomo, czym firma się zajmuje. Więcej przykładów znajdziesz w [realizacjach](/realizacje).
 
 ## 2. Numer telefonu i przycisk „Zadzwoń” pod kciukiem
 
@@ -29,11 +29,11 @@ Na smartfonie numer powinien być linkiem: jedno dotknięcie i klient już dzwon
 
 ## 3. Aktualne godziny otwarcia
 
-Nieaktualne godziny to klient pod zamkniętymi drzwiami. Trzymaj je w jednym miejscu na stronie i przy każdej zmianie popraw je też w Profilu Firmy w Google. Najwygodniej, gdy możesz zmienić je sam, bez dzwonienia do wykonawcy. Jak to wygląda w różnych technologiach, opisujemy we wpisie [Strona w kodzie czy WordPress?](/blog/strona-w-kodzie-czy-wordpress)
+Nieaktualne godziny to klient pod zamkniętymi drzwiami. Trzymaj je w jednym miejscu na stronie i przy każdej zmianie popraw je też w Profilu Firmy w Google. Najwygodniej, gdy możesz zmienić je sam, bez dzwonienia do wykonawcy. Czym różnią się pod tym względem strona w kodzie i WordPress, opisujemy we wpisie [Strona w kodzie czy WordPress?](/blog/strona-w-kodzie-czy-wordpress)
 
 ## 4. Adres i dojazd
 
-Adres zapisany tekstem, który da się skopiować, i mapa z dojazdem. Mapę warto ładować dopiero po kliknięciu, żeby nie spowalniała strony. Pracujesz zdalnie? Napisz to wprost.
+Podaj adres tekstem, który da się skopiować, i dodaj mapę z dojazdem. Mapę warto ładować dopiero po kliknięciu, żeby nie spowalniała strony. Pracujesz zdalnie? Napisz to wprost.
 
 ## 5. Oferta i ceny
 
@@ -41,11 +41,11 @@ Wystarczą orientacyjne kwoty, na przykład „od 150 zł”. Jakob Nielsen z Ni
 
 ## 6. Prawdziwe zdjęcia i opinie
 
-Ty, Twój zespół, miejsce pracy i efekty. Badanie [Nielsen Norman Group z 2010 roku](https://www.nngroup.com/articles/photos-as-web-content/) pokazało, że ludzie uważnie oglądają zdjęcia prawdziwych osób, a zdjęcia stockowe pomijają. To samo dotyczy opinii: pokazuj tylko prawdziwe, najlepiej z linkiem do Profilu Firmy w Google. Liczba i ocena opinii w Google [wpływają na wyniki lokalne](https://support.google.com/business/answer/7091).
+Pokaż siebie, swój zespół, miejsce pracy i efekty. Badanie [Nielsen Norman Group z 2010 roku](https://www.nngroup.com/articles/photos-as-web-content/) pokazało, że ludzie uważnie oglądają zdjęcia prawdziwych osób, a zdjęcia stockowe pomijają. Opinie pokazuj tylko prawdziwe, najlepiej z linkiem do Profilu Firmy w Google. Według Google więcej opinii i dobre oceny [mogą pomóc w wynikach lokalnych](https://support.google.com/business/answer/7091).
 
 ## 7. Krótki formularz i dane firmy
 
-Formularz powinien prosić tylko o imię i e-mail albo telefon. Im mniej pól, tym łatwiej wysłać wiadomość. Jeśli formularz zbiera dane osobowe, [RODO (art. 13)](https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:32016R0679) wymaga poinformowania, kto i po co je przetwarza. Zwykle robi się to w polityce prywatności. Pełna nazwa firmy i dane kontaktowe w stopce pokazują, że za stroną stoi prawdziwa firma.
+Formularz powinien prosić tylko o imię i e-mail albo telefon. Im mniej pól, tym łatwiej wysłać wiadomość. [Nielsen Norman Group](https://www.nngroup.com/articles/web-form-design/) zaleca usuwać zbędne pola, bo zmniejsza to wysiłek i zwiększa liczbę wysłanych formularzy. Jeśli formularz zbiera dane osobowe, [RODO (art. 13)](https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:32016R0679) wymaga poinformowania, kto i po co je przetwarza. Zwykle robi się to w polityce prywatności. Pełna nazwa firmy i dane kontaktowe w stopce pokazują, że za stroną stoi prawdziwa firma.
 
 ## 8. Wygoda na smartfonie
 
@@ -70,7 +70,7 @@ Szybkość strony mierzy się wskaźnikami [Core Web Vitals](https://web.dev/art
 | Ceny | Wie, czy go stać | Czy jest choć jedna kwota „od …”? |
 | Zdjęcia i opinie | Widzi prawdziwych ludzi | Czy zdjęcia są Twoje, a opinie prawdziwe? |
 | Formularz i dane firmy | Napisze w minutę i wie, z kim ma do czynienia | Czy obowiązkowe są tylko imię i kontakt, a w stopce jest pełna nazwa firmy? |
-| Wygoda na smartfonie | Przeczyta bez powiększania | Czy tekst i przyciski są wygodne na telefonie? |
+| Wygoda na smartfonie | Przeczyta bez powiększania | Czy tekst i przyciski są wygodne na smartfonie? |
 | Szybkość i HTTPS | Nie zrezygnuje w trakcie i czuje się bezpiecznie | Jaki wynik pokazuje PageSpeed Insights i czy przy adresie nie ma ostrzeżenia „Niezabezpieczona”? |
 | Profil Firmy w Google | Znajdzie Cię w Mapach | Czy nazwa, adres i telefon są wszędzie takie same? |
 
@@ -82,7 +82,7 @@ Strona pomaga, ale w wynikach lokalnych liczy się też Profil Firmy w Google. N
 
 ### Ile kosztuje strona wizytówka?
 
-U nas od 999 zł. Szczegóły i to, co dochodzi po starcie, znajdziesz w [cenniku](/cennik).
+Cena zależy przede wszystkim od liczby podstron i dodatków. U nas wizytówka kosztuje od 999 zł. Szczegóły rozpisujemy we wpisie [Ile kosztuje strona internetowa dla małej firmy?](/blog/ile-kosztuje-strona-internetowa), a aktualne pakiety są w [cenniku](/cennik).
 
 ### Co, jeśli nie mam tekstów ani zdjęć?
 
@@ -90,4 +90,4 @@ Możesz przysłać to, co masz, albo zostawić wszystko nam. Teksty przygotowuje
 
 ## Dobra wizytówka w praktyce
 
-Dobra wizytówka nie musi być duża. Musi szybko odpowiedzieć na pytania klienta i działać wygodnie na telefonie. Przykłady stron, które zrobiliśmy, znajdziesz w [realizacjach](/realizacje). Chcesz stronę, która ma to wszystko? Zobacz, [co dla Ciebie ogarniemy](/oferta), albo [umów bezpłatną rozmowę](/kontakt).
+Dobra wizytówka nie musi być duża. Musi szybko odpowiedzieć na pytania klienta i działać wygodnie na smartfonie. [Zobacz strony, które zrobiliśmy](/realizacje). Chcesz stronę, która ma to wszystko? Sprawdź, [co dla Ciebie ogarniemy](/oferta), albo [umów bezpłatną rozmowę](/kontakt).

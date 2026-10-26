@@ -1,5 +1,6 @@
 // Twarde spacje (brandbook, sekcja 8) w treściach z Markdowna, żeby nie wpisywać &nbsp; ręcznie:
-// po jednoliterowych słowach (a, i, o, u, w, z), przed „zł” i „h” po liczbie oraz w liczbach typu „1 999”.
+// po jednoliterowych słowach (a, i, o, u, w, z), przed „zł” i „h” po liczbie, w liczbach typu „1 999”
+// i między liczbą a następnym słowem („10 rzeczy”, „2026 roku”).
 const NBSP = ' ';
 
 export function twarde(s) {
@@ -7,6 +8,7 @@ export function twarde(s) {
     .replace(/(?<=^|[\s(„])([aiouwzAIOUWZ]) /g, `$1${NBSP}`)
     .replace(/(\d) (?=\d{3}(?!\d))/g, `$1${NBSP}`)
     .replace(/(\d) (?=(zł|h)(?=[\s.,;:!?)]|$))/g, `$1${NBSP}`)
+    .replace(/(\d) (?=\p{Ll})/gu, `$1${NBSP}`)
     .replace(/ (?=zł(?=[\s.,;:!?)]|$))/g, NBSP);
 }
 

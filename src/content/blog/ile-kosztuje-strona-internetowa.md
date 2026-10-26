@@ -15,7 +15,7 @@ Krótka odpowiedź: strona internetowa dla małej firmy kosztuje u nas od 999 z�
 > **W skrócie**
 >
 > - Wizytówka od 999 zł, strona z kilkoma podstronami od 1 999 zł, strona z rezerwacjami od 2 999 zł.
-> - Po starcie licz się z kosztem domeny i opieki po starcie (59 zł miesięcznie).
+> - Po starcie licz się z kosztem domeny i opieki (59 zł miesięcznie).
 > - Cena zależy przede wszystkim od liczby podstron i dodatków.
 > - Rozmowa i wycena są bezpłatne, a za stronę płacisz w dwóch częściach: po akceptacji projektu i po zrobieniu strony.
 
@@ -47,7 +47,7 @@ To przykłady, a nie historie konkretnych klientów.
 Cena zależy przede wszystkim od dwóch rzeczy:
 
 1. **Liczba podstron.** Wizytówka mieści wszystko na jednej stronie. Osobne podstrony dla oferty, cennika czy zespołu to więcej projektowania i więcej tekstu.
-2. **Dodatki.** Rezerwacje online, aktualności, mapa z dojazdem czy formularz kontaktowy. Każdy dodatek to osobna praca. Pełną listę znajdziesz w [ofercie](/oferta).
+2. **Dodatki.** Rezerwacje online, aktualności, mapa z dojazdem czy formularz kontaktowy. Każdy dodatek to osobna praca. Pełną listę znajdziesz w [dodatkach w ofercie](/oferta#h-dodatki).
 
 W rozmowie ustalimy też:
 
@@ -59,11 +59,11 @@ W każdym pakiecie strona jest wygodna na telefonie. To nie dodatek: Google ocen
 
 ## Jakie koszty dochodzą po starcie strony
 
-Po starcie dochodzą jeszcze trzy rodzaje kosztów.
+Po starcie mogą dojść jeszcze trzy rodzaje kosztów.
 
 - **Domena,** czyli adres strony, na przykład twojafirma.pl. Domenę .pl kupuje się u jednego z rejestratorów współpracujących z [NASK, który prowadzi rejestr domen .pl](https://www.dns.pl/). Opłaca się ją zwykle raz w roku, a cenę sprawdzisz u wybranego rejestratora.
 - **Opieka i utrzymanie.** Ktoś musi pilnować, żeby strona działała, była bezpieczna i miała kopie zapasowe. Strony na WordPressie wymagają do tego regularnych aktualizacji systemu, motywu i wtyczek, o czym przypomina [dokumentacja WordPressa](https://wordpress.org/documentation/article/updating-wordpress/). U nas opieka po starcie kosztuje 59 zł miesięcznie.
-- **Płatne usługi zewnętrzne.** Na przykład system rezerwacji, z którego już korzystasz, ma zwykle własny abonament.
+- **Płatne usługi zewnętrzne.** Na przykład system rezerwacji, z którego już korzystasz, może mieć własny abonament. Sprawdź to u jego dostawcy.
 
 ## O co zapytać wykonawcę, zanim zapłacisz
 
@@ -81,7 +81,7 @@ Jeśli wykonawca nie odpowie prosto na te pytania, to też jest odpowiedź.
 
 Najpierw projekt, potem płatność. Rozmowa i wycena są bezpłatne. Połowę kwoty płacisz po akceptacji projektu, a drugą połowę po zrobieniu strony. Dzięki temu nie płacisz w ciemno. Cały proces, krok po kroku, opisujemy w zakładce [Jak pracujemy](/jak-pracujemy).
 
-## Częste pytania o cenę strony
+## Częste pytania przed zamówieniem strony
 
 ### Czy strona za 999 zł wystarczy małej firmie?
 

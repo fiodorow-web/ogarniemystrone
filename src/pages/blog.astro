@@ -22,7 +22,7 @@ const wpisy = (await getCollection('blog')).sort((a, b) => b.data.data.getTime()
   <section class="sec sec-tight" aria-label="Wpisy">
     <div class="wrap">
       <ul class="posts">
-{wpisy.map((wpis, i) => <PostCard wpis={wpis} class={['rv', 'rv rv2', 'rv rv3'][i % 3]} />)}
+{wpisy.map((wpis, i) => <PostCard wpis={wpis} class={['rv', 'rv rv2', 'rv rv3'][i % 3]} eager={i === 0} />)}
       </ul>
     </div>
   </section>
